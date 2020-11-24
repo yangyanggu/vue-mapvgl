@@ -40,7 +40,7 @@
               },
           data: [{
               geometry: {
-                  type: 'POINT',
+                  type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
@@ -48,7 +48,7 @@
                 }
           },{
               geometry: {
-                  type: 'POINT',
+                  type: 'Point',
                   coordinates: [121.5373285, 31.21515044],
               },
               properties: {
@@ -135,5 +135,5 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.PointLayer](https://mapv.baidu.com/gl/docs/PointLayer.html) | 获取`PointLayer`实例
+$$getInstance() | [mapvgl.HeatPointLayer](https://mapv.baidu.com/gl/docs/HeatPointLayer.html) | 获取`HeatPointLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true

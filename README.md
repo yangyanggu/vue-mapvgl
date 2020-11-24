@@ -51,6 +51,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-icon-layer (Icon图标图层 IconLayer)
 * el-bmapv-point-trip-layer (点轨迹图层 PointTripLayer)
 * el-bmapv-heat-point-layer (热力点图层 HeatPointLayer)
+* el-bmapv-heat-map-layer (热点图图层 HeatmapLayer)
 
 
 ### 其他特性

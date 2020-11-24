@@ -89,4 +89,4 @@ data | Array  | 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.PointLayer](https://mapv.baidu.com/gl/docs/PointLayer.html) | 获取`PointLayer`实例
+$$getInstance() | [mapvgl.PointTripLayer](https://mapv.baidu.com/gl/docs/PointTripLayer.html) | 获取`PointTripLayer`实例

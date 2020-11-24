@@ -146,5 +146,5 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.PointLayer](https://mapv.baidu.com/gl/docs/PointLayer.html) | 获取`PointLayer`实例
+$$getInstance() | [mapvgl.IconLayer](https://mapv.baidu.com/gl/docs/IconLayer.html) | 获取`IconLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true
