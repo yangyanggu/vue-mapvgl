@@ -9,5 +9,6 @@
  - [基础点图层 PointLayer](zh-cn/layer/PointLayer.md)
  - [Icon图标图层 IconLayer](zh-cn/layer/IconLayer.md)
  - [点轨迹图层 PointTripLayer](zh-cn/layer/PointTripLayer.md)
+ - [热力点图层 HeatPointLayer](zh-cn/layer/HeatPointLayer.md)
 
 - [FAQ](zh-cn/faq.md)
