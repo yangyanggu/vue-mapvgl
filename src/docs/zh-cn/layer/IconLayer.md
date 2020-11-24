@@ -10,7 +10,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-point-layer :color="color" :shape="shape" :blend="blend" :size="size" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-point-layer>
+            <el-bmapv-icon-layer :icon="icon" :width="width" :height="height" :data="data" :enable-picked="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-icon-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -32,39 +32,37 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          color: 'rgba(50, 50, 200, 1)',
-          shape: 'circle', // 默认为圆形 circle ，可传 square 改为正方形
-          blend: 'lighter',
-          size: 60,
+          width: 24,
+          height: 40,
+          icon: '/assets/images/layer/position1.png',
           data: [{
               geometry: {
-                  type: 'POINT',
+                  type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  id: '1'
+                  icon: '/assets/images/layer/position1.png'
                 }
-          }]
+          },{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5473285, 31.21515044],
+              },
+              properties: {
+                  icon: '/assets/images/layer/position2.png'
+                }
+          },{
+             geometry: {
+                 type: 'Point',
+                 coordinates: [121.5673285, 31.21515044],
+             },
+             properties: {
+                icon: '/assets/images/layer/position3.png'
+              }
+         }]
         };
       },
       mounted(){
-          setTimeout(() => {
-            this.color = 'red';
-            this.shape = 'square';
-          },2000);
-          setTimeout(() => {
-            this.data = [{
-                          geometry: {
-                              type: 'POINT',
-                              coordinates: [121.5273285, 31.21515044]
-                          }
-                      },{
-                          geometry: {
-                              type: 'POINT',
-                              coordinates: [121.5483395, 31.21515154]
-                          }
-                      }];
-          },4000);
       },
       methods: {
         clickMarker(e){
@@ -82,12 +80,11 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’
-shape | String | 展示点的形状,默认值：’circle’,可选值：circle 圆形, square 正方形
-size | Number | 点大小, 默认值：5
-borderWidth | Number | 边框宽度,默认值：0
-borderColor | String | 边框颜色，同css颜色,默认值：’rgba(255, 255, 255, 0.9)’
-blend | String | 点叠加模式，可选lighter
+icon | object(canvas dom) 、string(图片url地址) | icon图标,如果在GeoJSON的properties属性中配置icon，则优先使用GeoJSON中的icon值
+width | number | 设置icon图标宽度
+height | Number | 设置icon图标高度
+offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
+padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
@@ -118,14 +115,29 @@ data | Array  | // 点数据,GeoJSON格式
 ### data数据结构
 ```
 [{
-    geometry: {
-     type: 'Point',
-     coordinates: [116.392394, 39.910683]
-    },
-    properties: {
-     color: 'rgba(255, 255, 50, 0.5)',
-     count: 90
+  geometry: {
+      type: 'Point',
+      coordinates: [121.5273285, 31.21515044],
+  },
+  properties: {
+      icon: '/assets/images/layer/position1.png'
     }
+},{
+  geometry: {
+      type: 'Point',
+      coordinates: [121.5473285, 31.21515044],
+  },
+  properties: {
+      icon: '/assets/images/layer/position2.png'
+    }
+},{
+  geometry: {
+     type: 'Point',
+     coordinates: [121.5673285, 31.21515044],
+  },
+  properties: {
+    icon: '/assets/images/layer/position3.png'
+  }
 }]
 ```
 

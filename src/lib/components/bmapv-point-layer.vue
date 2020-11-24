@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      console.log(this.enablePicked);
       this.$bmapComponent = new mapvgl.PointLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     },

@@ -4,10 +4,12 @@ import './polyfills';
 // 组建导入
 import BMapvView from './components/bmapv-view';
 import BMapvPointLayer from './components/bmapv-point-layer';
+import BMapvIconLayer from './components/bmapv-icon-layer';
 
 let components = [
   BMapvView,
-  BMapvPointLayer
+  BMapvPointLayer,
+  BMapvIconLayer
 ];
 
 const install = function(Vue, opts = {}) {
