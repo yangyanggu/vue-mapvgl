@@ -1,6 +1,6 @@
 {
   "name": "vue-mapvgl",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "vue mapvgl",
   "keywords": ["vue", "mapvgl"],
   "main": "./dist/index.js",
