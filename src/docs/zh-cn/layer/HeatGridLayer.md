@@ -8,7 +8,7 @@
 
   <template>
     <div class="bmap-page-container">
-      <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+      <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-heat-grid-layer :grid-size="500" :min-height="200" :max-height="600" :min="10" :max="100" :gradient="gradient"  :data="data"></el-bmapv-heat-grid-layer>
         </el-bmapv-view>
