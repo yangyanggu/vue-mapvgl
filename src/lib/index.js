@@ -5,11 +5,13 @@ import './polyfills';
 import BMapvView from './components/bmapv-view';
 import BMapvPointLayer from './components/bmapv-point-layer';
 import BMapvIconLayer from './components/bmapv-icon-layer';
+import BMapvPointTripLayer from './components/bmapv-point-trip-layer';
 
 let components = [
   BMapvView,
   BMapvPointLayer,
-  BMapvIconLayer
+  BMapvIconLayer,
+  BMapvPointTripLayer
 ];
 
 const install = function(Vue, opts = {}) {
