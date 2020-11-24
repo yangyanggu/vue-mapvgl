@@ -82,7 +82,7 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’
+color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 shape | String | 展示点的形状,默认值：’circle’,可选值：circle 圆形, square 正方形
 size | Number | 点大小, 默认值：5
 borderWidth | Number | 边框宽度,默认值：0
@@ -113,7 +113,7 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 
 名称 | 类型 | 说明
 ---|---|---|
-data | Array  | // 点数据,GeoJSON格式
+data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构
 ```

@@ -6,12 +6,20 @@ import BMapvView from './components/bmapv-view';
 import BMapvPointLayer from './components/bmapv-point-layer';
 import BMapvIconLayer from './components/bmapv-icon-layer';
 import BMapvPointTripLayer from './components/bmapv-point-trip-layer';
+import BMapvHeatPointLayer from './components/bmapv-heat-point-layer';
+import BMapvHeatMapLayer from './components/bmapv-heat-map-layer';
+import BMapvHeatGridLayer from './components/bmapv-heat-grid-layer';
+import BMapvSparkLayer from './components/bmapv-spark-layer';
 
 let components = [
   BMapvView,
   BMapvPointLayer,
   BMapvIconLayer,
-  BMapvPointTripLayer
+  BMapvPointTripLayer,
+  BMapvHeatPointLayer,
+  BMapvHeatMapLayer,
+  BMapvHeatGridLayer,
+  BMapvSparkLayer
 ];
 
 const install = function(Vue, opts = {}) {

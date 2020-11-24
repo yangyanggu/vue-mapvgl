@@ -1,4 +1,4 @@
-# Icon图标图层
+# 热力点图层
 
 ## 基础示例
 
@@ -10,7 +10,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-icon-layer :icon="icon" :width="width" :height="height" :data="data" :enable-picked="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-icon-layer>
+            <el-bmapv-heat-point-layer :gradient="gradient"  :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-heat-point-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -32,34 +32,29 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          width: 24,
-          height: 40,
-          icon: '/assets/images/layer/position1.png',
+          gradient: {
+                  0.0: 'rgb(50, 50, 256)',
+                  0.1: 'rgb(50, 250, 56)',
+                  0.5: 'rgb(250, 250, 56)',
+                  1.0: 'rgb(250, 50, 56)'
+              },
           data: [{
               geometry: {
                   type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  icon: '/assets/images/layer/position1.png'
+                  count: 2
                 }
           },{
               geometry: {
                   type: 'Point',
-                  coordinates: [121.5473285, 31.21515044],
+                  coordinates: [121.5373285, 31.21515044],
               },
               properties: {
-                  icon: '/assets/images/layer/position2.png'
+                  count: 49
                 }
-          },{
-             geometry: {
-                 type: 'Point',
-                 coordinates: [121.5673285, 31.21515044],
-             },
-             properties: {
-                icon: '/assets/images/layer/position3.png'
-              }
-         }]
+          }]
         };
       },
       mounted(){
@@ -80,11 +75,11 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-icon | object(canvas dom) 、string(图片url地址) | icon图标,如果在GeoJSON的properties属性中配置icon，则优先使用GeoJSON中的icon值
-width | number | 设置icon图标宽度
-height | Number | 设置icon图标高度
-offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
-padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
+style | String | 展示方式,默认值：’grid’,可选值：grid 按半径聚合展示,normal 按真实坐标展示
+girdSize | Number | 聚合半径，当style属性为grid时有效,默认值：500
+gradient | Object | 渐变色,默认值 [gradient](#gradient)
+max | Number | 最大阈值
+min | Number | 最小阈值
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
@@ -94,6 +89,16 @@ onClick | function([pickObject](#pickObject数据结构)){} | 点击事件，如
 onDblClick | function([pickObject](#pickObject数据结构)){} | 双击事件，如果双击在可选中物体上，则返回对应数据,依赖：enablePicked=true
 onRightClick | function([pickObject](#pickObject数据结构)){} | 右键事件，如果右键在可选中物体上，则返回对应数据
 onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针移动事件，如果指针悬浮在在可选中物体上，则返回对应数据,依赖：enablePicked=true
+
+### gradient
+```
+{
+    0.0: 'rgb(50, 50, 256)',
+    0.1: 'rgb(50, 250, 56)',
+    0.5: 'rgb(250, 250, 56)',
+    1.0: 'rgb(250, 50, 56)'
+}
+```
 
 ### pickObject数据结构
 ```
@@ -115,29 +120,13 @@ data | Array  | // 点数据,GeoJSON格式
 ### data数据结构
 ```
 [{
-  geometry: {
-      type: 'Point',
-      coordinates: [121.5273285, 31.21515044],
-  },
-  properties: {
-      icon: '/assets/images/layer/position1.png'
-    }
-},{
-  geometry: {
-      type: 'Point',
-      coordinates: [121.5473285, 31.21515044],
-  },
-  properties: {
-      icon: '/assets/images/layer/position2.png'
-    }
-},{
-  geometry: {
+    geometry: {
      type: 'Point',
-     coordinates: [121.5673285, 31.21515044],
-  },
-  properties: {
-    icon: '/assets/images/layer/position3.png'
-  }
+     coordinates: [116.392394, 39.910683]
+    },
+    properties: {
+     count: 90
+    }
 }]
 ```
 
@@ -146,5 +135,5 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.IconLayer](https://mapv.baidu.com/gl/docs/IconLayer.html) | 获取`IconLayer`实例
+$$getInstance() | [mapvgl.HeatPointLayer](https://mapv.baidu.com/gl/docs/HeatPointLayer.html) | 获取`HeatPointLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true

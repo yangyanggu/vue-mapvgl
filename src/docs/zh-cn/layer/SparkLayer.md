@@ -1,4 +1,4 @@
-# 点轨迹图层
+# 热力柱图层
 
 ## 基础示例
 
@@ -8,9 +8,9 @@
 
   <template>
     <div class="bmap-page-container">
-      <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+      <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-point-trip-layer :data="data"></el-bmapv-point-trip-layer>
+            <el-bmapv-spark-layer :color="color" :height="height" :data="data"></el-bmapv-spark-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -32,14 +32,26 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
+          color: 'rgb(255, 153, 51)',
+          height(data){
+            return data.properties.height;
+          },
           data: [{
               geometry: {
                   type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  time: 1
-              }
+                  height: 3000
+                }
+              },{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5373285, 31.21515044],
+              },
+              properties: {
+                  height: 5000
+                }
           }]
         };
       },
@@ -58,11 +70,11 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’
-startTime | Number | 动画开始时间,默认值：0
-endTime | Number | 动画结束时间,默认值：data的长度
-step | Number | 执行每次动画的步长,默认值：0.1
-trailLength | Number | 动画的拖尾时长,默认值：3
+color | String | 颜色，同css颜色, 默认值：’rgba(250, 25, 25, 1)’
+height | Number  function | 烟花线的高度, 默认值：100, 当height为function时，需要有Number型返回值
+step | Number | 动画的速度, 默认值：0.1
+startTime | Number | 动画开始时间, 默认值：0
+endTime | Number | 动画结束时间, 默认值：10
 
 ## 动态属性
 支持响应式。
@@ -75,11 +87,11 @@ data | Array  | 点数据,GeoJSON格式
 ```
 [{
     geometry: {
-        type: 'Point',
-        coordinates: [116.392394, 39.910683]
+     type: 'Point',
+     coordinates: [116.392394, 39.910683]
     },
     properties: {
-        time: 1
+     height: 90
     }
 }]
 ```
@@ -89,4 +101,4 @@ data | Array  | 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.PointTripLayer](https://mapv.baidu.com/gl/docs/PointTripLayer.html) | 获取`PointTripLayer`实例
+$$getInstance() | [mapvgl.HeatGridLayer](https://mapv.baidu.com/gl/docs/HeatGridLayer.html) | 获取`HeatmapLayer`实例

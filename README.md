@@ -3,7 +3,7 @@
 </p>
 
 # vue-mapvgl
-[![Build Status](https://travis-ci.org/a407042815/vue-bmap-gl.svg?branch=master)](https://travis-ci.org/ElemeFE/vue-amap)
+[![Build Status](https://dev.azure.com/407042815/vue-mapvgl/_apis/build/status/vue-mapvgl-Node.js%20With%20Grunt-CI?branchName=master)](https://dev.azure.com/407042815/vue-mapvgl/_build/latest?definitionId=1&branchName=master)
 [![npm package](https://img.shields.io/npm/v/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
 [![NPM downloads](http://img.shields.io/npm/dm/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
 [![license](https://img.shields.io/github/license/elemefe/vue-amap.svg?style=flat-square)](https://gitee.com/guyangyang/vue-bmap-gl)
@@ -46,8 +46,14 @@ VueBMap.initBMapApiLoader({
 ## 组件
 
 目前完成组件：
-* mapvgl-view (图层管理器，图层的容器)
-* mapvgl-point-layer (基础点图层 PointLayer)
+* el-bmapv-view (图层管理器，图层的容器)
+* el-bmapv-point-layer (基础点图层 PointLayer)
+* el-bmapv-icon-layer (Icon图标图层 IconLayer)
+* el-bmapv-point-trip-layer (点轨迹图层 PointTripLayer)
+* el-bmapv-heat-point-layer (热力点图层 HeatPointLayer)
+* el-bmapv-heat-map-layer (热点图图层 HeatmapLayer)
+* el-bmapv-heat-grid-layer (热力柱图层 HeatGridLayer)
+* el-bmapv-spark-layer (烟花点图层 SparkLayer)
 
 
 ### 其他特性
