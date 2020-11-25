@@ -11,6 +11,7 @@ import BMapvHeatMapLayer from './components/bmapv-heat-map-layer';
 import BMapvHeatGridLayer from './components/bmapv-heat-grid-layer';
 import BMapvSparkLayer from './components/bmapv-spark-layer';
 import BMapvCircleLayer from './components/bmapv-circle-layer';
+import BMapvRippleLayer from './components/bmapv-ripple-layer';
 
 let components = [
   BMapvView,
@@ -21,7 +22,8 @@ let components = [
   BMapvHeatMapLayer,
   BMapvHeatGridLayer,
   BMapvSparkLayer,
-  BMapvCircleLayer
+  BMapvCircleLayer,
+  BMapvRippleLayer
 ];
 
 const install = function(Vue, opts = {}) {
