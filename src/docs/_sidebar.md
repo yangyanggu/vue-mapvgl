@@ -15,5 +15,6 @@
  - [烟花点图层 SparkLayer](zh-cn/layer/SparkLayer.md)
  - [圆图层 CircleLayer](zh-cn/layer/CircleLayer.md)
  - [波纹点图层 RippleLayer](zh-cn/layer/RippleLayer.md)
+ - [文字图层 TextLayer](zh-cn/layer/TextLayer.md)
 
 - [FAQ](zh-cn/faq.md)

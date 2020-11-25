@@ -56,6 +56,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-spark-layer (烟花点图层 SparkLayer)
 * el-bmapv-circle-layer (圆图层 CircleLayer)
 * el-bmapv-ripple-layer (波纹点图层 RippleLayer)
+* el-bmapv-text-layer (文字图层 TextLayer)
 
 
 ### 其他特性
