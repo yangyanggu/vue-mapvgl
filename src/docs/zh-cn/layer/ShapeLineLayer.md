@@ -1,4 +1,5 @@
 # 线状面图层
+线状外观的立体多边形，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

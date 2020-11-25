@@ -1,4 +1,5 @@
 # 热力点图层
+用来展示热力点图效果，继承自[PointLayer](https://mapv.baidu.com/gl/docs/PointLayer.html)
 
 ## 基础示例
 

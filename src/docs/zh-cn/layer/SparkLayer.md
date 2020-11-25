@@ -1,4 +1,5 @@
 # 热力柱图层
+用来展示烟花动画的图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

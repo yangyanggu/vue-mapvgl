@@ -1,4 +1,5 @@
 # 圆图层
+以贴地圆的方式展示点数据，支持设置多种圆环动画效果，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

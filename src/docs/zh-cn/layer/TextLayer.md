@@ -1,4 +1,7 @@
 # 文字图层
+文字展示图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+
+可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)
 
 ## 基础示例
 

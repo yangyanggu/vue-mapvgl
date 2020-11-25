@@ -1,4 +1,5 @@
 # 墙轨迹图层
+用来展示3d立体墙的轨迹动画图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

@@ -1,4 +1,5 @@
 # 基础线图层
+用来展示大数据量的简单线图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

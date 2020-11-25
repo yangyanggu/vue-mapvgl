@@ -1,4 +1,8 @@
 # 宽线图层
+WebGL默认绘制线的模式gl.LINES只能画一像素的线，无法指定线的宽度，该图层用来展示可指定宽度的线图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)。
+如果只需要绘制简单的一像素的线，可以使用SimpleLineLayer。
+
+该图层可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)。
 
 ## 基础示例
 

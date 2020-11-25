@@ -1,4 +1,5 @@
 # 热力线图层
+用来展示线的热力图效果，继承自[SimpleLineLayer](https://mapv.baidu.com/gl/docs/SimpleLineLayer.html)
 
 ## 基础示例
 

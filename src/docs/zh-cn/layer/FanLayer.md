@@ -1,4 +1,5 @@
 # 雷达图层
+展示点数据的雷达效果图，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

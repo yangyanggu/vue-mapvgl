@@ -1,4 +1,5 @@
 # 线轨迹图层
+用来展示轨迹飞线图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

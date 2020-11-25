@@ -1,4 +1,7 @@
 # 蝌蚪线图层
+该图层用来展示路线流动状态的动画，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)。
+
+该图层可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)。
 
 ## 基础示例
 

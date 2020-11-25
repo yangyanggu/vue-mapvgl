@@ -1,4 +1,5 @@
 # 点轨迹图层
+用来展示点按时间东西图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 

@@ -1,4 +1,7 @@
 # 平面图层
+用来展示大数据的平面多边形，由[ShapeLayer](https://mapv.baidu.com/gl/docs/ShapeLayer.html)和[LineLayer](https://mapv.baidu.com/gl/docs/LineLayer.html)组合实现。
+
+可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)
 
 ## 基础示例
 

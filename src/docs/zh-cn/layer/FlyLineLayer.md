@@ -1,4 +1,7 @@
 # 飞线图层
+用来展示轨迹飞线图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+
+基于Threejs实现
 
 ## 基础示例
 
