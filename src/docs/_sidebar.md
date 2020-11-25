@@ -23,5 +23,6 @@
  - [热力线图层 HeatLineLayer](zh-cn/layer/HeatLineLayer.md)
  - [蝌蚪线图层 LineFlowLayer](zh-cn/layer/LineFlowLayer.md)
  - [线轨迹图层 LineTripLayer](zh-cn/layer/LineTripLayer.md)
+ - [墙轨迹图层 WallTripLayer](zh-cn/layer/WallTripLayer.md)
 
 - [FAQ](zh-cn/faq.md)
