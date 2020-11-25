@@ -59,6 +59,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-text-layer (文字图层 TextLayer)
 * el-bmapv-fan-layer (雷达图层 FanLayer)
 * el-bmapv-simple-line-layer (基础线图层 SimpleLineLayer)
+* el-bmapv-line-layer (宽线图层 LineLayer)
 
 
 ### 其他特性
