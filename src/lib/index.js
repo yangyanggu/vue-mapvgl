@@ -17,6 +17,7 @@ import BMapvFanLayer from './components/bmapv-fan-layer';
 import BMapvSimpleLineLayer from './components/bmapv-simple-line-layer';
 import BMapvLineLayer from './components/bmapv-line-layer';
 import BMapvWallLayer from './components/bmapv-wall-layer';
+import BMapvHeatLineLayer from './components/bmapv-heat-line-layer';
 
 let components = [
   BMapvView,
@@ -33,7 +34,8 @@ let components = [
   BMapvFanLayer,
   BMapvSimpleLineLayer,
   BMapvLineLayer,
-  BMapvWallLayer
+  BMapvWallLayer,
+  BMapvHeatLineLayer
 ];
 
 const install = function(Vue, opts = {}) {

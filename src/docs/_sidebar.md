@@ -20,5 +20,6 @@
  - [基础线图层 SimpleLineLayer](zh-cn/layer/SimpleLineLayer.md)
  - [宽线图层 LineLayer](zh-cn/layer/LineLayer.md)
  - [立体墙图层 WallLayer](zh-cn/layer/WallLayer.md)
+ - [热力线图层 HeatLineLayer](zh-cn/layer/HeatLineLayer.md)
 
 - [FAQ](zh-cn/faq.md)

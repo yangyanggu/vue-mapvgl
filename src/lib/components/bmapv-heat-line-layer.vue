@@ -3,11 +3,12 @@ import registerMixin from '../mixins/register-component';
 const mapvgl = require('mapvgl');
 
 export default {
-  name: 'el-bmapv-simple-line-layer',
+  name: 'el-bmapv-heat-line-layer',
   mixins: [registerMixin],
   props: [
-    'color',
-    'blend',
+    'gradient',
+    'max',
+    'min',
     'data'
   ],
   data() {
@@ -25,7 +26,7 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      this.$bmapComponent = new mapvgl.SimpleLineLayer(options);
+      this.$bmapComponent = new mapvgl.HeatLineLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     }
   },
