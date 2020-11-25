@@ -17,5 +17,6 @@
  - [波纹点图层 RippleLayer](zh-cn/layer/RippleLayer.md)
  - [文字图层 TextLayer](zh-cn/layer/TextLayer.md)
  - [雷达图层 FanLayer](zh-cn/layer/FanLayer.md)
+ - [基础线图层 SimpleLineLayer](zh-cn/layer/SimpleLineLayer.md)
 
 - [FAQ](zh-cn/faq.md)

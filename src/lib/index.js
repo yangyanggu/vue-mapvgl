@@ -14,6 +14,7 @@ import BMapvCircleLayer from './components/bmapv-circle-layer';
 import BMapvRippleLayer from './components/bmapv-ripple-layer';
 import BMapvTextLayer from './components/bmapv-text-layer';
 import BMapvFanLayer from './components/bmapv-fan-layer';
+import BMapvSimpleLineLayer from './components/bmapv-simple-line-layer';
 
 let components = [
   BMapvView,
@@ -27,7 +28,8 @@ let components = [
   BMapvCircleLayer,
   BMapvRippleLayer,
   BMapvTextLayer,
-  BMapvFanLayer
+  BMapvFanLayer,
+  BMapvSimpleLineLayer
 ];
 
 const install = function(Vue, opts = {}) {
