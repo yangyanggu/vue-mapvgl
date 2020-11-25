@@ -19,5 +19,6 @@
  - [雷达图层 FanLayer](zh-cn/layer/FanLayer.md)
  - [基础线图层 SimpleLineLayer](zh-cn/layer/SimpleLineLayer.md)
  - [宽线图层 LineLayer](zh-cn/layer/LineLayer.md)
+ - [立体墙图层 WallLayer](zh-cn/layer/WallLayer.md)
 
 - [FAQ](zh-cn/faq.md)
