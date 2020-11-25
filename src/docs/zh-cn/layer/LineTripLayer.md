@@ -1,4 +1,4 @@
-# 热力线图层
+# 线轨迹图层
 
 ## 基础示例
 
@@ -10,7 +10,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-heat-line-layer :min="20" :max="80" :gradient="gradient"  :data="data"></el-bmapv-heat-line-layer>
+            <el-bmapv-line-trip-layer :step="0.01" :data="data"></el-bmapv-line-trip-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -32,25 +32,18 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          gradient: {
-                  0.0: 'rgb(50, 50, 256)',
-                  0.1: 'rgb(50, 250, 56)',
-                  0.5: 'rgb(250, 250, 56)',
-                  1.0: 'rgb(250, 50, 56)'
-              },
           data: [{
               geometry: {
                   type: 'LineString',
                   coordinates: [
-                      [121.5273285, 31.21515044],
-                      [121.5473285, 31.21515044]
+                    [121.5273285, 31.21515044],
+                    [121.5473285, 31.21515044]
                   ],
               },
               properties: {
-                    count: 50
-                }
+                color: 'green'
               }
-              ]
+          }]
         };
       },
       mounted(){
@@ -68,19 +61,11 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-gradient | Object | 渐变颜色模式，数据类型为Object,实例见 [gradient](#gradient)
-max | Number | 最大阈值
-min | Number | 最小阈值
-
-### gradient
-```
-{
-    0.0: 'rgb(50, 50, 256)',
-    0.1: 'rgb(50, 250, 56)',
-    0.5: 'rgb(250, 250, 56)',
-    1.0: 'rgb(250, 50, 56)'
-}
-```
+color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’,如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
+startTime | Number | 动画开始时间,默认值：0
+endTime | Number | 动画结束时间,默认值：data的长度
+step | Number | 执行每次动画的步长,默认值：0.1
+trailLength | Number | 动画的拖尾时长,默认值：3
 
 ## 动态属性
 支持响应式。
@@ -93,14 +78,14 @@ data | Array  | 点数据,GeoJSON格式
 ```
 [{
     geometry: {
-     type: 'LineString',
-     coordinates: [
-        [121.5273285, 31.21515044],
-        [121.5473285, 31.21515044]
-     ]
+        type: 'LineString',
+        coordinates: [
+            [121.5273285, 31.21515044],
+            [121.5473285, 31.21515044]
+        ]
     },
     properties: {
-     count: 50,
+        color: 'red'
     }
 }]
 ```
@@ -110,4 +95,4 @@ data | Array  | 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.HeatLineLayer](https://mapv.baidu.com/gl/docs/HeatLineLayer.html) | 获取`HeatLineLayer`实例
+$$getInstance() | [mapvgl.PointTripLayer](https://mapv.baidu.com/gl/docs/PointTripLayer.html) | 获取`PointTripLayer`实例

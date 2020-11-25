@@ -105,7 +105,7 @@ data | Array  | 点数据,GeoJSON格式
 ```
 [{
     geometry: {
-     type: 'Point',
+     type: 'LineString',
      coordinates: [
         [121.5273285, 31.21515044],
         [121.5473285, 31.21515044]
