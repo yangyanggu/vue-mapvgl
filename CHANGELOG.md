@@ -1,3 +1,21 @@
+###v0.0.3
+  * el-bmapv-circle-layer (圆图层 CircleLayer)
+  * el-bmapv-ripple-layer (波纹点图层 RippleLayer)
+  * el-bmapv-text-layer (文字图层 TextLayer)
+  * el-bmapv-fan-layer (雷达图层 FanLayer)
+  * el-bmapv-simple-line-layer (基础线图层 SimpleLineLayer)
+  * el-bmapv-line-layer (宽线图层 LineLayer)
+  * el-bmapv-wall-layer (立体墙图层 WallLayer)
+  * el-bmapv-heat-line-layer (热力线图层 HeatLineLayer)
+  * el-bmapv-line-flow-layer (蝌蚪线图层 LineFlowLayer)
+  * el-bmapv-line-trip-layer (线轨迹图层 LineTripLayer)
+  * el-bmapv-wall-trip-layer (墙轨迹图层 WallTripLayer)
+  * el-bmapv-fly-line-layer (飞线图层 FlyLineLayer)
+  * el-bmapv-shape-layer (基础面图层 ShapeLayer)
+  * el-bmapv-shape-line-layer (线状面图层 ShapeLineLayer)
+  * el-bmapv-polygon-layer (平面图层 PolygonLayer)
+  * el-bmapv-cluster-layer (点聚合图层 ClusterLayer)
+
 ###v0.0.2
   * el-bmapv-icon-layer (Icon图标图层 IconLayer)
   * el-bmapv-point-trip-layer (点轨迹图层 PointTripLayer)

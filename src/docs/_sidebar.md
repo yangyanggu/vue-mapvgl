@@ -28,5 +28,6 @@
  - [基础面图层 ShapeLayer](zh-cn/layer/ShapeLayer.md)
  - [线状面图层 ShapeLineLayer](zh-cn/layer/ShapeLineLayer.md)
  - [平面图层 PolygonLayer](zh-cn/layer/PolygonLayer.md)
+ - [点聚合图层 ClusterLayer](zh-cn/layer/ClusterLayer.md)
 
 - [FAQ](zh-cn/faq.md)
