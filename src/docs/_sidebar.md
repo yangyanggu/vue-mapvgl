@@ -13,5 +13,6 @@
  - [热力图图层 HeatmapLayer](zh-cn/layer/HeatMapLayer.md)
  - [热力柱图层 HeatGridLayer](zh-cn/layer/HeatGridLayer.md)
  - [烟花点图层 SparkLayer](zh-cn/layer/SparkLayer.md)
+ - [圆图层 CircleLayer](zh-cn/layer/CircleLayer.md)
 
 - [FAQ](zh-cn/faq.md)

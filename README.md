@@ -54,6 +54,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-heat-map-layer (热点图图层 HeatmapLayer)
 * el-bmapv-heat-grid-layer (热力柱图层 HeatGridLayer)
 * el-bmapv-spark-layer (烟花点图层 SparkLayer)
+* el-bmapv-circle-layer (圆图层 CircleLayer)
 
 
 ### 其他特性
