@@ -26,5 +26,6 @@
  - [墙轨迹图层 WallTripLayer](zh-cn/layer/WallTripLayer.md)
  - [飞线图层 FlyLineLayer](zh-cn/layer/FlyLineLayer.md)
  - [基础面图层 ShapeLayer](zh-cn/layer/ShapeLayer.md)
+ - [线状面图层 ShapeLineLayer](zh-cn/layer/ShapeLineLayer.md)
 
 - [FAQ](zh-cn/faq.md)
