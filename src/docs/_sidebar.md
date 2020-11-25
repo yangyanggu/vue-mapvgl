@@ -27,5 +27,6 @@
  - [飞线图层 FlyLineLayer](zh-cn/layer/FlyLineLayer.md)
  - [基础面图层 ShapeLayer](zh-cn/layer/ShapeLayer.md)
  - [线状面图层 ShapeLineLayer](zh-cn/layer/ShapeLineLayer.md)
+ - [平面图层 PolygonLayer](zh-cn/layer/PolygonLayer.md)
 
 - [FAQ](zh-cn/faq.md)
