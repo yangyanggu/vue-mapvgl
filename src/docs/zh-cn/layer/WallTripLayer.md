@@ -1,5 +1,5 @@
-# 点轨迹图层
-用来展示点按时间东西图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+# 墙轨迹图层
+用来展示3d立体墙的轨迹动画图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 
@@ -9,9 +9,9 @@
 
   <template>
     <div class="bmap-page-container">
-      <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+      <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-point-trip-layer :data="data"></el-bmapv-point-trip-layer>
+            <el-bmapv-wall-trip-layer :height="1000" :step="0.01" :data="data"></el-bmapv-wall-trip-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -35,11 +35,14 @@
           center: [121.5273285, 31.21515044],
           data: [{
               geometry: {
-                  type: 'Point',
-                  coordinates: [121.5273285, 31.21515044],
+                  type: 'LineString',
+                  coordinates: [
+                    [121.5273285, 31.21515044],
+                    [121.5473285, 31.21515044]
+                  ],
               },
               properties: {
-                  time: 1
+                color: 'green'
               }
           }]
         };
@@ -59,11 +62,23 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’
+color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’,如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
+gradient | Object | 渐变颜色模式，设置后color属性会失效，数据类型为Object。Object只有0和1两个键，0表示远地处的颜色，1表示近地处的颜色
+height | number | 立体墙的高度, 默认值：100
 startTime | Number | 动画开始时间,默认值：0
 endTime | Number | 动画结束时间,默认值：data的长度
 step | Number | 执行每次动画的步长,默认值：0.1
 trailLength | Number | 动画的拖尾时长,默认值：3
+
+### gradient
+```
+{
+    0.0: 'rgb(50, 50, 256)',
+    0.1: 'rgb(50, 250, 56)',
+    0.5: 'rgb(250, 250, 56)',
+    1.0: 'rgb(250, 50, 56)'
+}
+```
 
 ## 动态属性
 支持响应式。
@@ -76,11 +91,14 @@ data | Array  | 点数据,GeoJSON格式
 ```
 [{
     geometry: {
-        type: 'Point',
-        coordinates: [116.392394, 39.910683]
+        type: 'LineString',
+        coordinates: [
+            [121.5273285, 31.21515044],
+            [121.5473285, 31.21515044]
+        ]
     },
     properties: {
-        time: 1
+        color: 'red'
     }
 }]
 ```

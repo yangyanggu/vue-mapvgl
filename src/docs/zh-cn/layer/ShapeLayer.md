@@ -1,5 +1,5 @@
-# Icon图标图层
-用来展示大数据量的简单点图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+# 基础面图层
+用来展示大数据的立体多边形，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)
 
@@ -11,9 +11,9 @@
 
   <template>
     <div class="bmap-page-container">
-      <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+      <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-icon-layer :icon="icon" :width="width" :height="height" :data="data" :enable-picked="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-icon-layer>
+            <el-bmapv-shape-layer :rise-time="2000" effect="window" :color="color" :blend="blend" :data="data"></el-bmapv-shape-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -35,42 +35,30 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          width: 24,
-          height: 40,
-          icon: './assets/images/layer/position1.png',
+          color: 'rgba(50, 50, 200, 1)',
+          blend: 'lighter',
           data: [{
               geometry: {
-                  type: 'Point',
-                  coordinates: [121.5273285, 31.21515044],
+                  type: 'Polygon',
+                  coordinates: [
+                    [
+                        [121.5273285, 31.21515044],
+                        [121.5373285, 31.21515044],
+                        [121.5373285, 31.22515044],
+                        [121.5273285, 31.22515044]
+                    ]
+                  ],
               },
               properties: {
-                  icon: './assets/images/layer/position1.png'
-                }
-          },{
-              geometry: {
-                  type: 'Point',
-                  coordinates: [121.5473285, 31.21515044],
-              },
-              properties: {
-                  icon: './assets/images/layer/position2.png'
-                }
-          },{
-             geometry: {
-                 type: 'Point',
-                 coordinates: [121.5673285, 31.21515044],
-             },
-             properties: {
-                icon: './assets/images/layer/position3.png'
+                  height: 1000,
+                  color: 'green'
               }
-         }]
+          }]
         };
       },
       mounted(){
       },
       methods: {
-        clickMarker(e){
-            console.log(e);
-        }
       }
     };
   </script>
@@ -83,11 +71,12 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-icon | object(canvas dom) 、string(图片url地址) | icon图标,如果在GeoJSON的properties属性中配置icon，则优先使用GeoJSON中的icon值
-width | number | 设置icon图标宽度
-height | Number | 设置icon图标高度
-offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
-padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
+color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
+opacity | float | 楼块透明度，0.0表示完全透明，1.0表示完全不透明，浮点数表示. 默认值：1.0
+texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，**注意，宽高必须为2的次幂**
+blend | String | 点叠加模式，可选lighter
+riseTime | Number | 楼块初始化升起动画的时间，单位毫秒. 默认值：0
+effect | String | 一些特效. <br/>可选值:<br/> normal，默认，正常<br/> window，窗户效果<br/> windowAnimation，窗户动画效果<br/> gradual，渐变效果
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
@@ -106,40 +95,30 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 }
 ```
 
-
-
 ## 动态属性
 支持响应式。
 
 名称 | 类型 | 说明
 ---|---|---|
-data | Array  | // 点数据,GeoJSON格式
+data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构
 ```
 [{
   geometry: {
-      type: 'Point',
-      coordinates: [121.5273285, 31.21515044],
+      type: 'Polygon',
+      coordinates: [
+        [
+            [121.5273285, 31.21515044],
+            [121.5373285, 31.21515044],
+            [121.5373285, 31.22515044],
+            [121.5273285, 31.22515044]
+        ]
+      ],
   },
   properties: {
-      icon: '/assets/images/layer/position1.png'
-    }
-},{
-  geometry: {
-      type: 'Point',
-      coordinates: [121.5473285, 31.21515044],
-  },
-  properties: {
-      icon: '/assets/images/layer/position2.png'
-    }
-},{
-  geometry: {
-     type: 'Point',
-     coordinates: [121.5673285, 31.21515044],
-  },
-  properties: {
-    icon: '/assets/images/layer/position3.png'
+      height: 1000,
+      color: 'green'
   }
 }]
 ```
@@ -149,5 +128,5 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.IconLayer](https://mapv.baidu.com/gl/docs/IconLayer.html) | 获取`IconLayer`实例
+$$getInstance() | [mapvgl.ShapeLayer](https://mapv.baidu.com/gl/docs/ShapeLayer.html) | 获取`ShapeLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true

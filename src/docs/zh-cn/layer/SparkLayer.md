@@ -1,4 +1,5 @@
 # 热力柱图层
+用来展示烟花动画的图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 
@@ -101,4 +102,4 @@ data | Array  | 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.HeatGridLayer](https://mapv.baidu.com/gl/docs/HeatGridLayer.html) | 获取`HeatmapLayer`实例
+$$getInstance() | [mapvgl.SparkLayer](https://mapv.baidu.com/gl/docs/SparkLayer.html) | 获取`SparkLayer`实例

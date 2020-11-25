@@ -1,4 +1,5 @@
 # 热力柱图层
+用来展示柱状热力图效果，继承自[ShapeLayer](https://mapv.baidu.com/gl/docs/ShapeLayer.html)
 
 ## 基础示例
 

@@ -1,5 +1,5 @@
-# 点轨迹图层
-用来展示点按时间东西图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+# 线轨迹图层
+用来展示轨迹飞线图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
 
 ## 基础示例
 
@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-point-trip-layer :data="data"></el-bmapv-point-trip-layer>
+            <el-bmapv-line-trip-layer :step="0.01" :data="data"></el-bmapv-line-trip-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -35,11 +35,14 @@
           center: [121.5273285, 31.21515044],
           data: [{
               geometry: {
-                  type: 'Point',
-                  coordinates: [121.5273285, 31.21515044],
+                  type: 'LineString',
+                  coordinates: [
+                    [121.5273285, 31.21515044],
+                    [121.5473285, 31.21515044]
+                  ],
               },
               properties: {
-                  time: 1
+                color: 'green'
               }
           }]
         };
@@ -59,7 +62,7 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’
+color | String | 颜色，同css颜色,默认值：’rgba(255, 5, 5, 1)’,如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 startTime | Number | 动画开始时间,默认值：0
 endTime | Number | 动画结束时间,默认值：data的长度
 step | Number | 执行每次动画的步长,默认值：0.1
@@ -76,11 +79,14 @@ data | Array  | 点数据,GeoJSON格式
 ```
 [{
     geometry: {
-        type: 'Point',
-        coordinates: [116.392394, 39.910683]
+        type: 'LineString',
+        coordinates: [
+            [121.5273285, 31.21515044],
+            [121.5473285, 31.21515044]
+        ]
     },
     properties: {
-        time: 1
+        color: 'red'
     }
 }]
 ```

@@ -1,5 +1,5 @@
-# Icon图标图层
-用来展示大数据量的简单点图层，继承自[Layer](https://mapv.baidu.com/gl/docs/Layer.html)
+# 点聚合图层
+点聚合图层，适用于大量数据点的聚合展示，可自定义聚合半径及聚合后展示的样式，由[PointLayer](https://mapv.baidu.com/gl/docs/PointLayer.html)、[IconLayer](https://mapv.baidu.com/gl/docs/IconLayer.html)与[TextLayer](https://mapv.baidu.com/gl/docs/TextLayer.html)组合而成。
 
 可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)
 
@@ -13,7 +13,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-icon-layer :icon="icon" :width="width" :height="height" :data="data" :enable-picked="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-icon-layer>
+            <el-bmapv-cluster-layer :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-cluster-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -35,34 +35,32 @@
           count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          width: 24,
-          height: 40,
-          icon: './assets/images/layer/position1.png',
+          iconOptions: {
+            icon: './assets/images/layer/position1.png',
+            width: 20,
+            height: 20
+          },
           data: [{
               geometry: {
                   type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  icon: './assets/images/layer/position1.png'
+                  icon: './assets/images/layer/position3.png',
+                  width: 20,
+                  height: 20
                 }
           },{
               geometry: {
                   type: 'Point',
-                  coordinates: [121.5473285, 31.21515044],
+                  coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  icon: './assets/images/layer/position2.png'
+                  icon: './assets/images/layer/position2.png',
+                  width: 20,
+                  height: 20
                 }
-          },{
-             geometry: {
-                 type: 'Point',
-                 coordinates: [121.5673285, 31.21515044],
-             },
-             properties: {
-                icon: './assets/images/layer/position3.png'
-              }
-         }]
+          }]
         };
       },
       mounted(){
@@ -83,11 +81,15 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-icon | object(canvas dom) 、string(图片url地址) | icon图标,如果在GeoJSON的properties属性中配置icon，则优先使用GeoJSON中的icon值
-width | number | 设置icon图标宽度
-height | Number | 设置icon图标高度
-offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
-padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
+minSize | number | 聚合点展示的最小直径. 默认值：25
+maxSize | number | 聚合点展示的最大直径. 默认值：40
+clusterRadius | Number | 聚合半径，像素值. 默认值：200
+showText | boolean | 是否显示文字. 默认值：true
+maxZoom | number | 聚合的最大地图级别，当地图级别高于此值时不再聚合. 默认值：19
+minZoom | number | 聚合的最小地图级别，当地图级别低于此值时不再聚合. 默认值：4
+gradient | object | 聚合点的颜色梯度，属性名0~1之间，属性值同css颜色值，通过[Intensity](https://mapv.baidu.com/gl/docs/Intensity.html)拾取。 默认值: [gradient](#gradient) 
+textOptions | object | 设置文字属性，支持[文字图层](https://mapv.baidu.com/gl/docs/TextLayer.html)所有参数。
+iconOptions | object | 设置非聚合点显示的icon属性，而非显示一个点，支持[Icon图层](https://mapv.baidu.com/gl/docs/IconLayer.html)所有参数。
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
@@ -106,6 +108,16 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 }
 ```
 
+### gradient
+```
+{
+    0.0: 'rgb(50, 50, 256)',
+    0.1: 'rgb(50, 250, 56)',
+    0.5: 'rgb(250, 250, 56)',
+    1.0: 'rgb(250, 50, 56)'
+}
+```
+
 
 
 ## 动态属性
@@ -113,34 +125,20 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 
 名称 | 类型 | 说明
 ---|---|---|
-data | Array  | // 点数据,GeoJSON格式
+data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构
 ```
 [{
-  geometry: {
-      type: 'Point',
-      coordinates: [121.5273285, 31.21515044],
-  },
-  properties: {
-      icon: '/assets/images/layer/position1.png'
-    }
-},{
-  geometry: {
-      type: 'Point',
-      coordinates: [121.5473285, 31.21515044],
-  },
-  properties: {
-      icon: '/assets/images/layer/position2.png'
-    }
-},{
-  geometry: {
+    geometry: {
      type: 'Point',
-     coordinates: [121.5673285, 31.21515044],
-  },
-  properties: {
-    icon: '/assets/images/layer/position3.png'
-  }
+     coordinates: [116.392394, 39.910683]
+    },
+    properties: {
+     icon: 'images/icon1.png'，
+     width: 30,
+     height: 30
+    }
 }]
 ```
 
@@ -149,5 +147,5 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.IconLayer](https://mapv.baidu.com/gl/docs/IconLayer.html) | 获取`IconLayer`实例
+$$getInstance() | [mapvgl.ClusterLayer](https://mapv.baidu.com/gl/docs/ClusterLayer.html) | 获取`ClusterLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true

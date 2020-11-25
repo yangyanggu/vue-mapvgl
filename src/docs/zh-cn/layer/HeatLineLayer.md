@@ -1,5 +1,5 @@
-# 热力点图层
-用来展示热力图效果
+# 热力线图层
+用来展示线的热力图效果，继承自[SimpleLineLayer](https://mapv.baidu.com/gl/docs/SimpleLineLayer.html)
 
 ## 基础示例
 
@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-heat-map-layer :size="600" :gradient="gradient"  :data="data"></el-bmapv-heat-map-layer>
+            <el-bmapv-heat-line-layer :min="20" :max="80" :gradient="gradient"  :data="data"></el-bmapv-heat-line-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -41,21 +41,17 @@
               },
           data: [{
               geometry: {
-                  type: 'Point',
-                  coordinates: [121.5273285, 31.21515044],
+                  type: 'LineString',
+                  coordinates: [
+                      [121.5273285, 31.21515044],
+                      [121.5473285, 31.21515044]
+                  ],
               },
               properties: {
-                  count: 68
+                    count: 50
                 }
-              },{
-              geometry: {
-                  type: 'Point',
-                  coordinates: [121.5373285, 31.21515044],
-              },
-              properties: {
-                  count: 49
-                }
-          }]
+              }
+              ]
         };
       },
       mounted(){
@@ -73,12 +69,9 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-gradient | Object | 渐变色,默认值 [gradient](#gradient)
+gradient | Object | 渐变颜色模式，数据类型为Object,实例见 [gradient](#gradient)
 max | Number | 最大阈值
 min | Number | 最小阈值
-size | Number | 热力画笔笔触大小, 默认值：13
-unit | String | 对应size的单位, 默认值：px, 可选值：px 像素, m 米单位
-height | Number | 形成网格的最大高度，默认0效果最好，如无三维高度需求可不打开, 默认值：0
 
 ### gradient
 ```
@@ -95,17 +88,20 @@ height | Number | 形成网格的最大高度，默认0效果最好，如无三�
 
 名称 | 类型 | 说明
 ---|---|---|
-data | Array  | // 点数据,GeoJSON格式
+data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构
 ```
 [{
     geometry: {
-     type: 'Point',
-     coordinates: [116.392394, 39.910683]
+     type: 'LineString',
+     coordinates: [
+        [121.5273285, 31.21515044],
+        [121.5473285, 31.21515044]
+     ]
     },
     properties: {
-     count: 90
+     count: 50,
     }
 }]
 ```
@@ -115,4 +111,4 @@ data | Array  | // 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.HeatmapLayer](https://mapv.baidu.com/gl/docs/HeatmapLayer.html) | 获取`HeatmapLayer`实例
+$$getInstance() | [mapvgl.HeatLineLayer](https://mapv.baidu.com/gl/docs/HeatLineLayer.html) | 获取`HeatLineLayer`实例
