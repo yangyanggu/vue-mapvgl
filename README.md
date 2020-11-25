@@ -57,6 +57,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-circle-layer (圆图层 CircleLayer)
 * el-bmapv-ripple-layer (波纹点图层 RippleLayer)
 * el-bmapv-text-layer (文字图层 TextLayer)
+* el-bmapv-fan-layer (雷达图层 FanLayer)
 
 
 ### 其他特性
