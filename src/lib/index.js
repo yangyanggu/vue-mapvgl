@@ -22,6 +22,7 @@ import BMapvLineFlowLayer from './components/bmapv-line-flow-layer';
 import BMapvLineTripLayer from './components/bmapv-line-trip-layer';
 import BMapvWallTripLayer from './components/bmapv-wall-trip-layer';
 import BMapvFlyLineLayer from './components/bmapv-fly-line-layer';
+import BMapvShapeLayer from './components/bmapv-shape-layer';
 
 let components = [
   BMapvView,
@@ -43,7 +44,8 @@ let components = [
   BMapvLineFlowLayer,
   BMapvLineTripLayer,
   BMapvWallTripLayer,
-  BMapvFlyLineLayer
+  BMapvFlyLineLayer,
+  BMapvShapeLayer
 ];
 
 const install = function(Vue, opts = {}) {
