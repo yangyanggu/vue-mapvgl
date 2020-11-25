@@ -34,14 +34,14 @@
           center: [121.5273285, 31.21515044],
           width: 24,
           height: 40,
-          icon: '/assets/images/layer/position1.png',
+          icon: './assets/images/layer/position1.png',
           data: [{
               geometry: {
                   type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  icon: '/assets/images/layer/position1.png'
+                  icon: './assets/images/layer/position1.png'
                 }
           },{
               geometry: {
@@ -49,7 +49,7 @@
                   coordinates: [121.5473285, 31.21515044],
               },
               properties: {
-                  icon: '/assets/images/layer/position2.png'
+                  icon: './assets/images/layer/position2.png'
                 }
           },{
              geometry: {
@@ -57,7 +57,7 @@
                  coordinates: [121.5673285, 31.21515044],
              },
              properties: {
-                icon: '/assets/images/layer/position3.png'
+                icon: './assets/images/layer/position3.png'
               }
          }]
         };
