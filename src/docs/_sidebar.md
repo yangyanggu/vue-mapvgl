@@ -33,5 +33,10 @@
 - 后处理器 Effects
  - [炫光特效 BloomEffect](zh-cn/effect/BloomEffect.md)
  - [发光特效 BrightEffect](zh-cn/effect/BrightEffect.md)
+- 内置工具 Utils
+ - [颜色值域生成器 Intensity](zh-cn/util/Intensity.md)
+ - [3D曲线生成器 BezierCurve](zh-cn/util/BezierCurve.md)
+ - [大地线生成器 GeodesicCurve](zh-cn/util/GeodesicCurve.md)
+ - [Od曲线生成器 OdCurve](zh-cn/util/OdCurve.md)
 
 - [FAQ](zh-cn/faq.md)
