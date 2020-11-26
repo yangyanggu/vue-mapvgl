@@ -32,5 +32,6 @@
  - [蜂窝图层 HoneycombLayer](zh-cn/layer/HoneycombLayer.md)
 - 后处理器 Effects
  - [炫光特效 BloomEffect](zh-cn/effect/BloomEffect.md)
+ - [发光特效 BrightEffect](zh-cn/effect/BrightEffect.md)
 
 - [FAQ](zh-cn/faq.md)

@@ -74,6 +74,7 @@ VueBMap.initBMapApiLoader({
 
 ##mapvgl自带后处理器效果
 * 炫光特效 BloomEffect
+* 发光特效 BrightEffect
 
 
 
