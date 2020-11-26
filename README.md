@@ -70,6 +70,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-shape-line-layer (线状面图层 ShapeLineLayer)
 * el-bmapv-polygon-layer (平面图层 PolygonLayer)
 * el-bmapv-cluster-layer (点聚合图层 ClusterLayer)
+* el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
 
 
 ### 其他特性

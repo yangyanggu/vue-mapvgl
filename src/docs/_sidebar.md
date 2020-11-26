@@ -29,5 +29,6 @@
  - [线状面图层 ShapeLineLayer](zh-cn/layer/ShapeLineLayer.md)
  - [平面图层 PolygonLayer](zh-cn/layer/PolygonLayer.md)
  - [点聚合图层 ClusterLayer](zh-cn/layer/ClusterLayer.md)
+ - [蜂窝图层 HoneycombLayer](zh-cn/layer/HoneycombLayer.md)
 
 - [FAQ](zh-cn/faq.md)
