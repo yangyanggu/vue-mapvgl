@@ -28,6 +28,20 @@ import BMapvPolygonLayer from './components/bmapv-polygon-layer';
 import BMapvClusterLayer from './components/bmapv-cluster-layer';
 import BMapvHoneycombLayer from './components/bmapv-honeycomb-layer';
 
+const mapvgl = require('mapvgl');
+
+const effect = {
+  BloomEffect: mapvgl.BloomEffect,
+  BrightEffect: mapvgl.BrightEffect
+};
+
+const util = {
+  Intensity: mapvgl.Intensity,
+  BezierCurve: mapvgl.BezierCurve,
+  GeodesicCurve: mapvgl.GeodesicCurve,
+  OdCurve: mapvgl.OdCurve
+};
+
 let components = [
   BMapvView,
   BMapvPointLayer,
@@ -70,5 +84,9 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install
+};
+export {
+  effect,
+  util
 };
 

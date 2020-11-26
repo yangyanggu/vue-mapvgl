@@ -72,6 +72,10 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-cluster-layer (点聚合图层 ClusterLayer)
 * el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
 
+##mapvgl自带后处理器效果
+* 炫光特效 BloomEffect
+
+
 
 ### 其他特性
 
