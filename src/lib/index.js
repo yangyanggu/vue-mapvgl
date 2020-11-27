@@ -70,7 +70,7 @@ let components = [
   BMapvHoneycombLayer
 ];
 
-const install = function(Vue, opts = {}) {
+const install = function(Vue) {
   components.map(_component => {
     // register component
     Vue.component(_component.name, _component);

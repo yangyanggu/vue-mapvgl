@@ -1,53 +1,53 @@
 require('./check-versions')()
 
-var config = require('../config')
+let config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn = require('opn')
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = process.env.NODE_ENV === 'testing'
+const opn = require('opn')
+const path = require('path')
+const express = require('express')
+const webpack = require('webpack')
+const proxyMiddleware = require('http-proxy-middleware')
+let webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+let port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
-var autoOpenBrowser = !!config.dev.autoOpenBrowser
+let autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+let proxyTable = config.dev.proxyTable
 
-var app = express()
-var compiler = webpack(webpackConfig)
+const app = express()
+const compiler = webpack(webpackConfig)
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
-  publicPath: webpackConfig.output.publicPath,
-  quiet: true
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
+  publicPath: webpackConfig.output.publicPath
 })
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler, {
+const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: () => {}
-})
-// force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
-    cb()
-  })
 })
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
+  let options = proxyTable[context]
   if (typeof options === 'string') {
     options = { target: options }
   }
   app.use(proxyMiddleware(options.filter || context, options))
+})
+
+compiler.hooks.compilation.tap('HtmlWebpackPlugin',(compilation) => {
+  HtmlWebpackPlugin.getHooks(compilation).afterEmit.tap('HtmlWebpackPlugin',() => {
+    console.log('------------reload page-----------')
+    hotMiddleware.publish({ action: 'reload' })
+  })
 })
 
 // handle fallback for HTML5 history API
@@ -61,13 +61,13 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+let staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-var uri = 'http://localhost:' + port
+let uri = 'http://localhost:' + port
 
-var _resolve
-var readyPromise = new Promise(resolve => {
+let _resolve
+let readyPromise = new Promise(resolve => {
   _resolve = resolve
 })
 
@@ -81,7 +81,7 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+const server = app.listen(port)
 
 module.exports = {
   ready: readyPromise,
