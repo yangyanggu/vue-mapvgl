@@ -18,7 +18,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules
   },
-  devtool: config.lib_build.productionSourceMap ? '#source-map' : false,
+  devtool: config.lib_build.productionSourceMap ? 'cheap-source-map' : false,
   output: {
     path: config.lib_build.assetsRoot,
     filename: 'index.js',
@@ -27,15 +27,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     umdNamedDefine: true
   },
   optimization: {
-    minimizer: [new UglifyJsPlugin({
-      uglifyOptions: {
-        warnings: false,
-        compress: {
-
-        },
-        sourceMap: true
-      }
-    })]
   },
   externals: {
     vue: {

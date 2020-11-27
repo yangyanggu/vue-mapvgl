@@ -9,9 +9,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 // add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
+/*Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-})
+})*/
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
@@ -20,6 +20,23 @@ module.exports = merge(baseWebpackConfig, {
   },
   // cheap-module-eval-source-map is faster for development
   devtool: 'source-map',
+  devServer: {
+    clientLogLevel: 'warning',
+    liveReload: true,
+    watchContentBase: true,
+    port: config.dev.port,
+    open: config.dev.autoOpenBrowser,
+    overlay: {
+      warning: false,
+      error: true
+    },
+    index: 'index.html',
+    contentBase: ['./dist','./src/docs'],
+    publicPath: config.dev.assetsPublicPath,
+    proxy: config.dev.proxyTable,
+    quiet: true,
+    historyApiFallback: true
+  },
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -41,7 +58,7 @@ module.exports = merge(baseWebpackConfig, {
       inject: true
     }),
     new FriendlyErrorsPlugin(),
-    new CopyWebpackPlugin({
+    /*new CopyWebpackPlugin({
       patterns: [
         {
           from: path.join(__dirname, '../src/docs'),
@@ -51,6 +68,6 @@ module.exports = merge(baseWebpackConfig, {
           }
         }
         ]
-    })
+    })*/
   ]
 })

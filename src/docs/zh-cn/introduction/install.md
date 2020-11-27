@@ -14,5 +14,4 @@ npm install vue-bmap-gl --save
 
 ```html
 <script src="//unpkg.com/vue-bmap-gl/dist/index.js" />
-afg
 ```
