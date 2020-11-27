@@ -88,7 +88,7 @@ showText | boolean | 是否显示文字. 默认值：true
 maxZoom | number | 聚合的最大地图级别，当地图级别高于此值时不再聚合. 默认值：19
 minZoom | number | 聚合的最小地图级别，当地图级别低于此值时不再聚合. 默认值：4
 gradient | object | 聚合点的颜色梯度，属性名0~1之间，属性值同css颜色值，通过[Intensity](https://mapv.baidu.com/gl/docs/Intensity.html)拾取。 默认值: [gradient](#gradient) 
-textOptions | object | 设置文字属性，支持[文字图层](https://mapv.baidu.com/gl/docs/TextLayer.html)所有参数。
+textOptions | object | 设置文字属性，支持[文字图层](https://mapv.baidu.com/gl/docs/TextLayer.html)所有参数。 额外参数:format 支持格式化显示的数字，传入参数为单个蜂窝的数量值，不配置此属性则显示原值,类型：function
 iconOptions | object | 设置非聚合点显示的icon属性，而非显示一个点，支持[Icon图层](https://mapv.baidu.com/gl/docs/IconLayer.html)所有参数。
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false

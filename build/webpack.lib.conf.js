@@ -2,8 +2,9 @@ const path = require('path')
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
-const merge = require('webpack-merge')
+const merge = require('webpack-merge').merge
 const baseWebpackConfig = require('./webpack.base.conf')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -13,25 +14,19 @@ const rules = utils.styleLoaders({
       extract: false
 });
 const webpackConfig = merge(baseWebpackConfig, {
+  mode: 'production',
   module: {
     rules
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      sourceMap: true
-    })
-  ],
-  devtool: config.lib_build.productionSourceMap ? '#source-map' : false,
+  devtool: config.lib_build.productionSourceMap ? 'cheap-source-map' : false,
   output: {
     path: config.lib_build.assetsRoot,
     filename: 'index.js',
-    chunkFilename: 'index.js',
     library: 'VueMapvgl',
     libraryTarget: 'umd',
     umdNamedDefine: true
+  },
+  optimization: {
   },
   externals: {
     vue: {
