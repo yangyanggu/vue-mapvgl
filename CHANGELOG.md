@@ -1,3 +1,10 @@
+###v0.0.4
+  * el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
+  
+  ##mapvgl自带后处理器效果
+  * 炫光特效 BloomEffect
+  * 发光特效 BrightEffect
+
 ###v0.0.3
   * el-bmapv-circle-layer (圆图层 CircleLayer)
   * el-bmapv-ripple-layer (波纹点图层 RippleLayer)
