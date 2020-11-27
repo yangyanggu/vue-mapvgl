@@ -7,7 +7,8 @@
 [![npm package](https://img.shields.io/npm/v/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
 [![NPM downloads](http://img.shields.io/npm/dm/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
 [![license](https://img.shields.io/github/license/elemefe/vue-amap.svg?style=flat-square)](https://gitee.com/guyangyang/vue-bmap-gl)
-[![Gitee stars](https://gitee.com/guyangyang/mapvgl/badge/star.svg?theme=white)](https://gitee.com/guyangyang/vue-bmap-gl/stargazers)
+[![star](https://gitee.com/guyangyang/vue-mapvgl/badge/star.svg?theme=dark)](https://gitee.com/guyangyang/vue-mapvgl/stargazers)
+[![fork](https://gitee.com/guyangyang/vue-mapvgl/badge/fork.svg?theme=dark)](https://gitee.com/guyangyang/vue-mapvgl/members)
 
 > vue-mapvgl是一套基于Vue 2.0和百度地图mapvgl的地图组件。
 >该组件依赖于vue-bmap-gl，使用方式请查看教程
@@ -75,6 +76,12 @@ VueBMap.initBMapApiLoader({
 ##mapvgl自带后处理器效果
 * 炫光特效 BloomEffect
 * 发光特效 BrightEffect
+
+##mapvgl自带工具
+* 颜色值域生成器 Intensity
+* 3D曲线生成器 BezierCurve
+* 大地线生成器 GeodesicCurve(zh-cn/util/GeodesicCurve.md)
+* Od曲线生成器 OdCurve
 
 
 
