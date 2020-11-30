@@ -9,15 +9,8 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.lib_build.env
-const rules = utils.styleLoaders({
-      sourceMap: false,
-      extract: false
-});
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  module: {
-    rules
-  },
   devtool: config.lib_build.productionSourceMap ? 'cheap-source-map' : false,
   output: {
     path: config.lib_build.assetsRoot,

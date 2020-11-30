@@ -7,7 +7,10 @@
     "mapvgl"
   ],
   "main": "./dist/index.js",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.vue",
+    "*.css"
+  ],
   "directories": {
     "doc": "docs"
   },

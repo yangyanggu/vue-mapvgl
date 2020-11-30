@@ -5,6 +5,7 @@ const MiniCssExtract = require('mini-css-extract-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -41,9 +42,17 @@ module.exports = {
         use: 'vue-loader',
       },
       {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'less-loader'
+        ],
+      },
+      {
         test: /\.css$/,
         use: [
-          MiniCssExtract.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader'
         ]
       },
@@ -79,6 +88,9 @@ module.exports = {
     new ESLintPlugin({
       extensions: ['js','vue']
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'style.css'
+    })
   ]
 }
