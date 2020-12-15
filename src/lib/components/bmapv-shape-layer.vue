@@ -10,6 +10,7 @@ export default {
     'color',
     'opacity',
     'texture',
+    'isTextureFull',
     'blend',
     'riseTime',
     'effect',

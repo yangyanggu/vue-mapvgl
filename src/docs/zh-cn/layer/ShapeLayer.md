@@ -13,7 +13,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-shape-layer :rise-time="2000" effect="window" :color="color" :blend="blend" :data="data"></el-bmapv-shape-layer>
+            <el-bmapv-shape-layer texture="./assets/images/out.png" :is-texture-full="true" :rise-time="2000" effect="normal" :color="color" :blend="blend" :data="data"></el-bmapv-shape-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -74,6 +74,7 @@
 color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 opacity | float | 楼块透明度，0.0表示完全透明，1.0表示完全不透明，浮点数表示. 默认值：1.0
 texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，**注意，宽高必须为2的次幂**
+isTextureFull | Boolean | 是否降纹理贴图撑满，默认 false
 blend | String | 点叠加模式，可选lighter
 riseTime | Number | 楼块初始化升起动画的时间，单位毫秒. 默认值：0
 effect | String | 一些特效. <br/>可选值:<br/> normal，默认，正常<br/> window，窗户效果<br/> windowAnimation，窗户动画效果<br/> gradual，渐变效果
