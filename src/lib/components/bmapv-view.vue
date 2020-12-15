@@ -22,6 +22,9 @@ export default {
     },
     visible: {
       type: Boolean
+    },
+    events: {
+      type: Object
     }
 
   },
@@ -53,6 +56,8 @@ export default {
       let options = this.convertProps();
       options.map = map;
       this.$bmapComponent = new mapvgl.View(options);
+      this.$bmapComponent.startAnimation();
+      if (this.events && this.events.init) this.events.init(this.$bmapComponent);
       this.$children.forEach(component => {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
       });

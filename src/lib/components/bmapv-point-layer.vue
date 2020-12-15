@@ -72,6 +72,9 @@ export default {
     if (this.$bmapComponent && this.$view) {
       this.$view.removeLayer(this.$bmapComponent);
     }
+  },
+  render() {
+    return null;
   }
 };
 </script>
