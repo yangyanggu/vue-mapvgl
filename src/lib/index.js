@@ -30,6 +30,8 @@ import BMapvHoneycombLayer from './components/bmapv-honeycomb-layer';
 
 const mapvgl = require('mapvgl');
 
+const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
+
 const effect = {
   BloomEffect: mapvgl.BloomEffect,
   BrightEffect: mapvgl.BrightEffect
@@ -87,6 +89,8 @@ export default {
 };
 export {
   effect,
-  util
+  util,
+  mapvgl,
+  mapvglThree
 };
 
