@@ -1,3 +1,6 @@
+###v0.0.8
+  * el-bmapv-gltf-layer(gltf图层)
+
 ###v0.0.4
   * el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
   

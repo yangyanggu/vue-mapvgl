@@ -409,6 +409,7 @@ opacity | float | 楼块透明度，0.0表示完全透明，1.0表示完全不�
 texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，**注意，宽高必须为2的次幂**
 isTextureFull | Boolean | 是否降纹理贴图撑满，默认 false
 textureScale | Number | 纹理的缩放
+topColor | String | 顶部颜色
 blend | String | 点叠加模式，可选lighter
 riseTime | Number | 楼块初始化升起动画的时间，单位毫秒. 默认值：0
 effect | String | 一些特效. <br/>可选值:<br/> normal，默认，正常<br/> window，窗户效果<br/> windowAnimation，窗户动画效果<br/> gradual，渐变效果<br/> ripple，光波效果
