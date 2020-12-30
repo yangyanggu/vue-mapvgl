@@ -2,51 +2,32 @@
 
 ---
 
-## 引入地图
+## 引入地图和mapvgl
 
-一般项目中，对于 vue-bmap-gl 的初始化只需要调用 `initBMapApiLoader` 方法即可。
 
 NPM 安装：
 
 ```javascript
 import VueBMap from 'vue-bmap-gl';
+import 'vue-bmap-gl/dist/style.css'
+import VueMapvgl  from 'vue-mapvgl';
 
 Vue.use(VueBMap);
+Vue.use(VueMapvgl);
 VueBMap.initBMapApiLoader({
   ak: 'YOUR_KEY',
   v: '1.0'
 });
 ```
 
-## Promise
+## 定制化开发
 
-在**定制化程度较高**的项目中，开发者可能只想通过 vue-bmap-gl 引入百度地图，而部分实例化的操作直接基于百度地图的 sdk 完成。这个时候就需要 `lazyBMapApiLoaderInstance`。
+在**定制化程度较高**的项目中，开发者可能只想通过原生对象进行开发
 
 NPM 安装：
 
 ```javascript
-import VueBMap from 'vue-bmap-gl';
-import { lazyBMapApiLoaderInstance } from 'vue-bmap-gl';
-
-Vue.use(VueBMap);
-VueBMap.initBMapApiLoader({
-  ak: 'YOUR_KEY',
-  v: '1.0'
-});
-
-lazyBMapApiLoaderInstance.load().then(() => {
-  // your code ...
-  this.map = new BMapGL.Map('bmapContainer', {
-    center: new BMapGL.LngLat(121.59996, 31.197646)
-  });
-});
+import {effect,util,mapvgl,mapvglThree} from 'vue-mapvgl';
 ```
-
-
-## 参数
-
-参数名  | 类型  |  默认值 | 描述 |
---- | --- | --- | --- |
-ak | `String` | `` | 百度 Key |
-v | `String` | `1.0` | SDK 版本 |
+通过以上代码我们可以获取百度原生对象，具体API可以查看[官网](http://lbsyun.baidu.com/solutions/mapvdata)
 
