@@ -73,6 +73,7 @@ color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。
 
 名称 | 类型 | 说明
 ---|---|---|
+visible | Boolean | 图层显隐，true显示，false隐藏，默认显示
 data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构

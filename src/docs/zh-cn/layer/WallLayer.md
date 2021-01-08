@@ -90,6 +90,7 @@ enablePreciseMap | boolean | 开启精准贴图模式，纹理会按顶点间的
 
 名称 | 类型 | 说明
 ---|---|---|
+visible | Boolean | 图层显隐，true显示，false隐藏，默认显示
 data | Array  | 点数据,GeoJSON格式
                          
 ### data数据结构
