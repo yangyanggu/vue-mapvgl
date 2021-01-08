@@ -55,7 +55,7 @@ export default {
       }
       let options = this.convertProps();
       options.map = map;
-      this.$bmapComponent = new mapvgl.View(options);
+      this.$bmapComponent = this.$view = new mapvgl.View(options);
       this.$bmapComponent.startAnimation();
       if (this.events && this.events.init) this.events.init(this.$bmapComponent);
       this.$children.forEach(component => {

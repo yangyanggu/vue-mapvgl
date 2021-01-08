@@ -13,9 +13,10 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-text-layer color="#ff0" :font-size="32" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-text-layer>
+            <el-bmapv-text-layer color="#fff" :stroke-color="'red'" :font-weight="600" :offset="[0,100]" :font-size="30" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-text-layer>
         </el-bmapv-view>
       </el-bmap>
+      <button @click="switchHeight">切换文字高度</button> 
     </div>
   </template>
 
@@ -51,6 +52,18 @@
       methods: {
         clickMarker(e){
             console.log(e);
+        },
+        switchHeight(){
+          let top = Math.random() * 100;
+          this.data.splice (0,1, {
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5273285, 31.21515044, top],
+              },
+              properties: {
+                  text: 'hello world'
+                }
+          });
         }
       }
     };

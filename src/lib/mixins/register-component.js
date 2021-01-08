@@ -4,9 +4,22 @@ import eventHelper from '../utils/event-helper';
 import CONSTANTS from '../utils/constant';
 
 export default {
+  props: ['visible'],
   data() {
+    let self = this;
     return {
-      unwatchFns: []
+      unwatchFns: [],
+      handlers: {
+        visible(flag) {
+          if (self.$options.name && self.$options.name.endsWith('layer')) {
+            if (flag) {
+              self.$view.showLayer(self.$bmapComponent);
+            } else {
+              self.$view.hideLayer(self.$bmapComponent);
+            }
+          }
+        }
+      }
     };
   },
 
@@ -142,8 +155,12 @@ export default {
     },
 
     register() {
-      const res = this.__initComponent && this.__initComponent(this.convertProps());
+      let props = this.convertProps();
+      const res = this.__initComponent && this.__initComponent(props);
       this.registerRest(res);
+      if (props.visible === false) {
+        this.$view.hideLayer(this.$bmapComponent);
+      }
     },
 
     registerRest(instance) {

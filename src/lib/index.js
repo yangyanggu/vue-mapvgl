@@ -28,10 +28,13 @@ import BMapvPolygonLayer from './components/bmapv-polygon-layer';
 import BMapvClusterLayer from './components/bmapv-cluster-layer';
 import BMapvHoneycombLayer from './components/bmapv-honeycomb-layer';
 import BMapvGltfLayer from './components/bmapv-gltf-layer';
+import BMapvGltfThreeLayer from './components/bmapv-gltf-three-layer';
 
 const mapvgl = require('mapvgl');
 
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
+
+const THREE = mapvglThree.THREE;
 
 const effect = {
   BloomEffect: mapvgl.BloomEffect,
@@ -71,7 +74,8 @@ let components = [
   BMapvPolygonLayer,
   BMapvClusterLayer,
   BMapvHoneycombLayer,
-  BMapvGltfLayer
+  BMapvGltfLayer,
+  BMapvGltfThreeLayer
 ];
 
 const install = function(Vue) {
@@ -93,6 +97,7 @@ export {
   effect,
   util,
   mapvgl,
-  mapvglThree
+  mapvglThree,
+  THREE
 };
 

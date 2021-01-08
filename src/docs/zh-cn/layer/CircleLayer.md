@@ -11,9 +11,12 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-circle-layer :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
+            <el-bmapv-circle-layer :visible="visible" :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
         </el-bmapv-view>
       </el-bmap>
+      <div>
+        <button @click="switchShow()">切换显隐</button>
+      </div>
     </div>
   </template>
 
@@ -30,7 +33,7 @@
       data() {
         
         return {
-          count: 1,
+          visible: false,
           zoom: 14,
           center: [121.5273285, 31.21515044],
           type: 'bubble',
@@ -57,6 +60,9 @@
       mounted(){
       },
       methods: {
+        switchShow(){
+          this.visible = !this.visible;
+        }
       }
     };
   </script>

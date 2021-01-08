@@ -32,6 +32,7 @@
  - [点聚合图层 ClusterLayer](zh-cn/layer/ClusterLayer.md)
  - [蜂窝图层 HoneycombLayer](zh-cn/layer/HoneycombLayer.md)
  - [GLTF GltfLayer](zh-cn/layer/GltfLayer.md)
+ - [GLTFThree GltfThreeLayer](zh-cn/layer/GltfThreeLayer.md)
 - 后处理器 Effects
  - [炫光特效 BloomEffect](zh-cn/effect/BloomEffect.md)
  - [发光特效 BrightEffect](zh-cn/effect/BrightEffect.md)
