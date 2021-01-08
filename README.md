@@ -16,6 +16,7 @@
 
 ## 安装
 ```
+npm install -S vue-bmap-gl
 npm install -S vue-mapvgl
 ```
 
@@ -25,7 +26,7 @@ npm install -S vue-mapvgl
 
 ## 快速上手
 
-引入vue-mapvgl
+引入vue-bmap-gl和vue-mapvgl
 
 ```javascript
 // 引入vue-bmap-gl
@@ -72,6 +73,8 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-polygon-layer (平面图层 PolygonLayer)
 * el-bmapv-cluster-layer (点聚合图层 ClusterLayer)
 * el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
+* el-gltf-layer (百度针对gltf的实现)
+* el-gltf-three-layer (根据ThreeLayer以及ThreeJS进行扩展实现的模型加载图层)
 
 ##mapvgl自带后处理器效果
 * 炫光特效 BloomEffect
