@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-gltf-three-layer :auto-scale="true" :scale="150" :light="light" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+            <el-bmapv-gltf-three-layer :auto-scale="true" :scale="5" :light="light" :move="moveOption" url="./assets/gltf/car2.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
         </el-bmapv-view>
       </el-bmap>
       <div>
