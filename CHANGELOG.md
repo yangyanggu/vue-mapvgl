@@ -1,3 +1,7 @@
+###v0.0.9
+  * 增加 el-gltf-three-layer （gltf的threejs实现图层）
+  * 所有图层增加visible属性，用于控制图层显隐
+
 ###v0.0.8
   * el-bmapv-gltf-layer(gltf图层)
 

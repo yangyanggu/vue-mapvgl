@@ -1,6 +1,7 @@
 [![Fork me on Gitee](https://gitee.com/guyangyang/vue-mapvgl/widgets/widget_3.svg)](https://gitee.com/guyangyang/vue-mapvgl)
 - 基础
  - [安装](zh-cn/introduction/install.md)
+ - [初始化](zh-cn/introduction/init.md)
  - [快速上手](zh-cn/introduction/quick-start.md)
 - 基础
  - [视图容器](zh-cn/base/view.md)
@@ -31,6 +32,7 @@
  - [点聚合图层 ClusterLayer](zh-cn/layer/ClusterLayer.md)
  - [蜂窝图层 HoneycombLayer](zh-cn/layer/HoneycombLayer.md)
  - [GLTF GltfLayer](zh-cn/layer/GltfLayer.md)
+ - [GLTFThree GltfThreeLayer](zh-cn/layer/GltfThreeLayer.md)
 - 后处理器 Effects
  - [炫光特效 BloomEffect](zh-cn/effect/BloomEffect.md)
  - [发光特效 BrightEffect](zh-cn/effect/BrightEffect.md)

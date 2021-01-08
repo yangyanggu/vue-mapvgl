@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      console.log(options);
       this.$bmapComponent = new mapvgl.LineLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     },

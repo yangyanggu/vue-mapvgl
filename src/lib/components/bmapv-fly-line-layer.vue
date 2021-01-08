@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      console.log(options);
       this.$bmapComponent = new mapvglThree.FlyLineLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     }

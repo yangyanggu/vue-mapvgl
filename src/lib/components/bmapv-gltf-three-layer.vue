@@ -1,29 +1,31 @@
 <script>
 import registerMixin from '../mixins/register-component';
-const mapvgl = require('mapvgl');
+import GltfThreeLayer from '../ext/GltfThreeLayer';
 
 export default {
-  name: 'el-bmapv-gltf-layer',
+  name: 'el-bmapv-gltf-three-layer',
   mixins: [registerMixin],
   props: [
     'url',
+    'autoScale',
     'scale',
-    'unit',
+    'rotate',
+    'translate',
+    'up',
+    'move',
+    'animation',
+    'light',
     'data',
-    'enablePicked',
-    'onClick'
+    'events'
   ],
   data() {
     return {
-      propsRedirect: {
-      },
       converters: {
       },
       handlers: {
         data(value) {
-          this.setData(value, {
-            autoRender: true
-          });
+          console.log(value);
+          this.move(value);
         }
       }
     };
@@ -32,14 +34,8 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      this.$bmapComponent = new mapvgl.GltfLayer(options);
-      console.log(this.$bmapComponent);
-      this.$view.addLayer(this.$bmapComponent);
-      if (options.data && options.data.length > 0) {
-        this.$bmapComponent.setData(options.data, {
-          autoRender: true
-        });
-      }
+      let threeLayer = new GltfThreeLayer(options);
+      this.$bmapComponent = threeLayer;
     }
   },
   destroyed() {

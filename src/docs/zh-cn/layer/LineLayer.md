@@ -112,6 +112,7 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 
 名称 | 类型 | 说明
 ---|---|---|
+visible | Boolean | 图层显隐，true显示，false隐藏，默认显示
 dashOffset | number | 虚线偏移量，单位像素，可以通过实时改变该值来实现动画
 data | Array  | 点数据,GeoJSON格式
                          

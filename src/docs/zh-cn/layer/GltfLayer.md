@@ -11,7 +11,13 @@ Gltf图层,该图层API百度尚未提供，因此暂时只能提供scale跟url�
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-gltf-layer :scale="200" url="./assets/gltf/car2.gltf" :data="data"></el-bmapv-gltf-layer>
+            <el-bmapv-gltf-layer :scale="15" unit="px" url="./assets/gltf/car2.gltf" :data="data" :enable-picked="true" :on-click="clickGltf"></el-bmapv-gltf-layer>
+            <el-bmapv-icon-layer icon="./assets/images/layer/position1.png" :width="20" :height="20" :data="[{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5383285, 31.21515044],
+              }
+          }]" :enable-picked="true" :on-click="(e)=>{console.log('icon: ',e)}"></el-bmapv-icon-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -45,6 +51,9 @@ Gltf图层,该图层API百度尚未提供，因此暂时只能提供scale跟url�
       mounted(){
       },
       methods: {
+        clickGltf(e){
+          console.log(e);
+        }
       }
     };
   </script>

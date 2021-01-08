@@ -10,6 +10,7 @@ export default {
     'fontFamily',
     'color',
     'fontSize',
+    'fontWeight',
     'isFlat',
     'collides',
     'offset',
@@ -21,6 +22,9 @@ export default {
   data() {
     return {
       converters: {
+        offset(value) {
+          return value;
+        }
       },
       handlers: {
         data(value) {
@@ -34,7 +38,7 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      console.log(options);
+      console.log('text layer options: ', options);
       this.$bmapComponent = new mapvgl.TextLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     },

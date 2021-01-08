@@ -2,7 +2,7 @@
 
 ---
 
-本节将介绍如何在项目中使用 vue-bmap。
+本节将介绍如何在项目中使用 vue-mapvgl。
 
 
 ## 1 - 项目结构
@@ -37,7 +37,7 @@ index.html
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>vue-bmap-starter</title>
+    <title>vue-mapvgl-starter</title>
   </head>
   <body>
     <div id="app"></div>
@@ -55,7 +55,8 @@ package.json
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "vue-bmap-gl": "^0.0.1",
+    "vue-bmap-gl": "^0.0.8",
+    "vue-mapvgl": "^0.0.8",
     "vue": "^2.6.11"
   },
   "devDependencies": {
@@ -135,9 +136,12 @@ main.js
 ```javascript
 import Vue from 'vue';
 import VueBMap from 'vue-bmap-gl';
+import 'vue-bmap-gl/dist/style.css'
+import VueMapvgl  from 'vue-mapvgl';
 import App from './App.vue';
 
 Vue.use(VueBMap);
+Vue.use(VueMapvgl);
 VueBMap.initBMapApiLoader({
   ak: 'your bmap key',
   // 默认百度 sdk 版本为 1.0
@@ -156,7 +160,11 @@ App.vue
   <div id="app">
     <h3 class="title">{{ msg }}</h3>
     <div class="bmap-wrapper">
-      <el-bmap class="bmap-box" :vid="'bmap-vue'"></el-bmap>
+      <el-bmap class="bmap-box" :zoom="zoom" :center="center" :vid="'bmap-vue'">
+        <el-bmapv-view>
+            <el-bmapv-gltf-layer :scale="200" url="./assets/gltf/car2.gltf" :data="data"></el-bmapv-gltf-layer>
+        </el-bmapv-view>
+      </el-bmap>
     </div>
   </div>
 </template>
@@ -165,7 +173,16 @@ App.vue
 export default {
   data () {
     return {
-      msg: 'vue-bmap向你问好！'
+      msg: 'vue-bmap向你问好！',
+      zoom: 14,
+      center: [121.5273285, 31.21515044],
+      data: [{
+        geometry: {
+            type: 'Point',
+            coordinates: [121.5273285, 31.21515044],
+        },
+        angle: 0
+      }]
     }
   }
 }
