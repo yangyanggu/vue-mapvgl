@@ -165,7 +165,6 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
 
 GltfThreeLayer.prototype.createLight = function() {
   let lightArray = this.options.light;
-  console.log(lightArray);
   let defaultLightOptions = {
     type: 'DirectionalLight', // 灯光类型， 可选值见下面的字典
     args: [], // 灯光初始化时需要的参数，具体参数顺序可以查看threejs官网灯光的说明。 采用 ...args 的方式进行初始化
