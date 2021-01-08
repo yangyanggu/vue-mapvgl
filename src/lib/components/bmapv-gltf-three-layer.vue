@@ -24,7 +24,6 @@ export default {
       },
       handlers: {
         data(value) {
-          console.log(value);
           this.move(value);
         }
       }

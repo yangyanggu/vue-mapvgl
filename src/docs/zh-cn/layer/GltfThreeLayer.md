@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-gltf-three-layer :auto-scale="true" :scale="5" :light="light" :move="moveOption" url="./assets/gltf/car2.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+            <el-bmapv-gltf-three-layer :auto-scale="true" :scale="15" :light="light" :move="moveOption" url="./assets/gltf/car2.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
         </el-bmapv-view>
       </el-bmap>
       <div>
@@ -45,10 +45,9 @@
                   type: 'Point',
                   coordinates: [121.5273285, 31.21515044],
               },
-              angle: 0
+              angle: 90
           },
-          light: {
-            show: true,
+          light: [{
             type: 'DirectionalLight',
             args: ['#fff', 2],
             position: {
@@ -56,7 +55,7 @@
               y: 1000,
               z: 1000
             }
-          }
+          }]
         };
       },
       mounted(){
@@ -98,6 +97,7 @@ translate | {x: 0, y: 0, z: 0} | 平移Object，默认都为0，不进行平移
 up | {x: 0, y: 1, z: 0} | 这个属性由lookAt方法所使用，例如，来决定结果的朝向, 默认为{x: 0, y: 1, z: 0}
 move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑移动，默认不进行平滑移动，duration代表动画时长，该属性常用于控制车辆移动
 animation | Object | 模型动画效果，具体属性见下面
+light | Array | 灯光配置，可以配置多个灯光，详细参数见下面灯光说明
 events | Object | 绑定事件
 
 
@@ -115,6 +115,33 @@ events | Object | 绑定事件
     delay: 0 //延迟多久执行动画
   }
 }
+```
+
+### 灯光配置
+```html
+{
+  type: 'DirectionalLight', //灯光类型， 可选值见下面的字典
+  args: [], //灯光初始化时需要的参数，具体参数顺序可以查看threejs官网灯光的说明。 采用 ...args 的方式进行初始化
+  position: {
+    x: 0,
+    y: 0,
+    z: 0
+  }, //光源的位置
+  lookAt: {
+    x: 0,
+    y: 0,
+    z: 0
+  } //光源查看的目标点
+}
+
+const lightTypes = {
+  DirectionalLight: THREE.DirectionalLight, // 环境光  环境光会均匀的照亮场景中的所有物体
+  AmbientLight: THREE.AmbientLight, // 平行光  平行光是沿着特定方向发射的光
+  HemisphereLight: THREE.HemisphereLight, // 半球光  光源直接放置于场景之上，光照颜色从天空光线颜色渐变到地面光线颜色。
+  PointLight: THREE.PointLight, // 点光源  从一个点向各个方向发射的光源。一个常见的例子是模拟一个灯泡发出的光
+  RectAreaLight: THREE.RectAreaLight, // 平面光光源  平面光光源从一个矩形平面上均匀地发射光线。这种光源可以用来模拟像明亮的窗户或者条状灯光光源
+  SpotLight: THREE.SpotLight // 聚光灯  光线从一个点沿一个方向射出，随着光线照射的变远，光线圆锥体的尺寸也逐渐增大
+};
 ```
 
 

@@ -20,6 +20,26 @@ function GltfThreeLayer(options) {
   this.init();
 }
 
+/**
+ *
+ * 灯光配置：
+ * {
+      type: 'DirectionalLight',
+      args: [],
+      position: {
+        x: 0,
+        y: 0,
+        z: 0
+      },
+      lookAt: {
+        x: 0,
+        y: 0,
+        z: 0
+      }
+    }
+ *
+ * @returns {{rotate: {x: number, y: number, z: number}, move: {duration: number, smooth: boolean}, light: [], scale: number, up: {x: number, y: number, z: number}, translate: {x: number, y: number, z: number}, autoScale: boolean, animation: {options: {duration: number, delay: number, offset: {x: number, y: number, z: number}}, type: string}}}
+ */
 GltfThreeLayer.prototype.getDefaultOptions = function() {
   return {
     autoScale: true,
@@ -43,21 +63,7 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
       y: 1,
       z: 0
     },
-    light: {
-      show: false,
-      type: 'DirectionalLight',
-      args: [],
-      position: {
-        x: 0,
-        y: 0,
-        z: 0
-      },
-      lookAt: {
-        x: 0,
-        y: 0,
-        z: 0
-      }
-    },
+    light: [],
     animation: {
       type: 'none', // 动画类型，目前支持liner(往返直线运动) ,默认为none
       options: {
@@ -158,18 +164,36 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
 };
 
 GltfThreeLayer.prototype.createLight = function() {
-  let lightOptions = this.options.light;
-  if (lightOptions.show) {
-    if (lightTypes[lightOptions.type]) {
-      let light = new lightTypes[lightOptions.type](...lightOptions.args);
-      let position = lightOptions.position;
-      let lookAt = lightOptions.lookAt;
-      light.position.set(position.x, position.y, position.z);
-      light.lookAt(lookAt.x, lookAt.y, lookAt.z);
-      this.group.add(light);
-    } else {
-      console.warn('当前设置的灯光类型不存在');
-    }
+  let lightArray = this.options.light;
+  console.log(lightArray);
+  let defaultLightOptions = {
+    type: 'DirectionalLight', // 灯光类型， 可选值见下面的字典
+    args: [], // 灯光初始化时需要的参数，具体参数顺序可以查看threejs官网灯光的说明。 采用 ...args 的方式进行初始化
+    position: {
+      x: 0,
+      y: 0,
+      z: 0
+    }, // 光源的位置
+    lookAt: {
+      x: 0,
+      y: 0,
+      z: 0
+    } // 光源查看的目标点
+  };
+  if (lightArray.length > 0) {
+    lightArray.forEach(lightOptions => {
+      lightOptions = merge({}, defaultLightOptions, lightOptions);
+      if (lightTypes[lightOptions.type]) {
+        let light = new lightTypes[lightOptions.type](...lightOptions.args);
+        let position = lightOptions.position;
+        let lookAt = lightOptions.lookAt;
+        light.position.set(position.x, position.y, position.z);
+        light.lookAt(lookAt.x, lookAt.y, lookAt.z);
+        this.group.add(light);
+      } else {
+        console.warn('当前设置的灯光类型不存在');
+      }
+    });
   }
 };
 
@@ -278,15 +302,18 @@ GltfThreeLayer.prototype.animate = function() {
 };
 
 GltfThreeLayer.prototype.move = function(newPosition) {
-  let rotateX = this.group.rotation.x;
+  if (!this.group) {
+    return;
+  }
+  let rotateZ = this.group.rotation.z;
   let angle = newPosition.angle;
-  let newRotateX = angle !== undefined ? (Math.PI / 180 * angle) : rotateX;
+  let newRotateZ = angle !== undefined ? (Math.PI / 180 * angle) : rotateZ;
   let moveOption = this.options.move;
   if (!moveOption.smooth) {
     let mercator = this.convertPosition(newPosition.geometry.coordinates);
     this.group.position.x = mercator[0];
     this.group.position.y = mercator[1];
-    this.group.rotateX(newRotateX);
+    this.group.rotation.z = newRotateZ;
     this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
     return;
   }
@@ -298,13 +325,13 @@ GltfThreeLayer.prototype.move = function(newPosition) {
   let currentPosition = {
     x: group.position.x,
     y: group.position.y,
-    rotateX: rotateX
+    rotateZ: rotateZ
   };
   let mercator = this.convertPosition(newPosition.geometry.coordinates);
   let endPosition = {
     x: mercator[0],
     y: mercator[1],
-    rotateX: newRotateX
+    rotateZ: newRotateZ
   };
   new TWEEN.Tween(currentPosition, this.moveGroup)
     .easing(TWEEN.Easing.Linear.None)
@@ -312,7 +339,7 @@ GltfThreeLayer.prototype.move = function(newPosition) {
     .onUpdate(() => {
       this.group.position.x = currentPosition.x;
       this.group.position.y = currentPosition.y;
-      this.group.rotateX(currentPosition.rotateX);
+      this.group.rotation.z = currentPosition.rotateZ;
       this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
     }).start();
   this.moveAnimate();
