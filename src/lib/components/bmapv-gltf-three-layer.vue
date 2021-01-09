@@ -15,6 +15,7 @@ export default {
     'move',
     'animation',
     'light',
+    'visible',
     'data',
     'events'
   ],
@@ -25,6 +26,13 @@ export default {
       handlers: {
         data(value) {
           this.move(value);
+        },
+        visible(flag) {
+          if (flag === false) {
+            this.hide();
+          } else {
+            this.show();
+          }
         }
       }
     };
