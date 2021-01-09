@@ -157,6 +157,7 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
   }
   this.object = object;
   this.createLight();
+  this.createAnimation();
   this.emit('onLoaded', {
     object,
     threeLayer: this.threeLayer
@@ -222,7 +223,6 @@ GltfThreeLayer.prototype.add = function(object, point) {
   }
   threeLayer.getWorld().add(group);
   threeLayer.update();
-  this.createAnimation();
 };
 
 GltfThreeLayer.prototype.createAnimation = function() {
@@ -322,6 +322,12 @@ GltfThreeLayer.prototype.move = function(newPosition) {
   if (!this.moveGroup) {
     this.moveGroup = new TWEEN.Group();
   }
+  if (this.moveRequestAnimationFrame) {
+    window.cancelAnimationFrame(this.moveRequestAnimationFrame);
+  }
+  this.moveGroup.getAll().forEach(v => {
+    v.end();
+  });
   this.moveGroup.removeAll();
   let group = this.group;
   let currentPosition = {
@@ -337,6 +343,7 @@ GltfThreeLayer.prototype.move = function(newPosition) {
   };
   new TWEEN.Tween(currentPosition, this.moveGroup)
     .easing(TWEEN.Easing.Linear.None)
+    .duration(moveOption.duration)
     .to(endPosition)
     .onUpdate(() => {
       this.group.position.x = currentPosition.x;
@@ -348,7 +355,7 @@ GltfThreeLayer.prototype.move = function(newPosition) {
 };
 
 GltfThreeLayer.prototype.moveAnimate = function() {
-  requestAnimationFrame(() => {
+  this.moveRequestAnimationFrame = requestAnimationFrame(() => {
     this.moveAnimate();
   });
   this.moveGroup.update();
