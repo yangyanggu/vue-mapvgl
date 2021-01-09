@@ -11,12 +11,13 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-gltf-three-layer :auto-scale="true" :scale="15" :light="light" :move="moveOption" url="./assets/gltf/car2.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+            <el-bmapv-gltf-three-layer :visible="visible" :auto-scale="true" :scale="15" :light="light" :move="moveOption" url="./assets/gltf/car2.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
         </el-bmapv-view>
       </el-bmap>
       <div>
         <button @click="startMove">启动移动</button>
         <button @click="stopMove">停止移动</button>
+        <button @click="switchVisible">切换显隐</button>
       </div>
     </div>
   </template>
@@ -55,12 +56,16 @@
               y: 1000,
               z: 1000
             }
-          }]
+          }],
+          visible: true
         };
       },
       mounted(){
       },
       methods: {
+        switchVisible(){
+          this.visible = !this.visible;
+        },
         clickGltf(e){
           console.log(e);
         },
@@ -150,6 +155,7 @@ const lightTypes = {
 
 名称 | 类型 | 说明
 ---|---|---|
+visible | Boolean | 控制图层显隐，默认为true 显示图层
 data | Object  | 点数据,GeoJSON格式
                          
 ### data数据结构

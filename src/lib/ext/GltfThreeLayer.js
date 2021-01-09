@@ -217,6 +217,9 @@ GltfThreeLayer.prototype.add = function(object, point) {
   group.position.y = point.lat - offset[1];
   group.position.z = object.position.z;
   this.group = group;
+  if (this.options.visible === false) {
+    group.visible = false;
+  }
   threeLayer.getWorld().add(group);
   threeLayer.update();
   this.createAnimation();
@@ -313,7 +316,7 @@ GltfThreeLayer.prototype.move = function(newPosition) {
     this.group.position.x = mercator[0];
     this.group.position.y = mercator[1];
     this.group.rotation.z = newRotateZ;
-    this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
+    this.refreshRender();
     return;
   }
   if (!this.moveGroup) {
@@ -339,7 +342,7 @@ GltfThreeLayer.prototype.move = function(newPosition) {
       this.group.position.x = currentPosition.x;
       this.group.position.y = currentPosition.y;
       this.group.rotation.z = currentPosition.rotateZ;
-      this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
+      this.refreshRender();
     }).start();
   this.moveAnimate();
 };
@@ -349,6 +352,20 @@ GltfThreeLayer.prototype.moveAnimate = function() {
     this.moveAnimate();
   });
   this.moveGroup.update();
+};
+
+GltfThreeLayer.prototype.show = function() {
+  this.group.visible = true;
+  this.threeLayer.update();
+};
+
+GltfThreeLayer.prototype.hide = function() {
+  this.group.visible = false;
+  this.threeLayer.update();
+};
+
+GltfThreeLayer.prototype.refreshRender = function() {
+  this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
 };
 
 GltfThreeLayer.prototype.on = function(eventName, handler, isOnce = false) {
