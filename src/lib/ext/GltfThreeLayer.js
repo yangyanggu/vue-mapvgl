@@ -3,11 +3,12 @@ import {merge} from 'lodash';
 const THREE = mapvglThree.THREE;
 const eventsList = ['onLoaded', 'onClick'];
 import TWEEN from '@tweenjs/tween.js';
-import {GLTFLoader} from '../utils/GLTFLoader';
+import {GLTFLoader} from '../three-loader/GLTFLoader';
+import {addEnvMap} from '../utils/threeUtil';
 
 const lightTypes = {
-  DirectionalLight: THREE.DirectionalLight, // 环境光  环境光会均匀的照亮场景中的所有物体
-  AmbientLight: THREE.AmbientLight, // 平行光  平行光是沿着特定方向发射的光
+  AmbientLight: THREE.AmbientLight, // 环境光  环境光会均匀的照亮场景中的所有物体
+  DirectionalLight: THREE.DirectionalLight, // 平行光  平行光是沿着特定方向发射的光
   HemisphereLight: THREE.HemisphereLight, // 半球光  光源直接放置于场景之上，光照颜色从天空光线颜色渐变到地面光线颜色。
   PointLight: THREE.PointLight, // 点光源  从一个点向各个方向发射的光源。一个常见的例子是模拟一个灯泡发出的光
   RectAreaLight: THREE.RectAreaLight, // 平面光光源  平面光光源从一个矩形平面上均匀地发射光线。这种光源可以用来模拟像明亮的窗户或者条状灯光光源
@@ -66,6 +67,7 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
     light: [],
     animation: {
       type: 'none', // 动画类型，目前支持liner(往返直线运动) ,默认为none
+      unit: 'px', // 移动单位，默认按像素移动，不同比例尺下移动距离基本一致
       options: {
         offset: {
           x: 0,
@@ -94,17 +96,15 @@ GltfThreeLayer.prototype.init = function() {
  * @returns {ThreeLayer}
  */
 GltfThreeLayer.prototype.initLayer = function() {
-  let $view = this.options.view;
-  let threeLayer = new mapvglThree.ThreeLayer();
-  $view.addLayer(threeLayer);
-  this.threeLayer = threeLayer;
+  this.threeLayer = this.options.view;
+  this.options.view = this.threeLayer.$view;
 };
 
 GltfThreeLayer.prototype.loadModel = function() {
   let url = this.options.url;
   let tempUrl = url.split('?')[0];
   let suffix = tempUrl.substring((tempUrl.lastIndexOf('.') + 1), tempUrl.length);
-  if (suffix === 'gltf') {
+  if (suffix === 'gltf' || suffix === 'glb') {
     this.loadGltf(url);
   } else if (suffix === 'json') {
     this.loadObject(url);
@@ -156,12 +156,18 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
     this.group = worldChildren[worldChildren.length - 1];
   }
   this.object = object;
+  addEnvMap(object, this.threeLayer);
   this.createLight();
   this.createAnimation();
   this.emit('onLoaded', {
     object,
     threeLayer: this.threeLayer
   });
+};
+
+GltfThreeLayer.prototype.remove = function() {
+  this.threeLayer.getWorld().remove(this.group);
+  this.threeLayer.update();
 };
 
 GltfThreeLayer.prototype.createLight = function() {
@@ -207,6 +213,7 @@ GltfThreeLayer.prototype.convertPosition = function(coordinates) {
  * @param point   添加的位置，对象： BMapGL.Point
  */
 GltfThreeLayer.prototype.add = function(object, point) {
+  this.threeLayer.scene.add(object);
   let threeLayer = this.threeLayer;
   let group = new THREE.Group();
   group.isGeoGroup = true;
@@ -266,13 +273,17 @@ GltfThreeLayer.prototype.createLinerAnimation = function() {
   };
   const _this = this;
   function changeGroup() {
-    group.translateX(currentPosition.x - prePosition.x);
-    group.translateY(currentPosition.y - prePosition.y);
-    group.translateZ(currentPosition.z - prePosition.z);
+    let zoomUnit = _this.options.view.webglLayer.map.getZoomUnits();
+    if (_this.options.animation.unit !== 'px') {
+      zoomUnit = 1;
+    }
+    group.translateX((currentPosition.x - prePosition.x) * zoomUnit);
+    group.translateY((currentPosition.y - prePosition.y) * zoomUnit);
+    group.translateZ((currentPosition.z - prePosition.z) * zoomUnit);
     prePosition.x = currentPosition.x;
     prePosition.y = currentPosition.y;
     prePosition.z = currentPosition.z;
-    _this.threeLayer.renderer.render(_this.threeLayer.scene, _this.threeLayer.camera);
+    _this.refreshRender();
   }
   let animationGroup = this.animationGroup;
   let tweenA = new TWEEN.Tween(currentPosition, animationGroup)
@@ -372,7 +383,10 @@ GltfThreeLayer.prototype.hide = function() {
 };
 
 GltfThreeLayer.prototype.refreshRender = function() {
-  this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
+  // this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
+  if (this.group.visible) {
+    this.threeLayer.update();
+  }
 };
 
 GltfThreeLayer.prototype.on = function(eventName, handler, isOnce = false) {

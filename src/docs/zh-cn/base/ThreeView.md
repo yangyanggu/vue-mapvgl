@@ -1,4 +1,4 @@
-# GltfThree图层
+# Three加载模型使用的view图层
 使用ThreeJS加载模型，目前支持加载gltf文件、glb文件和threejs导出的json文件，当前使用文件后缀进行判断需要使用哪种加载方式。
 新增加el-bmapv-three-view，该view存在于el-bmapv-view之下，用于给所有模型提供统一的渲染，比如灯光、后期处理灯等
 
@@ -101,32 +101,16 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-autoScale | Boolean | 是否自动缩放，设置为true时模型跟着地图层级进行变化，设置为false时模型不随地图变化
-scale | Number | 缩放比例，默认1 
-url | String | 模型的下载地址
-rotate | {x: 0, y: 0, z: 0} | 旋转弧度，默认X Y Z都为0
-translate | {x: 0, y: 0, z: 0} | 平移Object，默认都为0，不进行平移
-up | {x: 0, y: 1, z: 0} | 这个属性由lookAt方法所使用，例如，来决定结果的朝向, 默认为{x: 0, y: 1, z: 0}
-move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑移动，默认不进行平滑移动，duration代表动画时长，该属性常用于控制车辆移动
-animation | Object | 模型动画效果，具体属性见下面
-light | Array | 灯光配置，可以配置多个灯光，详细参数见下面灯光说明
+lights | Array | 图层的全局灯光配置，可以配置多个灯光，详细参数见下面灯光说明
+hdr | Object | HDR配置
 events | Object | 绑定事件
 
-
-### animation配置
+### HDR配置
 ```html
 {
-  type: 'none', // 动画类型，目前支持liner(往返直线运动) ,默认为none
-  unit: 'px', // 移动单位，默认按像素移动，不同比例尺下移动距离基本一致。可选值 px 或  m
-  options: {
-    offset: {
-      x: 0,
-      y: 0,
-      z: 20
-    },// 偏移当前位置多少
-    duration: 2000, //动画持续时间，针对于liner持续时间指的是单独向上移动和向下移动
-    delay: 0 //延迟多久执行动画
-  }
+  urls: ['px.hdr', 'nx.hdr', 'py.hdr', 'ny.hdr', 'pz.hdr', 'nz.hdr'], // HDR贴图下载地址，需要6个文件，代表6个方向， 默认 ''
+  path: '/', // HDR下载地址的路径前缀, 默认 /
+  exposure: 1.0 // 光亮程度, 默认1 ，值越小越暗
 }
 ```
 
@@ -157,34 +141,13 @@ const lightTypes = {
 };
 ```
 
-
-## 动态属性
-支持响应式。
-
-名称 | 类型 | 说明
----|---|---|
-visible | Boolean | 控制图层显隐，默认为true 显示图层
-data | Object  | 点数据,GeoJSON格式
-                         
-### data数据结构
-```
-{
-    geometry: {
-     type: 'Point',
-     coordinates: [116.392394, 39.910683]
-    },
-    angle: 0
-}
-```
-
 ## ref可用方法
 提供无副作用的同步帮助方法
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
+$$getInstance() | ThreeLayer | 获取`ThreeLayer`实例
 
 ## 事件列表（需要在events中配置）
-目前提供了模型加载完成的事件
 事件名称 | 回调值 | 说明
-onLoaded | {object: object,threeLayer: threeLayer} | 该事件会在模型加载完成后触发，回调中的object为模型的Object3D对象，threeLayer为three图层对象
+init | ThreeLayer | threeLayer为three图层对象(使用百度的ThreeLayer对象)

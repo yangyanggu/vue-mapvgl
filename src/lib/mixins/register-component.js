@@ -11,7 +11,7 @@ export default {
       unwatchFns: [],
       handlers: {
         visible(flag) {
-          if (self.$options.name && self.$options.name.endsWith('layer')) {
+          if (self.$options.name && self.$options.name.endsWith('layer') && self.$view && self.$view.showLayer) {
             if (flag) {
               self.$view.showLayer(self.$bmapComponent);
             } else {

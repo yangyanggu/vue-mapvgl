@@ -41,13 +41,13 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      let threeLayer = new GltfThreeLayer(options);
-      this.$bmapComponent = threeLayer;
+      this.$view = options.view.$view;
+      this.$bmapComponent = new GltfThreeLayer(options);
     }
   },
   destroyed() {
-    if (this.$bmapComponent && this.$view) {
-      this.$view.removeLayer(this.$bmapComponent);
+    if (this.$bmapComponent) {
+      this.$bmapComponent.remove();
     }
   },
   render() {
