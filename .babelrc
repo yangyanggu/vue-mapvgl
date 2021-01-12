@@ -4,5 +4,6 @@
     "loose": true
   }]],
   "plugins": ["transform-object-rest-spread"],
-  "comments": false
+  "comments": false,
+  "compact": false
 }

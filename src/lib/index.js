@@ -29,6 +29,7 @@ import BMapvClusterLayer from './components/bmapv-cluster-layer';
 import BMapvHoneycombLayer from './components/bmapv-honeycomb-layer';
 import BMapvGltfLayer from './components/bmapv-gltf-layer';
 import BMapvGltfThreeLayer from './components/bmapv-gltf-three-layer';
+import BMapvThreeView from './components/bmapv-three-view';
 
 const mapvgl = require('mapvgl');
 
@@ -75,7 +76,8 @@ let components = [
   BMapvClusterLayer,
   BMapvHoneycombLayer,
   BMapvGltfLayer,
-  BMapvGltfThreeLayer
+  BMapvGltfThreeLayer,
+  BMapvThreeView
 ];
 
 const install = function(Vue) {

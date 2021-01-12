@@ -1,3 +1,8 @@
+###v0.0.13
+  * 破坏性修改，修改GltfThreeLayer的方式，增加el-bmapv-three-view用于全局控制模型
+  * 增加el-bmapv-three-view，增加全局灯光管理以及HDR功能
+  * GltfThreeLayer animation参数增加unit，可以使模型按照像素或按m上下移动
+
 ###v0.0.12
   * 修复模型不自动缩放情况下没有动画问题
   * 修复模型平滑移动时页面卡顿问题

@@ -5,6 +5,7 @@
  - [快速上手](zh-cn/introduction/quick-start.md)
 - 基础
  - [视图容器](zh-cn/base/view.md)
+ - [ThreeJS视图容器](zh-cn/base/ThreeView.md)
 
 - 图层
  - [基础点图层 PointLayer](zh-cn/layer/PointLayer.md)
