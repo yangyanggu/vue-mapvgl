@@ -101,7 +101,6 @@ export default {
 
     setPropWatchers() {
       const { propsRedirect, $options: { propsData = {} } } = this;
-
       Object.keys(propsData).forEach(prop => {
         let handleProp = prop;
         if (propsRedirect && propsRedirect[prop]) handleProp = propsRedirect[prop];
@@ -111,8 +110,8 @@ export default {
         // watch props
         const unwatch = this.$watch(prop, nv => {
           if (prop === 'events') {
-            this.unregisterEvents();
-            this.registerEvents();
+            // this.unregisterEvents();
+            // this.registerEvents();
             return;
           }
           if (handleFun && handleFun === this.$bmapComponent.setOptions) {
@@ -158,8 +157,8 @@ export default {
       let props = this.convertProps();
       const res = this.__initComponent && this.__initComponent(props);
       this.registerRest(res);
-      if (props.visible === false) {
-        this.$view.hideLayer(this.$bmapComponent);
+      if (props.visible === false && this.handlers.visible) {
+        this.handlers.visible.call(this.$bmapComponent, false);
       }
     },
 

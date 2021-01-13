@@ -17,6 +17,7 @@ export default {
     'light',
     'visible',
     'data',
+    'userData',
     'events'
   ],
   data() {
@@ -33,6 +34,9 @@ export default {
           } else {
             this.show();
           }
+        },
+        userData(value) {
+          this.setUserData(value);
         }
       }
     };
@@ -41,7 +45,6 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      this.$view = options.view.$view;
       this.$bmapComponent = new GltfThreeLayer(options);
     }
   },
