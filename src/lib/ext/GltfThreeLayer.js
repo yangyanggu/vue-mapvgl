@@ -1,7 +1,7 @@
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
 import {merge} from 'lodash';
 const THREE = mapvglThree.THREE;
-const eventsList = ['onLoaded', 'onClick'];
+const eventsList = ['loaded', 'click'];
 import TWEEN from '@tweenjs/tween.js';
 import {GLTFLoader} from '../three-loader/GLTFLoader';
 import {addEnvMap} from '../utils/threeUtil';
@@ -77,7 +77,8 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
         duration: 2000,
         delay: 0
       }
-    }
+    },
+    userData: null
   };
 };
 
@@ -115,7 +116,7 @@ GltfThreeLayer.prototype.loadGltf = function(url) {
   let loader = new GLTFLoader(); // 读取模型
   loader.load(url, (gltf) => {
     let object = gltf.scene;
-    this.addObject3D(object);
+    this.addObject3D(object, gltf.animations);
   });
 };
 
@@ -129,7 +130,7 @@ GltfThreeLayer.prototype.loadObject = function(url) {
   });
 };
 
-GltfThreeLayer.prototype.addObject3D = function(object) {
+GltfThreeLayer.prototype.addObject3D = function(object, animations) {
   let options = this.options;
   let data = options.data;
   let coordinates = data.geometry.coordinates;
@@ -139,8 +140,7 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
   let rotate = options.rotate;
   let translate = options.translate;
   let up = options.up;
-  let rotateX = angle !== undefined ? (Math.PI / 180 * angle) : rotate.x;
-  object.rotation.set(rotateX, rotate.y, rotate.z);
+  let rotateZ = angle !== undefined ? (Math.PI / 180 * angle) : rotate.z;
   object.scale.set(scale, scale, scale);
   object.translateX(translate.x);
   object.translateY(translate.y);
@@ -155,14 +155,50 @@ GltfThreeLayer.prototype.addObject3D = function(object) {
     let worldChildren = this.threeLayer.getWorld().children;
     this.group = worldChildren[worldChildren.length - 1];
   }
+  if (animations) {
+    let mixer = new THREE.AnimationMixer(object);
+    let actions = {};
+
+    for (let i = 0; i < animations.length; i++) {
+      const clip = animations[ i ];
+      actions[ clip.name ] = mixer.clipAction(clip);
+    }
+    object.customAnimations = {
+      actions,
+      mixer
+    };
+  }
+  if (options.userData) {
+    this.group.userData = options.userData;
+  }
+  this.group.isCustomGroup = true;
+  this.group.events = {};
   this.object = object;
+  this.group.rotation.set(rotate.x, rotate.y, rotateZ);
+  this.threeLayer.update();
+  if (options.visible === false) {
+    this.hide();
+  }
   addEnvMap(object, this.threeLayer);
   this.createLight();
   this.createAnimation();
-  this.emit('onLoaded', {
+  this.addEvents();
+  this.emit('loaded', {
     object,
+    group: this.group,
     threeLayer: this.threeLayer
   });
+};
+
+GltfThreeLayer.prototype.addEvents = function() {
+  let events = this.options.events;
+  if (events) {
+    if (events.click) {
+      this.group.events.click = () => {
+        this.emit('click', this.group);
+      };
+    }
+  }
 };
 
 GltfThreeLayer.prototype.remove = function() {
@@ -243,6 +279,8 @@ GltfThreeLayer.prototype.createAnimation = function() {
   this.animationGroup.removeAll();
   if (animation.type === 'liner') {
     this.createLinerAnimation();
+  } else if (animation.type === 'self') {
+    this.createSelfAnimation();
   }
 };
 
@@ -304,14 +342,30 @@ GltfThreeLayer.prototype.createLinerAnimation = function() {
   tweenA.chain(tweenB);
   tweenB.chain(tweenA);
   tweenA.start();
-  this.animate();
+  this.animate(() => {
+    this.animationGroup.update();
+  });
 };
 
-GltfThreeLayer.prototype.animate = function() {
+GltfThreeLayer.prototype.animate = function(callback) {
   requestAnimationFrame(() => {
-    this.animate();
+    this.animate(callback);
   });
-  this.animationGroup.update();
+  callback();
+};
+
+GltfThreeLayer.prototype.createSelfAnimation = function() {
+  let animations = this.object.customAnimations;
+  animations.clock = new THREE.Clock();
+  for (let name in animations.actions) {
+    animations.actions[name].play();
+  }
+  this.animate(() => {
+    const dt = animations.clock.getDelta();
+    let mixer = animations.mixer;
+    if (mixer) mixer.update(dt);
+    this.threeLayer.update();
+  });
 };
 
 GltfThreeLayer.prototype.move = function(newPosition) {
@@ -373,13 +427,18 @@ GltfThreeLayer.prototype.moveAnimate = function() {
 };
 
 GltfThreeLayer.prototype.show = function() {
-  this.group.visible = true;
-  this.threeLayer.update();
+  if (this.group) {
+    this.group.visible = true;
+    this.threeLayer.update();
+  }
+
 };
 
 GltfThreeLayer.prototype.hide = function() {
-  this.group.visible = false;
-  this.threeLayer.update();
+  if (this.group) {
+    this.group.visible = false;
+    this.threeLayer.update();
+  }
 };
 
 GltfThreeLayer.prototype.refreshRender = function() {
@@ -437,6 +496,10 @@ GltfThreeLayer.prototype.emit = function(eventName, obj) {
       }
     }
   }
+};
+
+GltfThreeLayer.prototype.setUserData = function(data) {
+  this.group.userData = data;
 };
 
 export default GltfThreeLayer;

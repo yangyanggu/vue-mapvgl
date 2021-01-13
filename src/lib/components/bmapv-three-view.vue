@@ -5,6 +5,7 @@
 import registerMixin from '../mixins/register-component';
 import CONST from '../utils/constant';
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
+const THREE = mapvglThree.THREE;
 import {createLight, createHDR} from '../utils/threeUtil';
 
 export default {
@@ -61,7 +62,32 @@ export default {
       this.$children.forEach(component => {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
       });
+      this.bindClick();
 
+    },
+    bindClick() {
+      const raycaster = new THREE.Raycaster();
+      const mouse = new THREE.Vector2();
+      this.$view.webglLayer.map.map.addEventListener('click', (e) => {
+        let client = e.srcElement;
+        mouse.x = (e.x / client.clientWidth) * 2 - 1;
+        mouse.y = -(e.y / client.clientHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, this.$bmapComponent.getCamera());
+        const intersects = raycaster.intersectObjects(this.$bmapComponent.getWorld().children, true);
+        if (intersects.length > 0) {
+          let object = intersects[0];
+          let group = this.getGroup(object.object);
+          if (group.events && group.events.click) {
+            group.events.click();
+          }
+        }
+      });
+    },
+    getGroup(object) {
+      if (object.isCustomGroup) {
+        return object;
+      }
+      return this.getGroup(object.parent);
     }
   },
   destroyed() {

@@ -16,7 +16,7 @@
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions">
-              <el-bmapv-gltf-three-layer :visible="visible" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{onLoaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+              <el-bmapv-gltf-three-layer :visible="visible" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{loaded: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
         </el-bmapv-view>
       </el-bmap>

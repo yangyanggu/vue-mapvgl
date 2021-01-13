@@ -15,6 +15,7 @@ class EventHelper {
   addListener(instance, eventName, handler) {
     if (!BMapGL) throw new Error('please wait for Map API load');
     // let listener = BMapGL.event.addListener(instance, eventName, handler, context);
+    if (!instance.on) return;
     instance.on(eventName, handler);
     if (!this._listener.get(instance)) this._listener.set(instance, {});
     let listenerMap = this._listener.get(instance);
@@ -26,6 +27,7 @@ class EventHelper {
   removeListener(instance, eventName, handler) {
     if (!BMapGL) throw new Error('please wait for Map API load');
     if (!this._listener.get(instance) || !this._listener.get(instance)[eventName]) return;
+    if (!instance.off) return;
     let listenerArr = this._listener.get(instance)[eventName];
     if (handler) {
       let l_index = listenerArr.indexOf(handler);

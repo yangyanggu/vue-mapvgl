@@ -1,3 +1,9 @@
+###v0.0.14
+  * 修复GltfThreeLayer初始时angle失效问题
+  * GltfThreeLayer的animation的type类型增加一种self，如果类型设置为self那么将调用gltf中配置的所有animation
+  * GltfThreeLayer增加click事件，返回group对象
+  * 破坏性修改，修改GltfThreeLayer事件名称
+
 ###v0.0.13
   * 破坏性修改，修改GltfThreeLayer的方式，增加el-bmapv-three-view用于全局控制模型
   * 增加el-bmapv-three-view，增加全局灯光管理以及HDR功能
