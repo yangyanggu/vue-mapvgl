@@ -175,7 +175,6 @@ GltfThreeLayer.prototype.addObject3D = function(object, animations) {
   this.group.events = {};
   this.object = object;
   this.group.rotation.set(rotate.x, rotate.y, rotateZ);
-  this.threeLayer.update();
   if (options.visible === false) {
     this.hide();
   }
@@ -203,7 +202,6 @@ GltfThreeLayer.prototype.addEvents = function() {
 
 GltfThreeLayer.prototype.remove = function() {
   this.threeLayer.getWorld().remove(this.group);
-  this.threeLayer.update();
 };
 
 GltfThreeLayer.prototype.createLight = function() {
@@ -265,7 +263,6 @@ GltfThreeLayer.prototype.add = function(object, point) {
     group.visible = false;
   }
   threeLayer.getWorld().add(group);
-  threeLayer.update();
 };
 
 GltfThreeLayer.prototype.createAnimation = function() {
@@ -364,7 +361,6 @@ GltfThreeLayer.prototype.createSelfAnimation = function() {
     const dt = animations.clock.getDelta();
     let mixer = animations.mixer;
     if (mixer) mixer.update(dt);
-    this.threeLayer.update();
   });
 };
 
@@ -429,7 +425,6 @@ GltfThreeLayer.prototype.moveAnimate = function() {
 GltfThreeLayer.prototype.show = function() {
   if (this.group) {
     this.group.visible = true;
-    this.threeLayer.update();
   }
 
 };
@@ -437,14 +432,12 @@ GltfThreeLayer.prototype.show = function() {
 GltfThreeLayer.prototype.hide = function() {
   if (this.group) {
     this.group.visible = false;
-    this.threeLayer.update();
   }
 };
 
 GltfThreeLayer.prototype.refreshRender = function() {
   // this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
   if (this.group.visible) {
-    this.threeLayer.update();
   }
 };
 

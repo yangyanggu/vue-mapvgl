@@ -63,7 +63,11 @@ export default {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
       });
       this.bindClick();
-
+      this.requestFrame();
+    },
+    requestFrame() {
+      requestAnimationFrame(this.requestFrame);
+      this.$bmapComponent.update();
     },
     bindClick() {
       const raycaster = new THREE.Raycaster();
