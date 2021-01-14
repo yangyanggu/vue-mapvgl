@@ -115,5 +115,4 @@ export function addEnvMap(object, threeLayer) {
       addEnvMap(o, threeLayer);
     });
   }
-  threeLayer.update();
 }

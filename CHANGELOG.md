@@ -1,3 +1,6 @@
+###v0.0.15
+  * 修复GltfThreeLayer加载数量过多时浏览器卡顿问题
+
 ###v0.0.14
   * 修复GltfThreeLayer初始时angle失效问题
   * GltfThreeLayer的animation的type类型增加一种self，如果类型设置为self那么将调用gltf中配置的所有animation
