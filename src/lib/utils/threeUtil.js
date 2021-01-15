@@ -97,6 +97,7 @@ export function createHDR(options, threeLayer) {
       hdrCubeMap.needsUpdate = true;
       threeLayer.envMap = hdrCubeRenderTarget ? hdrCubeRenderTarget.texture : null;
       addEnvMap(threeLayer.getWorld(), threeLayer);
+      threeLayer.needsUpdate = true;
     });
 }
 

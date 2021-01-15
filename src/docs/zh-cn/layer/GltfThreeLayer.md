@@ -16,8 +16,8 @@
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{loaded: (e) => {},click: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
-              <el-bmapv-gltf-three-layer :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="animationData"></el-bmapv-gltf-three-layer>
+              <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+              <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
         </el-bmapv-view>
       </el-bmap>
@@ -58,13 +58,7 @@
               },
               angle: 0
           },
-          animationData: {
-              geometry: {
-                  type: 'Point',
-                  coordinates: [121.5253285, 31.21515044],
-              },
-              angle: 0
-          },
+          animationData: [],
           light: [{
             type: 'AmbientLight',
             args: ['#8bffed', 0.6]
@@ -79,13 +73,32 @@
         };
       },
       mounted(){
+        this.createData();
       },
       methods: {
+        createData(){
+          this.animationData = [{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5253285, 31.21515044],
+              },
+              angle: 0
+          },{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5233285, 31.21515044],
+              },
+              angle: 0
+          }];
+        },
         switchVisible(){
           this.visible = !this.visible;
         },
         clickGltf(e){
           console.log(e);
+        },
+        initGltf(e){
+          console.log('uuid: ', e.group.uuid);
         },
         startMove(){
           this.timer = setTimeout(() => {
