@@ -58,6 +58,7 @@ export default {
       if (options.hdr) {
         createHDR(options.hdr, threeLayer);
       }
+      threeLayer.needsUpdate = true;
       if (this.events && this.events.init) this.events.init(this.$bmapComponent);
       this.$children.forEach(component => {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
@@ -67,7 +68,10 @@ export default {
     },
     requestFrame() {
       requestAnimationFrame(this.requestFrame);
-      this.$bmapComponent.update();
+      if (this.$bmapComponent.needsUpdate) {
+        this.$bmapComponent.needsUpdate = false;
+        this.$bmapComponent.update();
+      }
     },
     bindClick() {
       const raycaster = new THREE.Raycaster();

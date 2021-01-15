@@ -103,6 +103,18 @@ GltfThreeLayer.prototype.initLayer = function() {
 
 GltfThreeLayer.prototype.loadModel = function() {
   let url = this.options.url;
+  if (!window.VueMapvglGltfCache) {
+    window.VueMapvglGltfCache = {};
+  }
+  if (window.VueMapvglGltfCache[url] === false) {
+    setTimeout(() => {
+      this.loadModel();
+    }, 20);
+    return;
+  }
+  if (window.VueMapvglGltfCache[url] === undefined) {
+    window.VueMapvglGltfCache[url] = false;
+  }
   let tempUrl = url.split('?')[0];
   let suffix = tempUrl.substring((tempUrl.lastIndexOf('.') + 1), tempUrl.length);
   if (suffix === 'gltf' || suffix === 'glb') {
@@ -113,24 +125,37 @@ GltfThreeLayer.prototype.loadModel = function() {
 };
 
 GltfThreeLayer.prototype.loadGltf = function(url) {
-  let loader = new GLTFLoader(); // 读取模型
-  loader.load(url, (gltf) => {
+  if (window.VueMapvglGltfCache[url] === false) {
+    let loader = new GLTFLoader(); // 读取模型
+    loader.load(url, (gltf) => {
+      window.VueMapvglGltfCache[url] = gltf;
+      let object = gltf.scene;
+      this.addObject3D(object, gltf.animations);
+    });
+  } else {
+    let gltf = window.VueMapvglGltfCache[url];
     let object = gltf.scene;
     this.addObject3D(object, gltf.animations);
-  });
+  }
 };
 
 /**
  * 加载模型，目前只支持threejs的object模型
  */
 GltfThreeLayer.prototype.loadObject = function(url) {
-  let objectLoader = new THREE.ObjectLoader(); // 读取模型
-  objectLoader.load(url, (object) => {
-    this.addObject3D(object);
-  });
+  if (window.VueMapvglGltfCache[url] === false) {
+    let objectLoader = new THREE.ObjectLoader(); // 读取模型
+    objectLoader.load(url, (object) => {
+      window.VueMapvglGltfCache[url] = object;
+      this.addObject3D(object);
+    });
+  } else {
+    this.addObject3D(window.VueMapvglGltfCache[url]);
+  }
 };
 
-GltfThreeLayer.prototype.addObject3D = function(object, animations) {
+GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
+  let object = sourceObject.clone(true);
   let options = this.options;
   let data = options.data;
   let coordinates = data.geometry.coordinates;
@@ -361,6 +386,7 @@ GltfThreeLayer.prototype.createSelfAnimation = function() {
     const dt = animations.clock.getDelta();
     let mixer = animations.mixer;
     if (mixer) mixer.update(dt);
+    this.refreshRender();
   });
 };
 
@@ -425,6 +451,7 @@ GltfThreeLayer.prototype.moveAnimate = function() {
 GltfThreeLayer.prototype.show = function() {
   if (this.group) {
     this.group.visible = true;
+    this.updateThreeLayer();
   }
 
 };
@@ -432,13 +459,19 @@ GltfThreeLayer.prototype.show = function() {
 GltfThreeLayer.prototype.hide = function() {
   if (this.group) {
     this.group.visible = false;
+    this.updateThreeLayer();
   }
 };
 
 GltfThreeLayer.prototype.refreshRender = function() {
   // this.threeLayer.renderer.render(this.threeLayer.scene, this.threeLayer.camera);
   if (this.group.visible) {
+    this.updateThreeLayer();
   }
+};
+
+GltfThreeLayer.prototype.updateThreeLayer = function() {
+  this.threeLayer.needsUpdate = true;
 };
 
 GltfThreeLayer.prototype.on = function(eventName, handler, isOnce = false) {
@@ -492,7 +525,9 @@ GltfThreeLayer.prototype.emit = function(eventName, obj) {
 };
 
 GltfThreeLayer.prototype.setUserData = function(data) {
-  this.group.userData = data;
+  if (this.group) {
+    this.group.userData = data;
+  }
 };
 
 export default GltfThreeLayer;
