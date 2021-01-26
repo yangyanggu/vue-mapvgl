@@ -101,6 +101,7 @@
           console.log('uuid: ', e.group.uuid);
         },
         startMove(){
+          clearTimeout(this.timer);
           this.timer = setTimeout(() => {
             let data = JSON.parse(JSON.stringify(this.data));
             let coordinates = data.geometry.coordinates;
