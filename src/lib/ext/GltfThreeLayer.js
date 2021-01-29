@@ -3,8 +3,9 @@ import {merge} from 'lodash';
 const THREE = mapvglThree.THREE;
 const eventsList = ['loaded', 'click'];
 import TWEEN from '@tweenjs/tween.js';
-import {GLTFLoader} from '../three-loader/GLTFLoader';
+import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {addEnvMap} from '../utils/threeUtil';
+import {Box3, Vector3, MeshBasicMaterial, BoxBufferGeometry, Mesh} from 'three/build/three.module';
 
 const lightTypes = {
   AmbientLight: THREE.AmbientLight, // 环境光  环境光会均匀的照亮场景中的所有物体
@@ -98,7 +99,6 @@ GltfThreeLayer.prototype.init = function() {
  */
 GltfThreeLayer.prototype.initLayer = function() {
   this.threeLayer = this.options.view;
-  this.options.view = this.threeLayer.$view;
 };
 
 GltfThreeLayer.prototype.loadModel = function() {
@@ -173,8 +173,9 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
   object.lookAt(up.x, up.y, up.z);
   let mercator = this.convertPosition(coordinates);
   let point = new BMapGL.Point(mercator[0], mercator[1]);
+  this.point = point;
   if (autoScale) {
-    this.add(object, point);
+    this.group = this.add(object, point);
   } else {
     this.threeLayer.add(object, point);
     let worldChildren = this.threeLayer.getWorld().children;
@@ -202,6 +203,28 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
   this.group.rotation.set(rotate.x, rotate.y, rotateZ);
   if (options.visible === false) {
     this.hide();
+  }
+  if (options.events) {
+    if (!this.threeLayer.eventObjects) {
+      this.threeLayer.eventObjects = [];
+    }
+    const box = new Box3();
+    const size = new Vector3();
+    const center = new Vector3();
+    box.setFromObject(this.object);
+    box.getSize(size);
+    box.getCenter(center);
+    const geometry = new BoxBufferGeometry(size.x, size.y, size.z);
+    const material = new MeshBasicMaterial({color: 'rgb(255,255,255)'});
+    material.transparent = true;
+    material.opacity = 0;
+    const cube = new Mesh(geometry, material);
+    cube.position.z = size.z / 2;
+    cube.sourceObject = this.group;
+    cube.renderOrder = 1;
+    this.box = cube;
+    this.group.add(cube);
+    this.threeLayer.eventObjects.push(cube);
   }
   addEnvMap(object, this.threeLayer);
   this.createLight();
@@ -263,7 +286,7 @@ GltfThreeLayer.prototype.createLight = function() {
 };
 
 GltfThreeLayer.prototype.convertPosition = function(coordinates) {
-  return this.options.view.webglLayer.map.lnglatToMercator(coordinates[0], coordinates[1]);
+  return this.threeLayer.webglLayer.map.lnglatToMercator(coordinates[0], coordinates[1]);
 };
 
 /**
@@ -283,11 +306,11 @@ GltfThreeLayer.prototype.add = function(object, point) {
   group.position.x = point.lng - offset[0];
   group.position.y = point.lat - offset[1];
   group.position.z = object.position.z;
-  this.group = group;
   if (this.options.visible === false) {
     group.visible = false;
   }
   threeLayer.getWorld().add(group);
+  return group;
 };
 
 GltfThreeLayer.prototype.createAnimation = function() {
@@ -333,7 +356,7 @@ GltfThreeLayer.prototype.createLinerAnimation = function() {
   };
   const _this = this;
   function changeGroup() {
-    let zoomUnit = _this.options.view.webglLayer.map.getZoomUnits();
+    let zoomUnit = _this.threeLayer.webglLayer.map.getZoomUnits();
     if (_this.options.animation.unit !== 'px') {
       zoomUnit = 1;
     }

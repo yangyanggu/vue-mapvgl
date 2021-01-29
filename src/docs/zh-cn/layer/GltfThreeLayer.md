@@ -15,7 +15,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :events="{click: (e) => {clickGltf(e)}}">
+            <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
               <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
@@ -134,6 +134,7 @@ up | {x: 0, y: 1, z: 0} | 这个属性由lookAt方法所使用，例如，来决
 move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑移动，默认不进行平滑移动，duration代表动画时长，该属性常用于控制车辆移动
 animation | Object | 模型动画效果，具体属性见下面
 light | Array | 灯光配置，可以配置多个灯光，详细参数见下面灯光说明
+debug | Boolean | 是否开启debug模式，debug模式下会在地图中心处创建一个X Y Z轴，用于直观展示方向
 events | Object | 绑定事件，见最下事件列表
 
 
