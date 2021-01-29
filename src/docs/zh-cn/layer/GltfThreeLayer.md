@@ -15,8 +15,8 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {console.log(e)}}"></el-bmapv-gltf-three-layer>
+            <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
+              <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {console.log('点击模型： ',e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}"></el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
         </el-bmapv-view>
@@ -101,6 +101,7 @@
           console.log('uuid: ', e.group.uuid);
         },
         startMove(){
+          clearTimeout(this.timer);
           this.timer = setTimeout(() => {
             let data = JSON.parse(JSON.stringify(this.data));
             let coordinates = data.geometry.coordinates;
@@ -133,6 +134,7 @@ up | {x: 0, y: 1, z: 0} | 这个属性由lookAt方法所使用，例如，来决
 move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑移动，默认不进行平滑移动，duration代表动画时长，该属性常用于控制车辆移动
 animation | Object | 模型动画效果，具体属性见下面
 light | Array | 灯光配置，可以配置多个灯光，详细参数见下面灯光说明
+debug | Boolean | 是否开启debug模式，debug模式下会在地图中心处创建一个X Y Z轴，用于直观展示方向
 events | Object | 绑定事件，见最下事件列表
 
 
@@ -221,3 +223,5 @@ $$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
 ---|---|---|
 loaded | {object: object,threeLayer: threeLayer} | 该事件会在模型加载完成后触发，回调中的object为模型的Object3D对象，object中还包含动画对象animations，threeLayer为three图层对象
 click | group对象 | click事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象
+mouseover | group对象 | mouseover事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象
+mouseout | group对象 | mouseout事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象

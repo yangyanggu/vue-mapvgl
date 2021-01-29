@@ -33,7 +33,6 @@ export default {
   methods: {
     __initComponent(options) {
       this.$bmapComponent = new mapvgl.GltfLayer(options);
-      console.log(this.$bmapComponent);
       this.$view.addLayer(this.$bmapComponent);
       if (options.data && options.data.length > 0) {
         this.$bmapComponent.setData(options.data, {

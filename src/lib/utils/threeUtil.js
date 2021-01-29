@@ -1,7 +1,7 @@
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
 import {merge} from 'lodash';
 const THREE = mapvglThree.THREE;
-import {HDRCubeTextureLoader} from '../three-loader/HDRCubeTextureLoader';
+import {HDRCubeTextureLoader} from 'three/examples/jsm/loaders/HDRCubeTextureLoader';
 
 // 灯光类型
 const lightTypes = {
