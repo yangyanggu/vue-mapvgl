@@ -1,7 +1,7 @@
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
 import {merge} from 'lodash';
 const THREE = mapvglThree.THREE;
-const eventsList = ['loaded', 'click'];
+const eventsList = ['loaded', 'click', 'mouseover', 'mouseout'];
 import TWEEN from '@tweenjs/tween.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {addEnvMap} from '../utils/threeUtil';
@@ -243,6 +243,16 @@ GltfThreeLayer.prototype.addEvents = function() {
     if (events.click) {
       this.group.events.click = () => {
         this.emit('click', this.group);
+      };
+    }
+    if (events.mouseover) {
+      this.group.events.mouseover = () => {
+        this.emit('mouseover', this.group);
+      };
+    }
+    if (events.mouseout) {
+      this.group.events.mouseout = () => {
+        this.emit('mouseout', this.group);
       };
     }
   }
