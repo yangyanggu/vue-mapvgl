@@ -1,4 +1,5 @@
 <script>
+import Vue from 'vue';
 import registerMixin from '../mixins/register-component';
 import GltfThreeLayer from '../ext/GltfThreeLayer';
 
@@ -19,6 +20,7 @@ export default {
     'data',
     'userData',
     'track',
+    'tooltip',
     'events'
   ],
   data() {
@@ -41,23 +43,61 @@ export default {
         },
         track(value) {
           this.setTrack(value);
+        },
+        tooltip(value) {
+          this.addOrUpdateTooltip(value);
         }
       }
     };
   },
   created() {
+    this.tooltipVM = new Vue({
+      data() {
+        return {node: ''};
+      },
+      render(h) {
+        const { node } = this;
+        return h('div', {ref: 'node'}, Array.isArray(node) ? node : [node]);
+      }
+    }).$mount();
+  },
+  updated() {
+    this.$nextTick(() => {
+      if (this.$bmapComponent) {
+        this.$bmapComponent.addOrUpdateTooltip({
+          content: this.tooltipVM.$refs.node.outerHTML,
+          isCustom: true
+        });
+      }
+    });
   },
   methods: {
     __initComponent(options) {
       this.$bmapComponent = new GltfThreeLayer(options);
+      if (this.$slots.tooltip && this.$slots.tooltip.length) {
+        this.$bmapComponent.addOrUpdateTooltip({
+          content: this.tooltipVM.$refs.node.outerHTML,
+          isCustom: true
+        });
+      } else {
+        this.$bmapComponent.addOrUpdateTooltip();
+      }
     }
   },
   destroyed() {
     if (this.$bmapComponent) {
       this.$bmapComponent.remove();
+      if (this.$bmapComponent.tooltip) {
+        this.$bmapComponent.tooltip.remove();
+        this.tooltipVM.destroy();
+      }
     }
   },
   render() {
+    const tooltipSlot = this.$slots.tooltip || [];
+    if (tooltipSlot.length) {
+      this.tooltipVM.node = tooltipSlot;
+    }
     return null;
   }
 };

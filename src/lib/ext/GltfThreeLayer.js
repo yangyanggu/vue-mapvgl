@@ -86,6 +86,14 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
       tilt: 45,
       offsetHeading: 0,
       zoom: 0
+    },
+    tooltip: {
+      offset: {
+        x: 0,
+        y: -20
+      },
+      isCustom: false,
+      content: ''
     }
   };
 };
@@ -644,6 +652,54 @@ GltfThreeLayer.prototype.setTrack = function(track) {
     });
   }
   this.group.track = track;
+};
+
+function parseDom(arg) {
+  let objE = document.createElement('div');
+  objE.innerHTML = arg;
+  return objE.childNodes[0];
+};
+
+GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
+  let tooltip = merge({}, this.options.tooltip, options);
+  if (!tooltip || !tooltip.content) {
+    return;
+  }
+  let map = this.threeLayer.webglLayer.map.map;
+  let content = tooltip.content;
+  let isCustom = tooltip.isCustom;
+  if (this.tooltip) {
+    this.tooltip.innerHTML = content;
+  } else {
+    let html = `<div class="bmap-gl-tooltip-container">
+                ${content}
+              </div>`;
+    let ele = parseDom(html);
+    ele.style.display = 'none';
+    ele.style.zIndex = '100';
+    ele.style.position = 'absolute';
+    ele.style.transform = 'translate(-50%,-100%)';
+    if (!isCustom) {
+      ele.style.background = '#fff';
+      ele.style.padding = '5px 10px';
+    }
+    map.container.appendChild(ele);
+    this.tooltip = ele;
+    this.on('mouseover', () => {
+      let position = this.group.position;
+      let lnglat = map.mercatorToLnglat(position.x, position.y);
+      let pixel = map.pointToPixel(new BMapGL.Point(lnglat[0], lnglat[1]));
+      let left = pixel.x + tooltip.offset.x;
+      let top = pixel.y + tooltip.offset.y;
+      ele.style.left = left + 'px';
+      ele.style.top = top + 'px';
+      ele.style.display = 'block';
+    });
+    this.on('mouseout', () => {
+      ele.style.display = 'none';
+    });
+  }
+
 };
 
 export default GltfThreeLayer;

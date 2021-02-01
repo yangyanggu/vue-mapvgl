@@ -16,7 +16,11 @@
       <el-bmap ref="bmapDemo" vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}"></el-bmapv-gltf-three-layer>
+              <el-bmapv-gltf-three-layer :visible="visible" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
+                <template slot="tooltip">
+                  <div>{{tooltip}}</div>
+                </template>
+              </el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
         </el-bmapv-view>
@@ -25,6 +29,7 @@
         <button @click="startMove">启动移动</button>
         <button @click="stopMove">停止移动</button>
         <button @click="switchVisible">切换显隐</button>
+        <button @click="changeTooltip">修改tooltip内容</button>
       </div>
     </div>
   </template>
@@ -69,7 +74,8 @@
           },
           visible: true,
           clock: new VueMapvgl.THREE.Clock(),
-          testAnimations: null
+          testAnimations: null,
+          tooltip: 'hello world'
         };
       },
       mounted(){
@@ -122,6 +128,9 @@
         },
         stopMove(){
           clearTimeout(this.timer);
+        },
+        changeTooltip(){
+          this.tooltip = 'hello world,'+new Date();
         }
       }
     };
@@ -145,7 +154,7 @@ move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑�
 animation | Object | 模型动画效果，具体属性见下面 [配置说明](#animation配置)
 light | Array | 灯光配置，可以配置多个灯光，详细参数见下面 [灯光说明](#灯光配置)
 debug | Boolean | 是否开启debug模式，debug模式下会在地图中心处创建一个X Y Z轴，用于直观展示方向
-events | Object | 绑定事件，见最下事件列表
+events | Object | 绑定事件，见最下[事件列表](#事件列表)
 
 
 ### animation配置
@@ -202,6 +211,7 @@ visible | Boolean | 控制图层显隐，默认为true 显示图层
 data | Object  | 点数据,GeoJSON格式 [配置说明](#data数据结构)
 userData | Object | 用户自定义数据,
 track | Object | 跟踪模型位置方法，主要用于车辆跟踪，配置该参数后会以该模型为中心模型位置改变时改变地图中心点。不可对多个目标同时设置该对象.[配置说明](#track数据结构)
+tooltip | Object | 提示信息，支持传入固定提示，以及使用插槽,插槽名： tooltip，[配置参数](#tooltip配置)
                          
 ### data数据结构
 ```
@@ -224,6 +234,17 @@ track: {
     }
 ```
 
+### tooltip配置
+```html
+tooltip: {
+      offset: {
+        x: 0, //X轴偏移，默认为DIV的中心位置
+        y: -20 //Y轴偏移，默认为DIV中心位置
+      },
+      content: '' //提示内容，支持html
+    }
+```
+
 ## ref可用方法
 提供无副作用的同步帮助方法
 
@@ -239,6 +260,8 @@ $$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
   click: (e)=>{}
 }
 ```
+
+### 事件列表
 
 事件名称 | 回调值 | 说明 
 ---|---|---|
