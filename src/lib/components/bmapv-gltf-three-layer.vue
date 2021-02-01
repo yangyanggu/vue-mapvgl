@@ -18,6 +18,7 @@ export default {
     'visible',
     'data',
     'userData',
+    'track',
     'events'
   ],
   data() {
@@ -37,6 +38,9 @@ export default {
         },
         userData(value) {
           this.setUserData(value);
+        },
+        track(value) {
+          this.setTrack(value);
         }
       }
     };

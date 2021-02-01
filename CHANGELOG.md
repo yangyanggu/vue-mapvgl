@@ -1,3 +1,6 @@
+###v0.0.18
+  * GltfThreeLayer增加track参数，用于进行车辆跟踪
+
 ###v0.0.17
   * 解决GltfThreeLayer图层点击事件触发不稳定问题（该BUG是由于百度的threeLayer图层中修改了camera的projectionMatrix 值，但未对应的修改projectionMatrixInverse 导致的）
   * GltfThree模型增加mouseover和mouseout事件

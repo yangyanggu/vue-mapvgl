@@ -56,6 +56,9 @@ export default {
         enabledPointOffset: false,
         webglLayer: options.view.webglLayer
       });
+      if (!threeLayer.eventObjects) {
+        threeLayer.eventObjects = [];
+      }
       this.$bmapComponent = this.$view = threeLayer;
       options.view.addLayer(threeLayer);
       if (options.debug) {
@@ -88,7 +91,9 @@ export default {
       requestAnimationFrame(this.requestFrame);
       if (this.$bmapComponent.needsUpdate) {
         this.$bmapComponent.needsUpdate = false;
-        this.$bmapComponent.update();
+        setTimeout(() => {
+          this.$bmapComponent.update();
+        }, 1);
       }
     },
     bindEvents() {

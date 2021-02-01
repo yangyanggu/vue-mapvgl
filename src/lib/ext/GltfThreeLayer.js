@@ -79,7 +79,14 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
         delay: 0
       }
     },
-    userData: null
+    userData: null,
+    track: {
+      focus: false,
+      autoRotate: true,
+      tilt: 45,
+      offsetHeading: 0,
+      zoom: 0
+    }
   };
 };
 
@@ -205,9 +212,6 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
     this.hide();
   }
   if (options.events) {
-    if (!this.threeLayer.eventObjects) {
-      this.threeLayer.eventObjects = [];
-    }
     const box = new Box3();
     const size = new Vector3();
     const center = new Vector3();
@@ -319,6 +323,7 @@ GltfThreeLayer.prototype.add = function(object, point) {
   if (this.options.visible === false) {
     group.visible = false;
   }
+  group.track = this.options.track;
   threeLayer.getWorld().add(group);
   return group;
 };
@@ -427,15 +432,26 @@ GltfThreeLayer.prototype.move = function(newPosition) {
   if (!this.group) {
     return;
   }
+  let track = this.group.track;
+  let map = this.threeLayer.webglLayer.map.map;
   let rotateZ = this.group.rotation.z;
   let angle = newPosition.angle;
   let newRotateZ = angle !== undefined ? (Math.PI / 180 * angle) : rotateZ;
   let moveOption = this.options.move;
-  if (!moveOption.smooth) {
-    let mercator = this.convertPosition(newPosition.geometry.coordinates);
+  let coordinates = newPosition.geometry.coordinates;
+  let mercator = this.convertPosition(coordinates);
+  if (!moveOption.smooth || document.visibilityState === 'hidden') {
     this.group.position.x = mercator[0];
     this.group.position.y = mercator[1];
     this.group.rotation.z = newRotateZ;
+    if (track && track.focus === true) {
+      this.moveMapCenter(map, {
+        center: new BMapGL.Point(coordinates[0], coordinates[1]),
+        heading: (angle - 90 + (track.offsetHeading || 0)),
+        tilt: track.tilt,
+        zoom: track.zoom
+      }, track);
+    }
     this.refreshRender();
     return;
   }
@@ -455,12 +471,21 @@ GltfThreeLayer.prototype.move = function(newPosition) {
     y: group.position.y,
     rotateZ: rotateZ
   };
-  let mercator = this.convertPosition(newPosition.geometry.coordinates);
   let endPosition = {
     x: mercator[0],
     y: mercator[1],
     rotateZ: newRotateZ
   };
+  if (track && track.focus === true) {
+    currentPosition.heading = map.getHeading();
+    currentPosition.tilt = map.getTilt();
+    endPosition.heading = angle + (track.offsetHeading || 0) - 90;
+    endPosition.tilt = track.tilt;
+    if (track.zoom) {
+      currentPosition.zoom = map.getZoom();
+      endPosition.zoom = track.zoom;
+    }
+  }
   new TWEEN.Tween(currentPosition, this.moveGroup)
     .easing(TWEEN.Easing.Linear.None)
     .duration(moveOption.duration)
@@ -469,9 +494,50 @@ GltfThreeLayer.prototype.move = function(newPosition) {
       this.group.position.x = currentPosition.x;
       this.group.position.y = currentPosition.y;
       this.group.rotation.z = currentPosition.rotateZ;
+      if (track && track.focus === true) {
+        // console.log('track', track);
+        let lnglat = map.mercatorToLnglat(currentPosition.x, currentPosition.y);
+        let p = new BMapGL.Point(lnglat[0], lnglat[1]);
+        this.moveMapCenter(map, {
+          center: p,
+          heading: currentPosition.heading,
+          tilt: currentPosition.tilt,
+          zoom: currentPosition.zoom
+        }, track);
+      }
       this.refreshRender();
+    })
+    .onComplete(() => {
+      window.cancelAnimationFrame(this.moveRequestAnimationFrame);
     }).start();
   this.moveAnimate();
+};
+
+GltfThreeLayer.prototype.moveMapCenter = function(map, params, track) {
+  clearTimeout(this.moveMapCenterTimer);
+  let {center, heading, tilt, zoom} = params;
+  if (document.visibilityState === 'hidden') {
+    this.moveMapCenterTimer = setTimeout(() => {
+      this.moveMapCenter(map, params, track);
+    }, 100);
+  } else {
+    if (zoom) {
+      map.setZoom(zoom, {
+        noAnimation: true
+      });
+    }
+    map.panTo(center, {
+      noAnimation: true
+    });
+    if (track.autoRotate) {
+      map.setHeading(heading, {
+        noAnimation: true
+      });
+      map.setTilt(tilt, {
+        noAnimation: true
+      });
+    }
+  }
 };
 
 GltfThreeLayer.prototype.moveAnimate = function() {
@@ -561,6 +627,23 @@ GltfThreeLayer.prototype.setUserData = function(data) {
   if (this.group) {
     this.group.userData = data;
   }
+};
+
+GltfThreeLayer.prototype.setTrack = function(track) {
+  if (!track) {
+    this.options.track = undefined;
+    this.group.track = undefined;
+    return;
+  }
+  track = merge({}, this.getDefaultOptions().track, track);
+  if (track.focus === true) {
+    this.threeLayer.getWorld().children.forEach(g => {
+      if (g !== this.group) {
+        g.track = undefined;
+      }
+    });
+  }
+  this.group.track = track;
 };
 
 export default GltfThreeLayer;

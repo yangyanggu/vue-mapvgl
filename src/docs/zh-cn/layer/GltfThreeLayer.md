@@ -13,10 +13,10 @@
 
   <template>
     <div class="bmap-page-container">
-      <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+      <el-bmap ref="bmapDemo" vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {console.log('点击模型： ',e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}"></el-bmapv-gltf-three-layer>
+              <el-bmapv-gltf-three-layer :visible="visible" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}"></el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
             </el-bmapv-three-view>
         </el-bmapv-view>
@@ -74,6 +74,7 @@
       },
       mounted(){
         this.createData();
+        console.log('bmapDemo: ',this.$refs.bmapDemo)
       },
       methods: {
         createData(){
@@ -99,6 +100,15 @@
         },
         initGltf(e){
           console.log('uuid: ', e.group.uuid);
+        },
+        clickCar(group){
+          console.log('点击模型： ',group);
+          this.$set(this.data, 'track', {
+             focus: true,
+             tilt: 45,
+             zoom: 20,
+             offsetHeading: 45
+          });
         },
         startMove(){
           clearTimeout(this.timer);
@@ -132,8 +142,8 @@ rotate | {x: 0, y: 0, z: 0} | 旋转弧度，默认X Y Z都为0
 translate | {x: 0, y: 0, z: 0} | 平移Object，默认都为0，不进行平移
 up | {x: 0, y: 1, z: 0} | 这个属性由lookAt方法所使用，例如，来决定结果的朝向, 默认为{x: 0, y: 1, z: 0}
 move | {smooth: false, duration: 200} | 更改模型坐标时是否进行平滑移动，默认不进行平滑移动，duration代表动画时长，该属性常用于控制车辆移动
-animation | Object | 模型动画效果，具体属性见下面
-light | Array | 灯光配置，可以配置多个灯光，详细参数见下面灯光说明
+animation | Object | 模型动画效果，具体属性见下面 [配置说明](#animation配置)
+light | Array | 灯光配置，可以配置多个灯光，详细参数见下面 [灯光说明](#灯光配置)
 debug | Boolean | 是否开启debug模式，debug模式下会在地图中心处创建一个X Y Z轴，用于直观展示方向
 events | Object | 绑定事件，见最下事件列表
 
@@ -189,8 +199,9 @@ const lightTypes = {
 名称 | 类型 | 说明
 ---|---|---|
 visible | Boolean | 控制图层显隐，默认为true 显示图层
-data | Object  | 点数据,GeoJSON格式
-userData | Object | 用户自定义数据
+data | Object  | 点数据,GeoJSON格式 [配置说明](#data数据结构)
+userData | Object | 用户自定义数据,
+track | Object | 跟踪模型位置方法，主要用于车辆跟踪，配置该参数后会以该模型为中心模型位置改变时改变地图中心点。不可对多个目标同时设置该对象.[配置说明](#track数据结构)
                          
 ### data数据结构
 ```
@@ -201,6 +212,16 @@ userData | Object | 用户自定义数据
     },
     angle: 0
 }
+```
+### track数据结构
+```html
+track: {
+      focus: false, //是否进行车辆跟踪，设置为true时将进行车辆跟踪
+      autoRotate: true, //是否根据车辆角度调整地图旋转角度，设置为true时车辆模型方向会一直朝上
+      tilt: 45, //地图倾斜角度
+      offsetHeading: 0, //旋转角度偏移量
+      zoom: 0 //跟踪时地图缩放级别
+    }
 ```
 
 ## ref可用方法
