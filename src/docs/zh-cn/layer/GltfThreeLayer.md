@@ -16,9 +16,12 @@
       <el-bmap ref="bmapDemo" vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
+              <el-bmapv-gltf-three-layer :visible="visible" :info-window="infoWindow" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
                 <template slot="tooltip">
                   <div>{{tooltip}}</div>
+                </template>
+                <template slot="infoWindow">
+                  <div style="background: #fff;padding: 10px 20px;">{{infoWindow.content}}</div>
                 </template>
               </el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
@@ -30,6 +33,8 @@
         <button @click="stopMove">停止移动</button>
         <button @click="switchVisible">切换显隐</button>
         <button @click="changeTooltip">修改tooltip内容</button>
+        <button @click="changeInfoWindowContent">修改infoWindow内容</button>
+        <button @click="switchInfoWindow">切换infoWindow显隐</button>
       </div>
     </div>
   </template>
@@ -75,7 +80,11 @@
           visible: true,
           clock: new VueMapvgl.THREE.Clock(),
           testAnimations: null,
-          tooltip: 'hello world'
+          tooltip: 'hello world',
+          infoWindow: {
+            visible: false,
+            content: '测试InfoWindow'
+          }
         };
       },
       mounted(){
@@ -131,6 +140,12 @@
         },
         changeTooltip(){
           this.tooltip = 'hello world,'+new Date();
+        },
+        changeInfoWindowContent(){
+          this.infoWindow.content = 'changeInfoWindowContent,'+new Date();
+        },
+        switchInfoWindow(){
+          this.infoWindow.visible = !this.infoWindow.visible;
         }
       }
     };
@@ -212,6 +227,7 @@ data | Object  | 点数据,GeoJSON格式 [配置说明](#data数据结构)
 userData | Object | 用户自定义数据,
 track | Object | 跟踪模型位置方法，主要用于车辆跟踪，配置该参数后会以该模型为中心模型位置改变时改变地图中心点。不可对多个目标同时设置该对象.[配置说明](#track数据结构)
 tooltip | Object | 提示信息，支持传入固定提示，以及使用插槽,插槽名： tooltip，[配置参数](#tooltip配置)
+infoWindow | Object | info框，使用插槽,插槽名： infoWindow，[配置参数](#infoWindow配置)
                          
 ### data数据结构
 ```
@@ -242,6 +258,17 @@ tooltip: {
         y: -20 //Y轴偏移，默认为DIV中心位置
       },
       content: '' //提示内容，支持html
+    }
+```
+
+### infoWindow配置
+```html
+infoWindow: {
+      offset: {
+        x: 0, //X轴偏移，默认为DIV的中心位置
+        y: -20 //Y轴偏移，默认为DIV中心位置
+      },
+      visible: false //是否显示
     }
 ```
 

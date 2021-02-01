@@ -21,6 +21,7 @@ export default {
     'userData',
     'track',
     'tooltip',
+    'infoWindow',
     'events'
   ],
   data() {
@@ -46,12 +47,26 @@ export default {
         },
         tooltip(value) {
           this.addOrUpdateTooltip(value);
+        },
+        infoWindow(value) {
+          this.addOrUpdateInfoWindow({
+            visible: value.visible
+          });
         }
       }
     };
   },
   created() {
     this.tooltipVM = new Vue({
+      data() {
+        return {node: ''};
+      },
+      render(h) {
+        const { node } = this;
+        return h('div', {ref: 'node'}, Array.isArray(node) ? node : [node]);
+      }
+    }).$mount();
+    this.infoWindowVM = new Vue({
       data() {
         return {node: ''};
       },
@@ -68,6 +83,9 @@ export default {
           content: this.tooltipVM.$refs.node.outerHTML,
           isCustom: true
         });
+        this.$bmapComponent.addOrUpdateInfoWindow({
+          content: this.infoWindowVM.$refs.node.outerHTML
+        });
       }
     });
   },
@@ -82,6 +100,13 @@ export default {
       } else {
         this.$bmapComponent.addOrUpdateTooltip();
       }
+      if (this.$slots.infoWindow && this.$slots.infoWindow.length) {
+        this.$bmapComponent.addOrUpdateInfoWindow({
+          content: this.infoWindowVM.$refs.node.outerHTML
+        });
+      } else {
+        this.$bmapComponent.addOrUpdateTooltip();
+      }
     }
   },
   destroyed() {
@@ -91,12 +116,20 @@ export default {
         this.$bmapComponent.tooltip.remove();
         this.tooltipVM.destroy();
       }
+      if (this.$bmapComponent.infoWindow) {
+        this.$bmapComponent.infoWindow.remove();
+        this.infoWindowVM.destroy();
+      }
     }
   },
   render() {
     const tooltipSlot = this.$slots.tooltip || [];
     if (tooltipSlot.length) {
       this.tooltipVM.node = tooltipSlot;
+    }
+    const infoWindowSlot = this.$slots.infoWindow || [];
+    if (infoWindowSlot.length) {
+      this.infoWindowVM.node = infoWindowSlot;
     }
     return null;
   }

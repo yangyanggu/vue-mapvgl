@@ -94,6 +94,14 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
       },
       isCustom: false,
       content: ''
+    },
+    infoWindow: {
+      visible: false,
+      offset: {
+        x: 0,
+        y: -20
+      },
+      content: ''
     }
   };
 };
@@ -242,6 +250,8 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
   this.createLight();
   this.createAnimation();
   this.addEvents();
+  this.addOrUpdateTooltip();
+  this.addOrUpdateInfoWindow();
   this.emit('loaded', {
     object,
     group: this.group,
@@ -662,7 +672,8 @@ function parseDom(arg) {
 
 GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
   let tooltip = merge({}, this.options.tooltip, options);
-  if (!tooltip || !tooltip.content) {
+  this.options.tooltip = tooltip;
+  if (!tooltip || !tooltip.content || !this.group) {
     return;
   }
   let map = this.threeLayer.webglLayer.map.map;
@@ -686,13 +697,7 @@ GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
     map.container.appendChild(ele);
     this.tooltip = ele;
     this.on('mouseover', () => {
-      let position = this.group.position;
-      let lnglat = map.mercatorToLnglat(position.x, position.y);
-      let pixel = map.pointToPixel(new BMapGL.Point(lnglat[0], lnglat[1]));
-      let left = pixel.x + tooltip.offset.x;
-      let top = pixel.y + tooltip.offset.y;
-      ele.style.left = left + 'px';
-      ele.style.top = top + 'px';
+      this.changeTipPosition(this.group.position, map, tooltip.offset, ele);
       ele.style.display = 'block';
     });
     this.on('mouseout', () => {
@@ -702,4 +707,53 @@ GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
 
 };
 
+GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
+  let infoWindow = merge({}, this.options.infoWindow, options);
+  this.options.infoWindow = infoWindow;
+  if (!infoWindow || !infoWindow.content || !this.group) {
+    return;
+  }
+  let map = this.threeLayer.webglLayer.map.map;
+  let content = infoWindow.content;
+  if (this.infoWindow) {
+    this.infoWindow.innerHTML = content;
+    if (infoWindow.visible === true) {
+      this.infoWindow.style.display = 'block';
+    } else {
+      this.infoWindow.style.display = 'none';
+    }
+  } else {
+    let html = `<div class="bmap-gl-info-window-container">
+                ${content}
+              </div>`;
+    let ele = parseDom(html);
+    ele.style.display = 'none';
+    ele.style.zIndex = '99';
+    ele.style.position = 'absolute';
+    ele.style.transform = 'translate(-50%,-100%)';
+    if (infoWindow.visible) {
+      ele.style.display = 'block';
+    }
+    map.container.appendChild(ele);
+    this.infoWindow = ele;
+    this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+    map.addEventListener('moving', () => {
+      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+    });
+    map.addEventListener('dragging', () => {
+      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+    });
+    map.addEventListener('zoomend', () => {
+      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+    });
+  }
+};
+GltfThreeLayer.prototype.changeTipPosition = function(position, map, offset, ele) {
+  let lnglat = map.mercatorToLnglat(position.x, position.y);
+  let pixel = map.pointToPixel(new BMapGL.Point(lnglat[0], lnglat[1]));
+  let left = pixel.x + offset.x;
+  let top = pixel.y + offset.y;
+  ele.style.left = left + 'px';
+  ele.style.top = top + 'px';
+};
 export default GltfThreeLayer;
