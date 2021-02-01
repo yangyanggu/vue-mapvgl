@@ -16,7 +16,7 @@ let env = process.env.NODE_ENV === 'testing'
 
 let webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? 'source-map' : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),

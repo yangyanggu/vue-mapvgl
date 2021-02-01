@@ -119,6 +119,8 @@ export default {
           }
 
           handleFun.call(this.$bmapComponent, this.convertSignalProp(prop, nv));
+        }, {
+          deep: true
         });
 
         // collect watchers for destroyed

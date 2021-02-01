@@ -1,4 +1,5 @@
 <script>
+import Vue from 'vue';
 import registerMixin from '../mixins/register-component';
 import GltfThreeLayer from '../ext/GltfThreeLayer';
 
@@ -18,6 +19,9 @@ export default {
     'visible',
     'data',
     'userData',
+    'track',
+    'tooltip',
+    'infoWindow',
     'events'
   ],
   data() {
@@ -37,23 +41,96 @@ export default {
         },
         userData(value) {
           this.setUserData(value);
+        },
+        track(value) {
+          this.setTrack(value);
+        },
+        tooltip(value) {
+          this.addOrUpdateTooltip(value);
+        },
+        infoWindow(value) {
+          this.addOrUpdateInfoWindow({
+            visible: value.visible
+          });
         }
       }
     };
   },
   created() {
+    this.tooltipVM = new Vue({
+      data() {
+        return {node: ''};
+      },
+      render(h) {
+        const { node } = this;
+        return h('div', {ref: 'node'}, Array.isArray(node) ? node : [node]);
+      }
+    }).$mount();
+    this.infoWindowVM = new Vue({
+      data() {
+        return {node: ''};
+      },
+      render(h) {
+        const { node } = this;
+        return h('div', {ref: 'node'}, Array.isArray(node) ? node : [node]);
+      }
+    }).$mount();
+  },
+  updated() {
+    this.$nextTick(() => {
+      if (this.$bmapComponent) {
+        this.$bmapComponent.addOrUpdateTooltip({
+          content: this.tooltipVM.$refs.node.outerHTML,
+          isCustom: true
+        });
+        this.$bmapComponent.addOrUpdateInfoWindow({
+          content: this.infoWindowVM.$refs.node.outerHTML
+        });
+      }
+    });
   },
   methods: {
     __initComponent(options) {
       this.$bmapComponent = new GltfThreeLayer(options);
+      if (this.$slots.tooltip && this.$slots.tooltip.length) {
+        this.$bmapComponent.addOrUpdateTooltip({
+          content: this.tooltipVM.$refs.node.outerHTML,
+          isCustom: true
+        });
+      } else {
+        this.$bmapComponent.addOrUpdateTooltip();
+      }
+      if (this.$slots.infoWindow && this.$slots.infoWindow.length) {
+        this.$bmapComponent.addOrUpdateInfoWindow({
+          content: this.infoWindowVM.$refs.node.outerHTML
+        });
+      } else {
+        this.$bmapComponent.addOrUpdateTooltip();
+      }
     }
   },
   destroyed() {
     if (this.$bmapComponent) {
       this.$bmapComponent.remove();
+      if (this.$bmapComponent.tooltip) {
+        this.$bmapComponent.tooltip.remove();
+        this.tooltipVM.destroy();
+      }
+      if (this.$bmapComponent.infoWindow) {
+        this.$bmapComponent.infoWindow.remove();
+        this.infoWindowVM.destroy();
+      }
     }
   },
   render() {
+    const tooltipSlot = this.$slots.tooltip || [];
+    if (tooltipSlot.length) {
+      this.tooltipVM.node = tooltipSlot;
+    }
+    const infoWindowSlot = this.$slots.infoWindow || [];
+    if (infoWindowSlot.length) {
+      this.infoWindowVM.node = infoWindowSlot;
+    }
     return null;
   }
 };
