@@ -4,44 +4,28 @@ import pickMixin from '../mixins/pick-mixin';
 const mapvgl = require('mapvgl');
 
 export default {
-  name: 'el-bmapv-line-layer',
+  name: 'el-bmapv-marker-list-layer',
   mixins: [registerMixin],
   props: [
-    'color',
-    'blend',
-    'width',
-    'unit',
-    'dashArray',
-    'dashOffset',
-    'lineCap',
-    'lineJoin',
-    'miterLimit',
-    'antialias',
-    'offset',
-    'animation',
-    'interval',
-    'duration',
-    'trailLength',
-    'minZoom',
-    'maxZoom',
-    'mapStyle',
-    'styleOptions',
+    'fillColor',
+    'fillSize',
+    'fillBorderColor',
+    'fillBorderWidth',
+    'shadowColor',
+    'shadowSize',
+    'shadowBorderColor',
+    'shadowBorderWidth',
+    'fontColor',
+    'fontSize',
+    'fontFamily',
     'data',
     ...pickMixin.props
   ],
   data() {
     return {
-      propsRedirect: {
-        mapStyle: 'style'
-      },
       converters: {
       },
       handlers: {
-        dashOffset(value) {
-          this.setOptions({
-            dashOffset: value
-          });
-        },
         data(value) {
           this.setData(value);
         },
@@ -53,7 +37,7 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      this.$bmapComponent = new mapvgl.LineLayer(options);
+      this.$bmapComponent = new mapvgl.MarkerListLayer(options);
       this.$view.addLayer(this.$bmapComponent);
     },
     ...pickMixin.methods

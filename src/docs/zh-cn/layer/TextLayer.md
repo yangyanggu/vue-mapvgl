@@ -80,7 +80,10 @@
 fontFamily | String | 文字字体, 默认值：`Microsoft Yahei`
 color | String | 颜色，同css颜色,默认值：’#fff’。
 fontSize | number | 文字大小, 默认值：14
-isFlat | boolean | 文字是否随地图倾斜，即平躺在地图上, 默认值：false
+unit | string | 绘制大小的方式，即指定width和height属性的单位，默认值：’px’。可选值：px，默认值，按像素绘制。 m，按米来绘制
+scale | Number | 设置icon缩放，默认值：1
+angle | Number | 设置icon按顺时针旋转角度，默认值：0
+flat | boolean | icon是否随地图倾斜，即平躺在地图上，默认值：false
 collides | boolean | 是否开启碰撞检测，开启后重叠部分的文字会被隐藏, 默认值：true
 offset | array | 文字偏移量，基于文字中心点偏移，[{number}x, {number}y], 默认值：[0, 0]
 padding | array | 文字内边距，[{number}左右边距, {number}上下边距], 默认值：[2, 2]

@@ -73,6 +73,7 @@ WebGL默认绘制线的模式gl.LINES只能画一像素的线，无法指定线�
 color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 blend | String | 点叠加模式，可选lighter
 width | number | 线的宽度, 默认值：4
+unit | string | 绘制大小的方式，即指定width和height属性的单位，默认值：’px’。可选值：px，默认值，按像素绘制。 m，按米来绘制
 dashArray | Array | 定义虚线间隔的数组，数组长度为2。数组的两位分别表示实线和虚线的长度，单位像素，如[10, 20]表示实线10px，虚线20px
 lineCap | string | 线的端头，可选butt 平头、square 方头、round 圆头, 默认值：`butt`
 lineJoin | string | 线的连接拐角，可选miter 尖角、bevel 平角、round 圆角, 默认值：`miter`

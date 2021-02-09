@@ -1,5 +1,5 @@
-# 平面图层
-用来展示大数据的平面多边形，由[ShapeLayer](https://mapv.baidu.com/gl/docs/ShapeLayer.html)和[LineLayer](https://mapv.baidu.com/gl/docs/LineLayer.html)组合实现。
+# MarkerListLayer图层
+用来展示标注点集合，支持传入text，由PointLayer和TextLayer组合实现
 
 可使用鼠标拾取[Pick](https://mapv.baidu.com/gl/docs/Pick.html)
 
@@ -13,9 +13,12 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-polygon-layer :line-join="lineJoin" :line-width="4" :line-color="lineColor"  :color="color" :data="data"></el-bmapv-polygon-layer>
+            <el-bmapv-marker-list-layer :visible="visible" :data="data"></el-bmapv-marker-list-layer>
         </el-bmapv-view>
       </el-bmap>
+      <div>
+        <button @click.prevent="switchVisible">切换显隐</button>
+      </div>
     </div>
   </template>
 
@@ -30,35 +33,39 @@
     module.exports = {
       name: 'bmap-page',
       data() {
-        
         return {
-          count: 1,
           zoom: 14,
           center: [121.5273285, 31.21515044],
-          color: 'rgba(50, 50, 200, 1)',
-          lineColor: 'rgba(250, 250, 25, 0.6)',
-          lineJoin: 'miter',
           data: [{
               geometry: {
-                  type: 'Polygon',
-                  coordinates: [
-                    [
-                        [121.5273285, 31.21515044],
-                        [121.5373285, 31.21515044],
-                        [121.5373285, 31.22515044],
-                        [121.5273285, 31.22515044]
-                    ]
-                  ],
+                  type: 'Point',
+                  coordinates: [121.5273285, 31.21515044],
               },
               properties: {
-                  height: 0
-              }
-          }]
+                  text: 'hello',
+                  fillSize: 50,
+                  shadowSize: 100
+                }
+          },{
+              geometry: {
+                  type: 'Point',
+                  coordinates: [121.5473285, 31.21515044],
+              },
+              properties: {
+                  text: 'world',
+                  fillSize: 50,
+                  shadowSize: 100
+                }
+          }],
+          visible: true
         };
       },
       mounted(){
       },
       methods: {
+        switchVisible(){
+          this.visible = !this.visible;
+        }
       }
     };
   </script>
@@ -71,12 +78,17 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-lineColor | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 
-lineWidth | number | 描边线宽度. 默认值：2
-lineJoin | String | 线的连接拐角，可选miter 尖角、bevel 平角、round 圆角, 默认值：`miter`
-dashArray | Array | 定义虚线间隔的数组，数组长度为2。数组的两位分别表示实线和虚线的长度，单位像素，如[10, 20]表示实线10px，虚线20px
-fillColor | String | 填充面颜色，同css颜色. 默认值：’rgba(25, 25, 250, 1)’
-fillOpacity | float | 填充面透明度，0.0表示完全透明，1.0表示完全不透明，浮点数表示. 默认值：1.0
+fillColor | string | 内部点颜色，同css颜色，默认值：’rgba(255, 50, 10, 1)’
+fillSize | Number | 内部点大小，单位像素，默认值：20
+fillBorderColor | string | 内部点边框颜色，同css颜色，默认值：’#ffffff’
+fillBorderWidth | Number | 内部点边框宽度，默认值：1.2
+shadowColor | string | 外部光晕颜色，同css颜色，默认值：’rgba(255, 80, 110, 0.7)’
+shadowSize | number | 外部光晕大小，单位像素，默认值：40
+shadowBorderColor | string | 外部光晕边框颜色，同css颜色，默认值：’rgba(255, 80, 110, 1)’
+shadowBorderWidth | number | 外部光晕边框宽度，默认值：1.2
+fontColor | string | 文字颜色，同css颜色，默认值：’#ffffff’
+fontSize | number | 文字大小，单位像素，默认值：12
+fontFamily | string | 文字字体，默认值：’Microsoft Yahei’
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
@@ -95,31 +107,38 @@ onMousemove | function([pickObject](#pickObject数据结构)){} | 鼠标指针�
 }
 ```
 
+
+
 ## 动态属性
 支持响应式。
 
 名称 | 类型 | 说明
 ---|---|---|
 visible | Boolean | 图层显隐，true显示，false隐藏，默认显示
-data | Array  | 点数据,GeoJSON格式
+data | Array  | // 点数据,GeoJSON格式
                          
 ### data数据结构
 ```
 [{
-  geometry: {
-      type: 'Polygon',
-      coordinates: [
-        [
-            [121.5273285, 31.21515044],
-            [121.5373285, 31.21515044],
-            [121.5373285, 31.22515044],
-            [121.5273285, 31.22515044]
-        ]
-      ],
-  },
-  properties: {
-      height: 0
-  }
+    geometry: {
+        type: 'Point',
+        coordinates: [121.5273285, 31.21515044],
+    },
+    properties: {
+        text: 'hello',
+        fillSize: 50,
+        shadowSize: 100
+      }
+},{
+    geometry: {
+        type: 'Point',
+        coordinates: [121.5473285, 31.21515044],
+    },
+    properties: {
+        text: 'world',
+        fillSize: 50,
+        shadowSize: 100
+      }
 }]
 ```
 
@@ -128,5 +147,5 @@ data | Array  | 点数据,GeoJSON格式
 
 函数 | 返回 | 说明
 ---|---|---|
-$$getInstance() | [mapvgl.PolygonLayer](https://mapv.baidu.com/gl/docs/PolygonLayer.html) | 获取`PolygonLayer`实例
+$$getInstance() | [mapvgl.MarkerListLayer](https://mapv.baidu.com/gl/docs/MarkerListLayer.html) | 获取`MarkerListLayer`实例
 $$pick({Number}x, {Number}y) | [pickObject数据结构](#pickObject数据结构) | 根据屏幕像素坐标获取元素,依赖：enablePicked=true

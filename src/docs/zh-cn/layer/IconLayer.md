@@ -86,6 +86,10 @@
 icon | object(canvas dom) 、string(图片url地址) | icon图标,如果在GeoJSON的properties属性中配置icon，则优先使用GeoJSON中的icon值
 width | number | 设置icon图标宽度
 height | Number | 设置icon图标高度
+unit | string | 绘制大小的方式，即指定width和height属性的单位，默认值：’px’。可选值：px，默认值，按像素绘制。 m，按米来绘制
+scale | Number | 设置icon缩放，默认值：1
+angle | Number | 设置icon按顺时针旋转角度，默认值：0
+flat | boolean | icon是否随地图倾斜，即平躺在地图上，默认值：false
 offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
 padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
 ---|---|---

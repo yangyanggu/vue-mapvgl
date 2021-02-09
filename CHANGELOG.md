@@ -1,3 +1,8 @@
+###v0.0.19
+  * 升级mapvgl 1.0.0-beta.105版本
+  * 增加MarkerListLayer图层
+  * 更新所有图层API，更新文档，适配1.0.0-beta.105版本API
+
 ###v0.0.18
   * GltfThreeLayer增加track参数，用于进行车辆跟踪
   * GltfThreeLayer增加tooltip功能，支持自定义内容

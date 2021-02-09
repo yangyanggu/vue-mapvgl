@@ -6,7 +6,7 @@ import registerMixin from '../mixins/register-component';
 import CONST from '../utils/constant';
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
 // const THREE = mapvglThree.THREE;
-import {Raycaster, Vector2, AxesHelper, PerspectiveCamera} from 'three/build/three.module';
+import {Raycaster, Vector2, AxesHelper} from 'three/build/three.module';
 import {createLight, createHDR} from '../utils/threeUtil';
 
 const raycaster = new Raycaster();
@@ -120,9 +120,7 @@ export default {
 
       mouse.x = ((e.x + window.pageXOffset - offsetLeft) / getBoundingClientRect.width) * 2 - 1;
       mouse.y = -((e.y + window.pageYOffset - offsetTop) / getBoundingClientRect.height) * 2 + 1;
-      let camera = new PerspectiveCamera();
-      camera.copy(this.$bmapComponent.getCamera());
-      camera.projectionMatrixInverse = camera.projectionMatrix.invert();
+      let camera = this.$bmapComponent.getCamera();
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(this.$bmapComponent.eventObjects || []);
       if (intersects.length > 0) {

@@ -10,6 +10,7 @@ export default {
     'color',
     'shape',
     'size',
+    'unit',
     'borderWidth',
     'borderColor',
     'blend',

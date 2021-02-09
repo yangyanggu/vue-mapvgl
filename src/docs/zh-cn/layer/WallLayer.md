@@ -74,6 +74,7 @@ gradient | Object | 渐变颜色模式，设置后color属性会失效，数据�
 height | Number | 立体墙的高度, 默认值：100
 texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，注意，**宽高必须为2的次幂**
 enablePreciseMap | boolean | 开启精准贴图模式，纹理会按顶点间的实际距离对应拉伸，当使用的纹理有实际数据意义时开启
+repeatMap | Number | 重复贴图，单位为米，如值为500代表500米重复一次贴图，值为0时不重复贴图, 默认值：0
 
 ### gradient
 ```

@@ -88,6 +88,7 @@
 color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 shape | String | 展示点的形状,默认值：’circle’,可选值：circle 圆形, square 正方形
 size | Number | 点大小, 默认值：5
+unit | string | 绘制大小的方式，即指定size属性的单位, 默认值：px。可选值：px，默认值，按像素绘制， m，按米来绘制
 borderWidth | Number | 边框宽度,默认值：0
 borderColor | String | 边框颜色，同css颜色,默认值：’rgba(255, 255, 255, 0.9)’
 blend | String | 点叠加模式，可选lighter

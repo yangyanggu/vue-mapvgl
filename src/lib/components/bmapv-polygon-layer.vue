@@ -10,6 +10,7 @@ export default {
     'lineColor',
     'lineWidth',
     'lineJoin',
+    'dashArray',
     'fillColor',
     'fillOpacity',
     'data',

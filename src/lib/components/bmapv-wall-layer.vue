@@ -11,6 +11,7 @@ export default {
     'height',
     'texture',
     'enablePreciseMap',
+    'repeatMap',
     'data'
   ],
   data() {
