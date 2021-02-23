@@ -14,6 +14,10 @@
 >该组件依赖于vue-bmap-gl，使用方式请查看教程
 > 该项目基于 https://github.com/ElemeFE/vue-amap/ 修改开发
 
+```html
+觉得有用可以给个star
+```
+
 ## 安装
 ```
 npm install -S vue-bmap-gl
@@ -75,6 +79,7 @@ VueBMap.initBMapApiLoader({
 * el-bmapv-honeycomb-layer (蜂窝图层 HoneycombLayer)
 * el-gltf-layer (百度针对gltf的实现)
 * el-gltf-three-layer (根据ThreeLayer以及ThreeJS进行扩展实现的模型加载图层)
+* el-bmapv-marker-list-layer (标注点组件 MarkerListLayer)
 
 ##mapvgl自带后处理器效果
 * 炫光特效 BloomEffect
