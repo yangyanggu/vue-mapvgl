@@ -1,3 +1,6 @@
+###v0.0.20
+  * 解决GltfThreeLayer图层的infoWindow与tooltip不停刷新问题
+
 ###v0.0.19
   * 升级mapvgl 1.0.0-beta.105版本
   * 增加MarkerListLayer图层

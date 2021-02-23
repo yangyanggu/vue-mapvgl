@@ -743,7 +743,7 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     map.addEventListener('dragging', () => {
       this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
     });
-    map.addEventListener('zoomend', () => {
+    map.addEventListener('zooming', () => {
       this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
     });
   }
