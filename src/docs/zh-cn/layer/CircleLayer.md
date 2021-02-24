@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-circle-layer :visible="visible" :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
+            <el-bmapv-circle-layer :visible="visible" unit="m" :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
         </el-bmapv-view>
       </el-bmap>
       <div>
@@ -78,6 +78,7 @@
 type | string | 设置圆的类型, 默认值：’simple’. <br/>可选值：<br/> simple，默认值，普通圆，扩散效果的相关设置对其无效, <br/> wave，带波纹扩散效果的圆, <br/> bubble，带冒泡扩散效果的圆
 color | String | 颜色，同css颜色, 默认值：’blue’, 当在data中设置时，优先使用data中的颜色
 size | Number | 圆的半径大小，带扩散效果时指的是中心圆的半径大小, 默认值：10
+unit | string | 绘制大小的方式，即指定size属性的单位, 默认值：px。可选值：px，默认值，按像素绘制， m，按米来绘制
 radius | number &#124; function | 扩散效果的半径大小，设置值时需要比size的值大，否则看不出扩散效果，也可设置为函数，传入参数为中心圆半径。默认值： 2*size
 duration | Number | 扩散效果的动画周期。wave类型时duration影响的是波纹的扩散速度，越小越快, bubble类型时duration是扩散开始到最大半径的时间，越大越长. 默认值：1
 trial | Number | 扩散效果的间隔时间。wave类型时trial影响的是波纹数，越大越多, bubble类型时trial是扩散最大半径到消失的时间，越大越长. 默认值：1

@@ -10,6 +10,7 @@ export default {
     'type',
     'color',
     'size',
+    'unit',
     'radius',
     'duration',
     'trial',

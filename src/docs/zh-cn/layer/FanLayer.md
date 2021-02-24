@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :tilt="60" :heading="0" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-fan-layer :size="1000" :data="data"></el-bmapv-fan-layer>
+            <el-bmapv-fan-layer unit="m" :size="100" :data="data"></el-bmapv-fan-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -67,6 +67,7 @@
 ---|:---:|---
 color | String | 雷达颜色，同css颜色, 默认值：’rgba(255, 5, 5, 1)’
 size | Number | 雷达大小, 默认值：50
+unit | string | 绘制大小的方式，即指定size属性的单位, 默认值：px。可选值：px，默认值，按像素绘制， m，按米来绘制
 step | Number | 雷达扫描动画的步长，步长越大动画速度越快, 默认值：0.1
 
 ## 动态属性

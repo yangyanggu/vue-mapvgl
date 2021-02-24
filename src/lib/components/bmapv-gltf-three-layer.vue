@@ -53,7 +53,9 @@ export default {
             visible: value.visible
           });
         }
-      }
+      },
+      preTooltip: '',
+      preInfoWindow: ''
     };
   },
   created() {
@@ -79,13 +81,23 @@ export default {
   updated() {
     this.$nextTick(() => {
       if (this.$bmapComponent) {
-        this.$bmapComponent.addOrUpdateTooltip({
-          content: this.tooltipVM.$refs.node.outerHTML,
-          isCustom: true
-        });
-        this.$bmapComponent.addOrUpdateInfoWindow({
-          content: this.infoWindowVM.$refs.node.outerHTML
-        });
+        let tooltipHtml = this.tooltipVM.$refs.node.outerHTML;
+        if (tooltipHtml !== this.preTooltip) {
+          this.$bmapComponent.addOrUpdateTooltip({
+            content: tooltipHtml,
+            isCustom: true
+          });
+          this.preTooltip = tooltipHtml;
+        }
+
+        let infoWindowHtml = this.infoWindowVM.$refs.node.outerHTML;
+        if (infoWindowHtml !== this.preInfoWindow) {
+          this.$bmapComponent.addOrUpdateInfoWindow({
+            content: this.infoWindowVM.$refs.node.outerHTML
+          });
+          this.preInfoWindow = infoWindowHtml;
+        }
+
       }
     });
   },
@@ -123,6 +135,7 @@ export default {
     }
   },
   render() {
+
     const tooltipSlot = this.$slots.tooltip || [];
     if (tooltipSlot.length) {
       this.tooltipVM.node = tooltipSlot;

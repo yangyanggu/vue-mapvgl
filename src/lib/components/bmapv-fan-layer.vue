@@ -8,6 +8,7 @@ export default {
   props: [
     'color',
     'size',
+    'unit',
     'step',
     'data'
   ],

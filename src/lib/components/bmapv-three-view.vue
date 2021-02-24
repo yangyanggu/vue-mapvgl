@@ -97,9 +97,10 @@ export default {
       }
     },
     bindEvents() {
-      this.$bmapComponent.webglLayer.map.map.addEventListener('click', this.clickGltf);
+      let dom = this.$bmapComponent.webglLayer.map.map.getContainer().querySelector('#mask');
+      dom.addEventListener('click', this.clickGltf);
       this.$bmapComponent.webglLayer.map.map.addEventListener('resize', this.resizeCamera);
-      this.$bmapComponent.webglLayer.map.map.addEventListener('mousemove', this.hoverGltf);
+      dom.addEventListener('mousemove', this.hoverGltf);
       // window.addEventListener('click', this.clickGltf);
     },
     resizeCamera(e) {
@@ -108,7 +109,6 @@ export default {
       camera.updateProjectionMatrix();
     },
     intersectGltf(e) {
-      e = e.domEvent;
       let client = e.srcElement;
       // 通过鼠标点击位置,计算出 raycaster 所需点的位置,以屏幕为中心点,范围 -1 到 1
       let getBoundingClientRect = client.getBoundingClientRect();
@@ -132,8 +132,10 @@ export default {
     },
     clickGltf(e) {
       let group = this.intersectGltf(e);
-      if (group.events && group.events.click) {
+      if (group && group.events && group.events.click) {
         group.events.click();
+        e.preventDefault();
+        e.stopPropagation();
       }
     },
     hoverGltf(e) {
