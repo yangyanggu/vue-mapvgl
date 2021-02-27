@@ -470,6 +470,9 @@ GltfThreeLayer.prototype.move = function(newPosition) {
         zoom: track.zoom
       }, track);
     }
+    if (this.infoWindow) {
+      this.changeTipPosition(this.group.position, this.threeLayer.webglLayer.map.map, this.options.infoWindow.offset, this.infoWindow);
+    }
     this.refreshRender();
     return;
   }
@@ -522,6 +525,9 @@ GltfThreeLayer.prototype.move = function(newPosition) {
           tilt: currentPosition.tilt,
           zoom: currentPosition.zoom
         }, track);
+      }
+      if (this.infoWindow) {
+        this.changeTipPosition(currentPosition, this.threeLayer.webglLayer.map.map, this.options.infoWindow.offset, this.infoWindow);
       }
       this.refreshRender();
     })
@@ -648,6 +654,9 @@ GltfThreeLayer.prototype.setUserData = function(data) {
 };
 
 GltfThreeLayer.prototype.setTrack = function(track) {
+  if (!this.group) {
+    return;
+  }
   if (!track) {
     this.options.track = undefined;
     this.group.track = undefined;
