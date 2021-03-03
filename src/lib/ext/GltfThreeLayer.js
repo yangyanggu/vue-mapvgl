@@ -227,25 +227,26 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
   if (options.visible === false) {
     this.hide();
   }
-  if (options.events) {
-    const box = new Box3();
-    const size = new Vector3();
-    const center = new Vector3();
-    box.setFromObject(this.object);
-    box.getSize(size);
-    box.getCenter(center);
-    const geometry = new BoxBufferGeometry(size.x, size.y, size.z);
-    const material = new MeshBasicMaterial({color: 'rgb(255,255,255)'});
-    material.transparent = true;
-    material.opacity = 0;
-    const cube = new Mesh(geometry, material);
-    cube.position.z = size.z / 2;
-    cube.sourceObject = this.group;
-    cube.renderOrder = 1;
-    this.box = cube;
-    this.group.add(cube);
-    this.threeLayer.eventObjects.push(cube);
-  }
+  this.refreshRender();
+  // if (options.events) {
+  const box = new Box3();
+  const size = new Vector3();
+  const center = new Vector3();
+  box.setFromObject(this.object);
+  box.getSize(size);
+  box.getCenter(center);
+  const geometry = new BoxBufferGeometry(size.x, size.y, size.z);
+  const material = new MeshBasicMaterial({color: 'rgb(255,255,255)'});
+  material.transparent = true;
+  material.opacity = 0;
+  const cube = new Mesh(geometry, material);
+  cube.position.z = size.z / 2;
+  cube.sourceObject = this.group;
+  cube.renderOrder = 1;
+  this.box = cube;
+  this.group.add(cube);
+  this.threeLayer.eventObjects.push(cube);
+  // }
   addEnvMap(object, this.threeLayer);
   this.createLight();
   this.createAnimation();
@@ -257,28 +258,18 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
     group: this.group,
     threeLayer: this.threeLayer
   });
-  this.refreshRender();
 };
 
 GltfThreeLayer.prototype.addEvents = function() {
-  let events = this.options.events;
-  if (events) {
-    if (events.click) {
-      this.group.events.click = () => {
-        this.emit('click', this.group);
-      };
-    }
-    if (events.mouseover) {
-      this.group.events.mouseover = () => {
-        this.emit('mouseover', this.group);
-      };
-    }
-    if (events.mouseout) {
-      this.group.events.mouseout = () => {
-        this.emit('mouseout', this.group);
-      };
-    }
-  }
+  this.group.events.click = () => {
+    this.emit('click', this.group);
+  };
+  this.group.events.mouseover = () => {
+    this.emit('mouseover', this.group);
+  };
+  this.group.events.mouseout = () => {
+    this.emit('mouseout', this.group);
+  };
 };
 
 GltfThreeLayer.prototype.remove = function() {
