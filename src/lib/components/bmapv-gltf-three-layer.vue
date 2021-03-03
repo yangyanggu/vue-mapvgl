@@ -117,7 +117,7 @@ export default {
           content: this.infoWindowVM.$refs.node.outerHTML
         });
       } else {
-        this.$bmapComponent.addOrUpdateTooltip();
+        this.$bmapComponent.addOrUpdateInfoWindow();
       }
     }
   },
