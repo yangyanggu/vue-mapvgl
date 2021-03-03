@@ -257,6 +257,7 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
     group: this.group,
     threeLayer: this.threeLayer
   });
+  this.refreshRender();
 };
 
 GltfThreeLayer.prototype.addEvents = function() {
