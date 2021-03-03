@@ -123,10 +123,20 @@ export default {
       let camera = this.$bmapComponent.getCamera();
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects(this.$bmapComponent.eventObjects || []);
-      if (intersects.length > 0) {
-        let object = intersects[0];
-        // let group = this.getGroup(object.object);
-        return object.object.sourceObject;
+      let length = intersects.length;
+      if (length > 0) {
+        let group = null;
+        for (let i = 0;i < length;i++) {
+          let object = intersects[i];
+          // let group = this.getGroup(object.object);
+          // 处理显隐问题，当模型隐藏后不应该继续触发事件
+          let sourceObject = object.object.sourceObject;
+          if (sourceObject.visible !== false) {
+            group = sourceObject;
+            break;
+          }
+        }
+        return group;
       }
       return null;
     },

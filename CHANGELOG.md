@@ -1,6 +1,7 @@
 ###v0.0.21
   * 解决GltfThreeLayer 模型还未加载完成时更新数据导致抛异常
-  * 解决GltfThreeLayer模型移动时infoWindow没有进行跟随问题
+  * 解决GltfThreeLayer 模型移动时infoWindow没有进行跟随问题
+  * 解决GltfThreeLayer 模型隐藏后还会继续触发事件问题
 
 ###v0.0.20
   * 解决GltfThreeLayer图层的infoWindow与tooltip不停刷新问题
