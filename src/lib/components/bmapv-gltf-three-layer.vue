@@ -124,14 +124,15 @@ export default {
   destroyed() {
     if (this.$bmapComponent) {
       this.$bmapComponent.remove();
-      if (this.$bmapComponent.tooltip) {
-        this.$bmapComponent.tooltip.remove();
-        this.tooltipVM.destroy();
-      }
-      if (this.$bmapComponent.infoWindow) {
-        this.$bmapComponent.infoWindow.remove();
-        this.infoWindowVM.destroy();
-      }
+      this.$bmapComponent = null;
+    }
+    if (this.tooltipVM) {
+      this.tooltipVM.$destroy();
+      this.tooltipVM = null;
+    }
+    if (this.infoWindowVM) {
+      this.infoWindowVM.$destroy();
+      this.infoWindowVM = null;
     }
   },
   render() {

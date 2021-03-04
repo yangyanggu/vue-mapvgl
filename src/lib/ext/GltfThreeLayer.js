@@ -272,8 +272,46 @@ GltfThreeLayer.prototype.addEvents = function() {
   };
 };
 
+/**
+ * 移除对象时进行相关对象销毁
+ */
 GltfThreeLayer.prototype.remove = function() {
   this.threeLayer.getWorld().remove(this.group);
+  if (this.moveRequestAnimationFrame) {
+    window.cancelAnimationFrame(this.moveRequestAnimationFrame);
+  }
+  if (this.linerAnimationFrame) {
+    window.cancelAnimationFrame(this.linerAnimationFrame);
+  }
+  if (this.animationGroup) {
+    this.animationGroup.removeAll();
+    this.animationGroup = null;
+  }
+  if (this.mapEvents) {
+    let map = this.threeLayer.webglLayer.map.map;
+    map.removeEventListener('moving', this.mapEvents.moving);
+    map.removeEventListener('dragging', this.mapEvents.dragging);
+    map.removeEventListener('zooming', this.mapEvents.zooming);
+  }
+  this.group.object = null;
+  this.object = null;
+  this.group = null;
+  if (this.tooltip) {
+    this.tooltip.remove();
+    this.tooltip = null;
+  }
+  if (this.infoWindow) {
+    this.infoWindow.remove();
+    this.infoWindow = null;
+  }
+  let index = this.threeLayer.eventObjects.indexOf(this.box);
+  if (index > -1) {
+    this.threeLayer.eventObjects.splice(index, 1);
+  }
+  this.box.sourceObject = null;
+  this.box = null;
+  this.events = null;
+  this.updateThreeLayer();
 };
 
 GltfThreeLayer.prototype.createLight = function() {
@@ -418,7 +456,7 @@ GltfThreeLayer.prototype.createLinerAnimation = function() {
 };
 
 GltfThreeLayer.prototype.animate = function(callback) {
-  requestAnimationFrame(() => {
+  this.linerAnimationFrame = requestAnimationFrame(() => {
     this.animate(callback);
   });
   callback();
@@ -738,15 +776,20 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     map.container.appendChild(ele);
     this.infoWindow = ele;
     this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    map.addEventListener('moving', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
-    map.addEventListener('dragging', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
-    map.addEventListener('zooming', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
+    this.mapEvents = {
+      moving: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      },
+      dragging: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      },
+      zooming: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      }
+    };
+    map.addEventListener('moving', this.mapEvents.moving);
+    map.addEventListener('dragging', this.mapEvents.dragging);
+    map.addEventListener('zooming', this.mapEvents.zooming);
   }
 };
 GltfThreeLayer.prototype.changeTipPosition = function(position, map, offset, ele) {
