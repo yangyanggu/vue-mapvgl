@@ -93,7 +93,7 @@ export default {
         let infoWindowHtml = this.infoWindowVM.$refs.node.outerHTML;
         if (infoWindowHtml !== this.preInfoWindow) {
           this.$bmapComponent.addOrUpdateInfoWindow({
-            content: this.infoWindowVM.$refs.node.outerHTML
+            ele: this.infoWindowVM.$refs.node
           });
           this.preInfoWindow = infoWindowHtml;
         }
@@ -114,24 +114,25 @@ export default {
       }
       if (this.$slots.infoWindow && this.$slots.infoWindow.length) {
         this.$bmapComponent.addOrUpdateInfoWindow({
-          content: this.infoWindowVM.$refs.node.outerHTML
+          ele: this.infoWindowVM.$refs.node
         });
       } else {
-        this.$bmapComponent.addOrUpdateTooltip();
+        this.$bmapComponent.addOrUpdateInfoWindow();
       }
     }
   },
   destroyed() {
     if (this.$bmapComponent) {
       this.$bmapComponent.remove();
-      if (this.$bmapComponent.tooltip) {
-        this.$bmapComponent.tooltip.remove();
-        this.tooltipVM.destroy();
-      }
-      if (this.$bmapComponent.infoWindow) {
-        this.$bmapComponent.infoWindow.remove();
-        this.infoWindowVM.destroy();
-      }
+      this.$bmapComponent = null;
+    }
+    if (this.tooltipVM) {
+      this.tooltipVM.$destroy();
+      this.tooltipVM = null;
+    }
+    if (this.infoWindowVM) {
+      this.infoWindowVM.$destroy();
+      this.infoWindowVM = null;
     }
   },
   render() {

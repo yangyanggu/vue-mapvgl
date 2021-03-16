@@ -280,11 +280,13 @@ infoWindow: {
 $$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
 
 ## 事件列表（需要在events中配置）
-目前提供了模型加载完成的事件
+目前提供了模型加载完成、click、mouseover、mouseout的事件
 ```html
 {
   loaded: (e)=>{},
-  click: (e)=>{}
+  click: (e)=>{},
+  mouseover: (e)=>{},
+  mouseout: (e)=>{}
 }
 ```
 
@@ -292,7 +294,7 @@ $$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
 
 事件名称 | 回调值 | 说明 
 ---|---|---|
-loaded | {object: object,threeLayer: threeLayer} | 该事件会在模型加载完成后触发，回调中的object为模型的Object3D对象，object中还包含动画对象animations，threeLayer为three图层对象
+loaded | {object: object, group: group, threeLayer: threeLayer} | 该事件会在模型加载完成后触发，回调中的object为模型的Object3D对象，object中还包含动画对象animations，<br/> group为包含object的对象，实际上是通过操作group的属性来实现移动，缩放等操作，<br/> threeLayer为three图层对象，将threeLayer对象的needsUpdate属性设置为true后会自动刷新图层
 click | group对象 | click事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象
 mouseover | group对象 | mouseover事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象
 mouseout | group对象 | mouseout事件返回的是包含模型的group对象，初始设置的userData会被设置在group上，通过操作group可以更改模型位置、也可以通过children获取模型对象

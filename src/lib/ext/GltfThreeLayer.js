@@ -227,25 +227,26 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
   if (options.visible === false) {
     this.hide();
   }
-  if (options.events) {
-    const box = new Box3();
-    const size = new Vector3();
-    const center = new Vector3();
-    box.setFromObject(this.object);
-    box.getSize(size);
-    box.getCenter(center);
-    const geometry = new BoxBufferGeometry(size.x, size.y, size.z);
-    const material = new MeshBasicMaterial({color: 'rgb(255,255,255)'});
-    material.transparent = true;
-    material.opacity = 0;
-    const cube = new Mesh(geometry, material);
-    cube.position.z = size.z / 2;
-    cube.sourceObject = this.group;
-    cube.renderOrder = 1;
-    this.box = cube;
-    this.group.add(cube);
-    this.threeLayer.eventObjects.push(cube);
-  }
+  this.refreshRender();
+  // if (options.events) {
+  const box = new Box3();
+  const size = new Vector3();
+  const center = new Vector3();
+  box.setFromObject(this.object);
+  box.getSize(size);
+  box.getCenter(center);
+  const geometry = new BoxBufferGeometry(size.x, size.y, size.z);
+  const material = new MeshBasicMaterial({color: 'rgb(255,255,255)'});
+  material.transparent = true;
+  material.opacity = 0;
+  const cube = new Mesh(geometry, material);
+  cube.position.z = size.z / 2;
+  cube.sourceObject = this.group;
+  cube.renderOrder = 1;
+  this.box = cube;
+  this.group.add(cube);
+  this.threeLayer.eventObjects.push(cube);
+  // }
   addEnvMap(object, this.threeLayer);
   this.createLight();
   this.createAnimation();
@@ -260,28 +261,57 @@ GltfThreeLayer.prototype.addObject3D = function(sourceObject, animations) {
 };
 
 GltfThreeLayer.prototype.addEvents = function() {
-  let events = this.options.events;
-  if (events) {
-    if (events.click) {
-      this.group.events.click = () => {
-        this.emit('click', this.group);
-      };
-    }
-    if (events.mouseover) {
-      this.group.events.mouseover = () => {
-        this.emit('mouseover', this.group);
-      };
-    }
-    if (events.mouseout) {
-      this.group.events.mouseout = () => {
-        this.emit('mouseout', this.group);
-      };
-    }
-  }
+  this.group.events.click = () => {
+    this.emit('click', this.group);
+  };
+  this.group.events.mouseover = () => {
+    this.emit('mouseover', this.group);
+  };
+  this.group.events.mouseout = () => {
+    this.emit('mouseout', this.group);
+  };
 };
 
+/**
+ * 移除对象时进行相关对象销毁
+ */
 GltfThreeLayer.prototype.remove = function() {
   this.threeLayer.getWorld().remove(this.group);
+  if (this.moveRequestAnimationFrame) {
+    window.cancelAnimationFrame(this.moveRequestAnimationFrame);
+  }
+  if (this.linerAnimationFrame) {
+    window.cancelAnimationFrame(this.linerAnimationFrame);
+  }
+  if (this.animationGroup) {
+    this.animationGroup.removeAll();
+    this.animationGroup = null;
+  }
+  if (this.mapEvents) {
+    let map = this.threeLayer.webglLayer.map.map;
+    map.removeEventListener('moving', this.mapEvents.moving);
+    map.removeEventListener('dragging', this.mapEvents.dragging);
+    map.removeEventListener('zooming', this.mapEvents.zooming);
+  }
+  this.group.object = null;
+  this.object = null;
+  this.group = null;
+  if (this.tooltip) {
+    this.tooltip.remove();
+    this.tooltip = null;
+  }
+  if (this.infoWindow) {
+    this.infoWindow.remove();
+    this.infoWindow = null;
+  }
+  let index = this.threeLayer.eventObjects.indexOf(this.box);
+  if (index > -1) {
+    this.threeLayer.eventObjects.splice(index, 1);
+  }
+  this.box.sourceObject = null;
+  this.box = null;
+  this.events = null;
+  this.updateThreeLayer();
 };
 
 GltfThreeLayer.prototype.createLight = function() {
@@ -426,7 +456,7 @@ GltfThreeLayer.prototype.createLinerAnimation = function() {
 };
 
 GltfThreeLayer.prototype.animate = function(callback) {
-  requestAnimationFrame(() => {
+  this.linerAnimationFrame = requestAnimationFrame(() => {
     this.animate(callback);
   });
   callback();
@@ -469,6 +499,9 @@ GltfThreeLayer.prototype.move = function(newPosition) {
         tilt: track.tilt,
         zoom: track.zoom
       }, track);
+    }
+    if (this.infoWindow) {
+      this.changeTipPosition(this.group.position, this.threeLayer.webglLayer.map.map, this.options.infoWindow.offset, this.infoWindow);
     }
     this.refreshRender();
     return;
@@ -522,6 +555,9 @@ GltfThreeLayer.prototype.move = function(newPosition) {
           tilt: currentPosition.tilt,
           zoom: currentPosition.zoom
         }, track);
+      }
+      if (this.infoWindow) {
+        this.changeTipPosition(currentPosition, this.threeLayer.webglLayer.map.map, this.options.infoWindow.offset, this.infoWindow);
       }
       this.refreshRender();
     })
@@ -648,6 +684,9 @@ GltfThreeLayer.prototype.setUserData = function(data) {
 };
 
 GltfThreeLayer.prototype.setTrack = function(track) {
+  if (!this.group) {
+    return;
+  }
   if (!track) {
     this.options.track = undefined;
     this.group.track = undefined;
@@ -710,13 +749,19 @@ GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
 GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
   let infoWindow = merge({}, this.options.infoWindow, options);
   this.options.infoWindow = infoWindow;
-  if (!infoWindow || !infoWindow.content || !this.group) {
+  if (!infoWindow || (!infoWindow.content && !infoWindow.ele) || !this.group) {
     return;
   }
   let map = this.threeLayer.webglLayer.map.map;
   let content = infoWindow.content;
+  let childEle = infoWindow.ele;
   if (this.infoWindow) {
-    this.infoWindow.innerHTML = content;
+    this.infoWindow.innerHTML = '';
+    if (childEle) {
+      this.infoWindow.appendChild(childEle);
+    } else {
+      this.infoWindow.innerHTML = content;
+    }
     if (infoWindow.visible === true) {
       this.infoWindow.style.display = 'block';
     } else {
@@ -724,9 +769,13 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     }
   } else {
     let html = `<div class="bmap-gl-info-window-container">
-                ${content}
               </div>`;
     let ele = parseDom(html);
+    if (childEle) {
+      ele.appendChild(childEle);
+    } else {
+      ele.innerHTML = content;
+    }
     ele.style.display = 'none';
     ele.style.zIndex = '99';
     ele.style.position = 'absolute';
@@ -737,15 +786,20 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     map.container.appendChild(ele);
     this.infoWindow = ele;
     this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    map.addEventListener('moving', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
-    map.addEventListener('dragging', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
-    map.addEventListener('zooming', () => {
-      this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
-    });
+    this.mapEvents = {
+      moving: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      },
+      dragging: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      },
+      zooming: () => {
+        this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
+      }
+    };
+    map.addEventListener('moving', this.mapEvents.moving);
+    map.addEventListener('dragging', this.mapEvents.dragging);
+    map.addEventListener('zooming', this.mapEvents.zooming);
   }
 };
 GltfThreeLayer.prototype.changeTipPosition = function(position, map, offset, ele) {
