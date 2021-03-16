@@ -749,13 +749,19 @@ GltfThreeLayer.prototype.addOrUpdateTooltip = function(options = {}) {
 GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
   let infoWindow = merge({}, this.options.infoWindow, options);
   this.options.infoWindow = infoWindow;
-  if (!infoWindow || !infoWindow.content || !this.group) {
+  if (!infoWindow || (!infoWindow.content && !infoWindow.ele) || !this.group) {
     return;
   }
   let map = this.threeLayer.webglLayer.map.map;
   let content = infoWindow.content;
+  let childEle = infoWindow.ele;
   if (this.infoWindow) {
-    this.infoWindow.innerHTML = content;
+    this.infoWindow.innerHTML = '';
+    if (childEle) {
+      this.infoWindow.appendChild(childEle);
+    } else {
+      this.infoWindow.innerHTML = content;
+    }
     if (infoWindow.visible === true) {
       this.infoWindow.style.display = 'block';
     } else {
@@ -763,9 +769,13 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     }
   } else {
     let html = `<div class="bmap-gl-info-window-container">
-                ${content}
               </div>`;
     let ele = parseDom(html);
+    if (childEle) {
+      ele.appendChild(childEle);
+    } else {
+      ele.innerHTML = content;
+    }
     ele.style.display = 'none';
     ele.style.zIndex = '99';
     ele.style.position = 'absolute';

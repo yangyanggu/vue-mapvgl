@@ -280,7 +280,7 @@ infoWindow: {
 $$getInstance() | GltfThreeLayer | 获取`GltfThreeLayer`实例
 
 ## 事件列表（需要在events中配置）
-目前提供了模型加载完成的事件
+目前提供了模型加载完成、click、mouseover、mouseout的事件
 ```html
 {
   loaded: (e)=>{},

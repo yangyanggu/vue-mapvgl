@@ -1,7 +1,8 @@
 ###v0.0.23
   * 升级threejs至0.126.1
-  * 升级mapvgl至1.0.0-beta.108
+  * 升级mapvgl至1.0.0-beta.112
   * GltfThreeLayer图层销毁时增加销毁所有对象和事件能力，释放内存
+  * 解决GltfThreeLayer图层的infoWindow内容不支持点击问题
 
 ###v0.0.22
   * 解决GltfThreeLayer 模型还未加载完成时更新数据导致抛异常

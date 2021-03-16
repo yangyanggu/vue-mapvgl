@@ -93,7 +93,7 @@ export default {
         let infoWindowHtml = this.infoWindowVM.$refs.node.outerHTML;
         if (infoWindowHtml !== this.preInfoWindow) {
           this.$bmapComponent.addOrUpdateInfoWindow({
-            content: this.infoWindowVM.$refs.node.outerHTML
+            ele: this.infoWindowVM.$refs.node
           });
           this.preInfoWindow = infoWindowHtml;
         }
@@ -114,7 +114,7 @@ export default {
       }
       if (this.$slots.infoWindow && this.$slots.infoWindow.length) {
         this.$bmapComponent.addOrUpdateInfoWindow({
-          content: this.infoWindowVM.$refs.node.outerHTML
+          ele: this.infoWindowVM.$refs.node
         });
       } else {
         this.$bmapComponent.addOrUpdateInfoWindow();
