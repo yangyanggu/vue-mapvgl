@@ -101,6 +101,7 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
         x: 0,
         y: -20
       },
+      anchor: 'bottom',
       content: ''
     }
   };
@@ -779,7 +780,27 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     ele.style.display = 'none';
     ele.style.zIndex = '99';
     ele.style.position = 'absolute';
-    ele.style.transform = 'translate(-50%,-100%)';
+    let anchor = infoWindow.anchor;
+    if (anchor === 'bottom') {
+      ele.style.transform = 'translate(-50%,-100%)';
+    } else if (anchor === 'left') {
+      ele.style.transform = 'translate(-100%,-50%)';
+    } else if (anchor === 'top') {
+      ele.style.transform = 'translate(-50%,0)';
+    } else if (anchor === 'right') {
+      ele.style.transform = 'translate(0,-50%)';
+    } else if (anchor === 'left-top') {
+      ele.style.transform = '';
+    } else if (anchor === 'left-bottom') {
+      ele.style.transform = 'translate(0,-100%)';
+    } else if (anchor === 'right-top') {
+      ele.style.transform = 'translate(-100%,0)';
+    } else if (anchor === 'right-bottom') {
+      ele.style.transform = 'translate(-100%,-100%)';
+    } else {
+      ele.style.transform = 'translate(-50%,-100%)';
+    }
+
     if (infoWindow.visible) {
       ele.style.display = 'block';
     }

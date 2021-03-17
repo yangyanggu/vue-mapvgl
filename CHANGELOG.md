@@ -1,3 +1,6 @@
+###v0.0.24
+  * GltfThreeLayer图层的infoWindow增加anchor属性,用于控制信息框的指向
+
 ###v0.0.23
   * 升级threejs至0.126.1
   * 升级mapvgl至1.0.0-beta.112
