@@ -294,7 +294,9 @@ GltfThreeLayer.prototype.remove = function() {
     map.removeEventListener('dragging', this.mapEvents.dragging);
     map.removeEventListener('zooming', this.mapEvents.zooming);
   }
-  this.group.object = null;
+  if (this.group) {
+    this.group.object = null;
+  }
   this.object = null;
   this.group = null;
   if (this.tooltip) {
@@ -309,7 +311,9 @@ GltfThreeLayer.prototype.remove = function() {
   if (index > -1) {
     this.threeLayer.eventObjects.splice(index, 1);
   }
-  this.box.sourceObject = null;
+  if (this.box) {
+    this.box.sourceObject = null;
+  }
   this.box = null;
   this.events = null;
   this.updateThreeLayer();
