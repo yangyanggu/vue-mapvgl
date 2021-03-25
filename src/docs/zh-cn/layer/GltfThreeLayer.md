@@ -83,7 +83,8 @@
           tooltip: 'hello world',
           infoWindow: {
             visible: false,
-            content: '测试InfoWindow'
+            content: '测试InfoWindow',
+            anchor: 'right'
           }
         };
       },
@@ -268,7 +269,8 @@ infoWindow: {
         x: 0, //X轴偏移，默认为DIV的中心位置
         y: -20 //Y轴偏移，默认为DIV中心位置
       },
-      visible: false //是否显示
+      visible: false, //是否显示,
+      anchor: 'bottom' //锚点，信息框的控制点所在位置，默认为bottom。可选值：bottom、 left、 top 、 right 、 left-top、 left-bottom、 right-top 、 right-bottom
     }
 ```
 

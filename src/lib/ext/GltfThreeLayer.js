@@ -101,6 +101,7 @@ GltfThreeLayer.prototype.getDefaultOptions = function() {
         x: 0,
         y: -20
       },
+      anchor: 'bottom',
       content: ''
     }
   };
@@ -293,7 +294,9 @@ GltfThreeLayer.prototype.remove = function() {
     map.removeEventListener('dragging', this.mapEvents.dragging);
     map.removeEventListener('zooming', this.mapEvents.zooming);
   }
-  this.group.object = null;
+  if (this.group) {
+    this.group.object = null;
+  }
   this.object = null;
   this.group = null;
   if (this.tooltip) {
@@ -308,7 +311,9 @@ GltfThreeLayer.prototype.remove = function() {
   if (index > -1) {
     this.threeLayer.eventObjects.splice(index, 1);
   }
-  this.box.sourceObject = null;
+  if (this.box) {
+    this.box.sourceObject = null;
+  }
   this.box = null;
   this.events = null;
   this.updateThreeLayer();
@@ -779,7 +784,27 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     ele.style.display = 'none';
     ele.style.zIndex = '99';
     ele.style.position = 'absolute';
-    ele.style.transform = 'translate(-50%,-100%)';
+    let anchor = infoWindow.anchor;
+    if (anchor === 'bottom') {
+      ele.style.transform = 'translate(-50%,-100%)';
+    } else if (anchor === 'left') {
+      ele.style.transform = 'translate(-100%,-50%)';
+    } else if (anchor === 'top') {
+      ele.style.transform = 'translate(-50%,0)';
+    } else if (anchor === 'right') {
+      ele.style.transform = 'translate(0,-50%)';
+    } else if (anchor === 'left-top') {
+      ele.style.transform = '';
+    } else if (anchor === 'left-bottom') {
+      ele.style.transform = 'translate(0,-100%)';
+    } else if (anchor === 'right-top') {
+      ele.style.transform = 'translate(-100%,0)';
+    } else if (anchor === 'right-bottom') {
+      ele.style.transform = 'translate(-100%,-100%)';
+    } else {
+      ele.style.transform = 'translate(-50%,-100%)';
+    }
+
     if (infoWindow.visible) {
       ele.style.display = 'block';
     }
