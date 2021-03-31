@@ -13,7 +13,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-point-layer :color="color" :shape="shape" :blend="blend" :size="size" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-point-layer>
+            <el-bmapv-point-layer :zoom-threshold="[12,15]" :color="color" :shape="shape" :blend="blend" :size="size" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-point-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -92,6 +92,7 @@ unit | string | 绘制大小的方式，即指定size属性的单位, 默认值�
 borderWidth | Number | 边框宽度,默认值：0
 borderColor | String | 边框颜色，同css颜色,默认值：’rgba(255, 255, 255, 0.9)’
 blend | String | 点叠加模式，可选lighter
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

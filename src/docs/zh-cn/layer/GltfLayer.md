@@ -68,7 +68,7 @@ Gltf图层,该图层API百度尚未提供，因此暂时只能提供scale跟url�
 ---|:---:|---
 scale | Number | 缩放比例，默认1 
 url | String | gltf模型的下载地址
-
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 
 ## 动态属性
 支持响应式。

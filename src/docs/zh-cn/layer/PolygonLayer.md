@@ -77,6 +77,7 @@ lineJoin | String | 线的连接拐角，可选miter 尖角、bevel 平角、rou
 dashArray | Array | 定义虚线间隔的数组，数组长度为2。数组的两位分别表示实线和虚线的长度，单位像素，如[10, 20]表示实线10px，虚线20px
 fillColor | String | 填充面颜色，同css颜色. 默认值：’rgba(25, 25, 250, 1)’
 fillOpacity | float | 填充面透明度，0.0表示完全透明，1.0表示完全不透明，浮点数表示. 默认值：1.0
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

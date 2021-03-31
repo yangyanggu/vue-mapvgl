@@ -1,3 +1,8 @@
+###v0.0.25
+  * 升级mapvgl至1.0.0-beta.119
+  * 为所有图层增加zoomThreshold，用来指定图层执行渲染的地图层级。GltfThreeLayer图层由于特殊性，将zoomThreshold属性添加到ThreeView组件中
+  * 增加QQ群，可以交流问题，群号见readme
+
 ###v0.0.24
   * GltfThreeLayer图层的infoWindow增加anchor属性,用于控制信息框的指向
   *  解决GltfThreeLayer图层销毁时报错问题

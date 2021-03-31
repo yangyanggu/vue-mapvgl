@@ -104,6 +104,7 @@
 lights | Array | 图层的全局灯光配置，可以配置多个灯光，详细参数见下面灯光说明
 hdr | Object | HDR配置
 events | Object | 绑定事件
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 
 ### HDR配置
 ```html

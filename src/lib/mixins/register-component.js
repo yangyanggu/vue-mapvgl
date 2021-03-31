@@ -4,7 +4,7 @@ import eventHelper from '../utils/event-helper';
 import CONSTANTS from '../utils/constant';
 
 export default {
-  props: ['visible'],
+  props: ['visible', 'zoomThreshold'],
   data() {
     let self = this;
     return {
