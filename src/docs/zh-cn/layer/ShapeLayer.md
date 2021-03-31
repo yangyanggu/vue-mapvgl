@@ -414,6 +414,7 @@ blend | String | 点叠加模式，可选lighter
 riseTime | Number | 楼块初始化升起动画的时间，单位毫秒. 默认值：0
 effect | String | 一些特效. <br/>可选值:<br/> normal，默认，正常<br/> window，窗户效果<br/> windowAnimation，窗户动画效果<br/> gradual，渐变效果<br/> ripple，光波效果
 rippleLayer | GroundRippleLayer | 只有effect设置为ripple才会生效
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

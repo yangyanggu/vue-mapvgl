@@ -76,6 +76,7 @@ height | Number  function | 烟花线的高度, 默认值：100, 当height为fun
 step | Number | 动画的速度, 默认值：0.1
 startTime | Number | 动画开始时间, 默认值：0
 endTime | Number | 动画结束时间, 默认值：10
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 
 ## 动态属性
 支持响应式。

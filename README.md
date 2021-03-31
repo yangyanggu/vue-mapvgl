@@ -18,6 +18,9 @@
 觉得有用可以给个star
 ```
 
+![avatar](./vue-mapvgl.png)
+群号
+
 ## 安装
 ```
 npm install -S vue-bmap-gl

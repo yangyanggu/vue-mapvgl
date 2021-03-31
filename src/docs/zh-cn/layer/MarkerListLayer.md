@@ -89,6 +89,7 @@ shadowBorderWidth | number | 外部光晕边框宽度，默认值：1.2
 fontColor | string | 文字颜色，同css颜色，默认值：’#ffffff’
 fontSize | number | 文字大小，单位像素，默认值：12
 fontFamily | string | 文字字体，默认值：’Microsoft Yahei’
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

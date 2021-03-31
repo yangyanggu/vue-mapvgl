@@ -92,6 +92,7 @@ angle | Number | 设置icon按顺时针旋转角度，默认值：0
 flat | boolean | icon是否随地图倾斜，即平躺在地图上，默认值：false
 offset | array | icon图标偏移值，基于图标中心点偏移，[{number}x, {number}y],默认值：[0, 0]
 padding | array | 生成icon雪碧图时，图标间的空隙,默认值：[0, 0]
+zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
