@@ -6,7 +6,7 @@ export default {
   name: 'el-bmapv-fly-line-layer',
   mixins: [registerMixin],
   props: [
-    'style',
+    'effect',
     'color',
     'textureColor',
     'textureWidth',
@@ -16,6 +16,9 @@ export default {
   ],
   data() {
     return {
+      propsRedirect: {
+        effect: 'style'
+      },
       converters: {
       },
       handlers: {

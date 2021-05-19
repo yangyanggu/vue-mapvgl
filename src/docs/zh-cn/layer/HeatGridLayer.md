@@ -73,7 +73,7 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-style | String | 展示方式,默认值：’grid’,可选值：grid 按半径聚合展示,normal 按真实坐标展示
+effect | String | 展示方式,默认值：’grid’,可选值：grid 按半径聚合展示,normal 按真实坐标展示
 girdSize | Number | 柱状图单个柱子的半径，也是聚合半径, 默认值：500
 gradient | Object | 渐变色,默认值 [gradient](#gradient)
 max | Number | 最大阈值, **必填**

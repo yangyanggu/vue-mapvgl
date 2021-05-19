@@ -7,7 +7,7 @@ export default {
   name: 'el-bmapv-heat-point-layer',
   mixins: [registerMixin],
   props: [
-    'style',
+    'effect',
     'girdSize',
     'gradient',
     'max',
@@ -17,6 +17,9 @@ export default {
   ],
   data() {
     return {
+      propsRedirect: {
+        effect: 'style'
+      },
       converters: {
       },
       handlers: {
