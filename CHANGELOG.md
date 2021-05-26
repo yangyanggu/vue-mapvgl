@@ -1,3 +1,7 @@
+###v0.0.26
+  * 升级mapvgl至1.0.0-beta.126
+  * 修改部分组件中的style属性，更改为effect，防止与vue的style冲突
+
 ###v0.0.25
   * 升级mapvgl至1.0.0-beta.119
   * 为所有图层增加zoomThreshold，用来指定图层执行渲染的地图层级。GltfThreeLayer图层由于特殊性，将zoomThreshold属性添加到ThreeView组件中
