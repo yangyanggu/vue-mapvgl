@@ -65,7 +65,7 @@
 
 名称 | 类型 | 说明
 ---|:---:|---
-style | string | 飞线动画方式, 默认值：’normal’. <br/> 可选值：<br/> normal，默认值，飞线动画速度均匀 <br/> chaos，飞线动画速度不均匀
+effect | string | 飞线动画方式, 默认值：’normal’. <br/> 可选值：<br/> normal，默认值，飞线动画速度均匀 <br/> chaos，飞线动画速度不均匀
 color | String | 底线颜色，同css颜色, 默认值：’rgba(255, 5, 5, 1)’
 textureColor | String | 飞线动画颜色，同css颜色, 默认值：’rgba(255, 5, 5, 1)’
 textureWidth | Number | 飞线动画的宽度, 默认值：5
