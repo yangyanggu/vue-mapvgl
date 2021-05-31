@@ -406,7 +406,7 @@
 ---|:---:|---
 color | String | 颜色，同css颜色,默认值：’rgba(25, 25, 250, 1)’。 如果在GeoJSON的properties属性中配置color，则优先使用GeoJSON中的color值
 opacity | float | 楼块透明度，0.0表示完全透明，1.0表示完全不透明，浮点数表示. 默认值：1.0
-texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，**注意，宽高必须为2的次幂**
+texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，**注意，宽高必须为2的次幂**,当该值不为空时图片必须存在，不然会导致无法渲染
 isTextureFull | Boolean | 是否降纹理贴图撑满，默认 false
 textureScale | Number | 纹理的缩放
 topColor | String | 顶部颜色
