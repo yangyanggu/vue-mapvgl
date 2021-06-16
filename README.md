@@ -1,3 +1,5 @@
+## 文档地址更新为： https://docs.guyixi.cn/vue-mapvgl/#/ 
+
 <p align="center">
   <img src="https://cdn.rawgit.com/ElemeFE/vue-amap/master/src/docs/assets/images/logo.png">
 </p>
@@ -28,7 +30,7 @@ npm install -S vue-mapvgl
 ```
 
 ## 文档
-[https://guyangyang.gitee.io/vue-mapvgl/#/](https://guyangyang.gitee.io/vue-mapvgl/#/)
+[https://docs.guyixi.cn/vue-mapvgl/#/](https://docs.guyixi.cn/vue-mapvgl/#/)
 
 
 ## 快速上手
