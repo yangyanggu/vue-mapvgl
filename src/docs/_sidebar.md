@@ -3,6 +3,7 @@
  - [安装](zh-cn/introduction/install.md)
  - [初始化](zh-cn/introduction/init.md)
  - [快速上手](zh-cn/introduction/quick-start.md)
+ - [捐赠支持](zh-cn/other/donation.md)
 - 基础
  - [视图容器](zh-cn/base/view.md)
  - [ThreeJS视图容器](zh-cn/base/ThreeView.md)

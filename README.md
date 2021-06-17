@@ -19,9 +19,12 @@
 ```html
 觉得有用可以给个star
 ```
-
+## 群号
 ![avatar](./vue-mapvgl.png)
-群号
+
+## 捐赠支持
+<img src="./src/docs/assets/images/zhifubao.jpg" alt="支付宝" width="270px" />
+<img src="./src/docs/assets/images/weixin.png" alt="微信" width="270px"/>
 
 ## 安装
 ```
