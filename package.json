@@ -1,6 +1,6 @@
 {
   "name": "vue-mapvgl",
-  "version": "0.0.26",
+  "version": "0.0.27-beta2",
   "description": "vue mapvgl",
   "keywords": [
     "vue",
@@ -115,7 +115,7 @@
     "uppercamelcase": "^1.1.0"
   },
   "peerDependencies": {
-    "vue-bmap-gl": "^0.0.11"
+    "vue-bmap-gl": ">=0.0.11"
   },
   "engines": {
     "core-js": "^2.5.0",
