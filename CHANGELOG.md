@@ -1,3 +1,7 @@
+###v0.0.27
+* 升级mapvgl至1.0.0-beta.130
+* 修改部分文档
+
 ###v0.0.26
   * 升级mapvgl至1.0.0-beta.126
   * 修改部分组件中的style属性，更改为effect，防止与vue的style冲突
