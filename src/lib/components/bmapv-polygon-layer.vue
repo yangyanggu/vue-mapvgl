@@ -42,6 +42,8 @@ export default {
   destroyed() {
     if (this.$bmapComponent && this.$view) {
       this.$view.removeLayer(this.$bmapComponent);
+      this.$bmapComponent = null;
+      this.$view = null;
     }
   },
   render() {

@@ -56,7 +56,7 @@ export default {
       let options = this.convertProps();
       options.map = map;
       this.$bmapComponent = this.$view = new mapvgl.View(options);
-      this.$bmapComponent.startAnimation();
+      // this.$bmapComponent.startAnimation();
       if (this.events && this.events.init) this.events.init(this.$bmapComponent);
       this.$children.forEach(component => {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
@@ -64,7 +64,11 @@ export default {
     }
   },
   destroyed() {
-    this.$bmapComponent && this.$bmapComponent.destroy();
+    if (this.$bmapComponent) {
+      this.$bmapComponent.removeAllLayers();
+      this.$bmapComponent.destroy();
+      this.$bmapComponent = this.$view = null;
+    }
   }
 };
 </script>

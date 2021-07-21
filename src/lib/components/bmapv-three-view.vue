@@ -175,6 +175,7 @@ export default {
       this.$bmapComponent.webglLayer.map.map.removeEventListener('click', this.clickGltf);
       this.$bmapComponent.webglLayer.map.map.removeEventListener('resize', this.resizeCamera);
       this.$bmapComponent.destroy();
+      this.$bmapComponent = null;
     }
   }
 };

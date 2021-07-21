@@ -87,6 +87,8 @@ export default {
     if (this.rippleLayer) {
       this.$view.removeLayer(this.rippleLayer);
     }
+    this.$bmapComponent = null;
+    this.$view = null;
   },
   render() {
     return null;
