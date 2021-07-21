@@ -73,6 +73,7 @@ gradient | Object | 渐变颜色模式，数据类型为Object,实例见 [gradie
 max | Number | 最大阈值
 min | Number | 最小阈值
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 
 ### gradient
 ```

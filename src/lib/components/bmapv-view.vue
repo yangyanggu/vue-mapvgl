@@ -45,7 +45,13 @@ export default {
 
   mounted() {
     this.$on(CONST.BMAP_READY_EVENT, map => {
-      this.createView(map);
+      if (this.lazy < 0) {
+        this.createView(map);
+      } else {
+        setTimeout(() => {
+          this.createView(map);
+        }, this.lazy);
+      }
     });
   },
   methods: {

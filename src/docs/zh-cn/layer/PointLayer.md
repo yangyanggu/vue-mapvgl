@@ -12,8 +12,8 @@
   <template>
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
-        <el-bmapv-view>
-            <el-bmapv-point-layer :zoom-threshold="[12,15]" :color="color" :shape="shape" :blend="blend" :size="size" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-point-layer>
+        <el-bmapv-view :lazy="300">
+            <el-bmapv-point-layer :lazy="2000" :zoom-threshold="[12,15]" :color="color" :shape="shape" :blend="blend" :size="size" :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-point-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -53,7 +53,6 @@
       mounted(){
           setTimeout(() => {
             this.color = 'red';
-            this.shape = 'square';
           },2000);
           setTimeout(() => {
             this.data = [{

@@ -171,6 +171,7 @@ animation | Object | 模型动画效果，具体属性见下面 [配置说明](#
 light | Array | 灯光配置，可以配置多个灯光，详细参数见下面 [灯光说明](#灯光配置)
 debug | Boolean | 是否开启debug模式，debug模式下会在地图中心处创建一个X Y Z轴，用于直观展示方向
 events | Object | 绑定事件，见最下[事件列表](#事件列表)
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 
 
 ### animation配置

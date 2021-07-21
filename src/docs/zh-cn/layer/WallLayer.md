@@ -76,6 +76,7 @@ texture | object(canvas dom) 、string(图片url地址) | 纹理贴图，注意�
 enablePreciseMap | boolean | 开启精准贴图模式，纹理会按顶点间的实际距离对应拉伸，当使用的纹理有实际数据意义时开启
 repeatMap | Number | 重复贴图，单位为米，如值为500代表500米重复一次贴图，值为0时不重复贴图, 默认值：0
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 
 ### gradient
 ```

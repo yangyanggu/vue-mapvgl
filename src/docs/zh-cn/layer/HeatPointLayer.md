@@ -82,6 +82,7 @@ gradient | Object | 渐变色,默认值 [gradient](#gradient)
 max | Number | 最大阈值
 min | Number | 最小阈值
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false

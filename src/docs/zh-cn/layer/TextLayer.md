@@ -89,6 +89,7 @@ offset | array | 文字偏移量，基于文字中心点偏移，[{number}x, {nu
 padding | array | 文字内边距，[{number}左右边距, {number}上下边距], 默认值：[2, 2]
 margin | array | 文字外边距，[{number}左右边距, {number}上下边距], 默认值：[0, 0]
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

@@ -85,6 +85,7 @@ size | Number | 点大小, 默认值：20
 unit | string | size属性的单位。可选值：px，默认值，按像素，圆半径大小不随地图级别变化, m，按地理尺度，即单位为“米”，圆半径大小跟随地图级别缩放. 默认值： px
 duration | Number | 动画循环一次的时间，时间越短，动画速度越快. 默认值：2
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 ---|---|当type值为simple时支持以下参数与事件
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

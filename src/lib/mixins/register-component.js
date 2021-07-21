@@ -4,7 +4,22 @@ import eventHelper from '../utils/event-helper';
 import CONSTANTS from '../utils/constant';
 
 export default {
-  props: ['visible', 'zoomThreshold'],
+  props: {
+    visible: {
+      type: Boolean,
+      default: true
+    },
+    zoomThreshold: {
+      type: Array,
+      default() {
+        return [0, 30];
+      }
+    },
+    lazy: {
+      type: Number,
+      default: -1
+    }
+  },
   data() {
     let self = this;
     return {
@@ -26,11 +41,11 @@ export default {
   mounted() {
     this.$view = this.$view || this.$parent.$view;
     if (this.$view) {
-      this.register();
+      this.lazyRegister();
     } else {
       this.$on(CONSTANTS.MAPV_VIEW_READY_EVENT, view => {
         this.$view = view;
-        this.register();
+        this.lazyRegister();
       });
     }
   },
@@ -153,6 +168,16 @@ export default {
           console.log(k);
         }
       });
+    },
+
+    lazyRegister() {
+      if (this.lazy < -1) {
+        this.register();
+      } else {
+        setTimeout(() => {
+          this.register();
+        }, this.lazy);
+      }
     },
 
     register() {

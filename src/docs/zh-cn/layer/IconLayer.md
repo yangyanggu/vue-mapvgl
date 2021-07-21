@@ -12,6 +12,7 @@
   <template>
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
+        <el-bmap-info-window :visible="current.visible" :position="current.position" :content="current.content"></el-bmap-info-window>
         <el-bmapv-view>
             <el-bmapv-icon-layer :icon="icon" :width="width" :height="height" :data="data" :enable-picked="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-icon-layer>
         </el-bmapv-view>
@@ -38,6 +39,11 @@
           width: 24,
           height: 40,
           icon: './assets/images/layer/position1.png',
+          current: {
+            position: [121.5273285, 31.21515044],
+            visible: true,
+            content: 'hello world'
+          },
           data: [{
               geometry: {
                   type: 'Point',

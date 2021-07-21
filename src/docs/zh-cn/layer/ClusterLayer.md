@@ -91,6 +91,7 @@ gradient | object | 聚合点的颜色梯度，属性名0~1之间，属性值同
 textOptions | object | 设置文字属性，支持[文字图层](https://mapv.baidu.com/gl/docs/TextLayer.html)所有参数。 额外参数:format 支持格式化显示的数字，传入参数为单个蜂窝的数量值，不配置此属性则显示原值,类型：function
 iconOptions | object | 设置非聚合点显示的icon属性，而非显示一个点，支持[Icon图层](https://mapv.baidu.com/gl/docs/IconLayer.html)所有参数。
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

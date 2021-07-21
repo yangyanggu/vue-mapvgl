@@ -89,6 +89,8 @@ maxZoom | number | 地图视野小于等于一定级别时开启动画，默认�
 mapStyle | string | 启用animation后该参数失效. 设置该参数，可以在线上叠加一些图形来适用于一些场景。注意，该属性只在初始化时读取一次，实例化后不可通过setOptions方法来重置。<br/>可选值：<br/> road，叠加路况箭头，可用于道路场景的展示 <br/> arrow，叠加尖箭头图形，可用于OD场景的展示
 styleOptions | Object | 控制贴图的样式，对象具有color和width属性
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
+
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

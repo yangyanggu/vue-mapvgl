@@ -11,7 +11,7 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-circle-layer :zoom-threshold="[12,15]" :visible="visible" unit="m" :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
+            <el-bmapv-circle-layer :lazy="2000" :zoom-threshold="[12,15]" :visible="visible" unit="m" :type="type" :size="10" :radius="radius" :data="data"></el-bmapv-circle-layer>
         </el-bmapv-view>
       </el-bmap>
       <div>
@@ -33,7 +33,7 @@
       data() {
         
         return {
-          visible: false,
+          visible: true,
           zoom: 14,
           center: [121.5273285, 31.21515044],
           type: 'bubble',
@@ -84,6 +84,8 @@ duration | Number | 扩散效果的动画周期。wave类型时duration影响的
 trial | Number | 扩散效果的间隔时间。wave类型时trial影响的是波纹数，越大越多, bubble类型时trial是扩散最大半径到消失的时间，越大越长. 默认值：1
 random | boolean | 扩散效果的开始时间是否随机，设置为‘false’则表现为节奏一致。默认值：true 
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
+lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
+
 ---|---|当type值为simple时支持以下参数与事件
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true
