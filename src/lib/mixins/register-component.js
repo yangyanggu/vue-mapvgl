@@ -23,6 +23,7 @@ export default {
   data() {
     let self = this;
     return {
+      lazyTimer: null,
       unwatchFns: [],
       handlers: {
         visible(flag) {
@@ -51,6 +52,9 @@ export default {
   },
 
   destroyed() {
+    if (this.lazyTimer) {
+      clearTimeout(this.lazyTimer);
+    }
     this.unregisterEvents();
     if (!this.$bmapComponent) return;
 
@@ -171,10 +175,10 @@ export default {
     },
 
     lazyRegister() {
-      if (this.lazy < -1) {
+      if (this.lazy < 0) {
         this.register();
       } else {
-        setTimeout(() => {
+        this.lazyTimer = setTimeout(() => {
           this.register();
         }, this.lazy);
       }

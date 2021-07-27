@@ -44,7 +44,9 @@ export default {
         visible() {
 
         }
-      }
+      },
+      animationFrame: null,
+      timeout: null
     };
   },
 
@@ -88,10 +90,10 @@ export default {
       this.requestFrame();
     },
     requestFrame() {
-      requestAnimationFrame(this.requestFrame);
+      this.animationFrame = requestAnimationFrame(this.requestFrame);
       if (this.$bmapComponent.needsUpdate) {
         this.$bmapComponent.needsUpdate = false;
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
           this.$bmapComponent.update();
         }, 1);
       }
@@ -171,6 +173,12 @@ export default {
   },
   destroyed() {
     if (this.$bmapComponent) {
+      if (this.animationFrame) {
+        cancelAnimationFrame(this.animationFrame);
+      }
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
       // window.removeEventListener('click', this.clickGltf);
       this.$bmapComponent.webglLayer.map.map.removeEventListener('click', this.clickGltf);
       this.$bmapComponent.webglLayer.map.map.removeEventListener('resize', this.resizeCamera);
