@@ -6,6 +6,7 @@ import TWEEN from '@tweenjs/tween.js';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
 import {addEnvMap} from '../utils/threeUtil';
 import {Box3, Vector3, MeshBasicMaterial, BoxBufferGeometry, Mesh} from 'three/build/three.module';
+import guid from '../utils/guid';
 
 const lightTypes = {
   AmbientLight: THREE.AmbientLight, // 环境光  环境光会均匀的照亮场景中的所有物体
@@ -761,10 +762,7 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
   let content = infoWindow.content;
   let childEle = infoWindow.ele;
   if (this.infoWindow) {
-    this.infoWindow.innerHTML = '';
-    if (childEle) {
-      this.infoWindow.appendChild(childEle);
-    } else {
+    if (!childEle) {
       this.infoWindow.innerHTML = content;
     }
     if (infoWindow.visible === true) {
@@ -773,14 +771,11 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
       this.infoWindow.style.display = 'none';
     }
   } else {
+    let uuid = 'vue-' + guid();
     let html = `<div class="bmap-gl-info-window-container">
+                <div id="${uuid}"></div>
               </div>`;
     let ele = parseDom(html);
-    if (childEle) {
-      ele.appendChild(childEle);
-    } else {
-      ele.innerHTML = content;
-    }
     ele.style.display = 'none';
     ele.style.zIndex = '99';
     ele.style.position = 'absolute';
@@ -804,12 +799,16 @@ GltfThreeLayer.prototype.addOrUpdateInfoWindow = function(options = {}) {
     } else {
       ele.style.transform = 'translate(-50%,-100%)';
     }
-
     if (infoWindow.visible) {
       ele.style.display = 'block';
     }
     map.container.appendChild(ele);
     this.infoWindow = ele;
+    if (childEle) {
+      childEle.$mount('#' + uuid);
+    } else {
+      ele.innerHtml = content;
+    }
     this.changeTipPosition(this.group.position, map, infoWindow.offset, ele);
     this.mapEvents = {
       moving: () => {

@@ -76,7 +76,7 @@ export default {
         const { node } = this;
         return h('div', {ref: 'node'}, Array.isArray(node) ? node : [node]);
       }
-    }).$mount();
+    });
   },
   updated() {
     this.$nextTick(() => {
@@ -89,15 +89,6 @@ export default {
           });
           this.preTooltip = tooltipHtml;
         }
-
-        let infoWindowHtml = this.infoWindowVM.$refs.node.outerHTML;
-        if (infoWindowHtml !== this.preInfoWindow) {
-          this.$bmapComponent.addOrUpdateInfoWindow({
-            ele: this.infoWindowVM.$refs.node
-          });
-          this.preInfoWindow = infoWindowHtml;
-        }
-
       }
     });
   },
@@ -114,7 +105,7 @@ export default {
       }
       if (this.$slots.infoWindow && this.$slots.infoWindow.length) {
         this.$bmapComponent.addOrUpdateInfoWindow({
-          ele: this.infoWindowVM.$refs.node
+          ele: this.infoWindowVM
         });
       } else {
         this.$bmapComponent.addOrUpdateInfoWindow();

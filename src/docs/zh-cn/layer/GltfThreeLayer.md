@@ -16,12 +16,15 @@
       <el-bmap ref="bmapDemo" vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :info-window="infoWindow" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="200" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
+              <el-bmapv-gltf-three-layer :visible="visible" :info-window="infoWindow" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="50" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
                 <template slot="tooltip">
                   <div>{{tooltip}}</div>
                 </template>
                 <template slot="infoWindow">
-                  <div style="background: #fff;padding: 10px 20px;">{{infoWindow.content}}</div>
+                  <div style="background: #fff;padding: 10px 20px;">
+                    <button @click="clickButton">测试点击</button>
+                    <Span>{{infoWindow.content}}</Span>
+                  </div>
                 </template>
               </el-bmapv-gltf-three-layer>
               <el-bmapv-gltf-three-layer v-for="(item,index) in animationData" :key="index" :auto-scale="true" :scale="30" url="./assets/gltf/sgyj_point_animation.gltf" :animation="{type: 'self'}" :up="{x: 0, y:-1, z:0}" :data="item" :events="{loaded: (e) => {initGltf(e)}}"></el-bmapv-gltf-three-layer>
@@ -117,6 +120,7 @@
         initGltf(e){
           console.log('uuid: ', e.group.uuid);
         },
+        clickButton(){console.log('-------------click button ------------')},
         clickCar(group){
           console.log('点击模型： ',group);
           this.$set(this.data, 'track', {
@@ -133,6 +137,7 @@
             let coordinates = data.geometry.coordinates;
             coordinates[0] = coordinates[0]+0.00001;
             this.data = data;
+            this.infoWindow.content = new Date().getTime();
             this.startMove();
           },200)
         },
