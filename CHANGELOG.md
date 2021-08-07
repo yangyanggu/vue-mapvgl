@@ -1,5 +1,6 @@
 ###v0.0.30
 * 修复GltfThreeLayer图层的infoWindow事件失效问题
+* 升级mapvgl至1.0.0-beta.133
 
 ###v0.0.29
 * 修复懒加载问题，不管怎么样都处于懒加载状态
