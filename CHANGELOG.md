@@ -1,3 +1,6 @@
+###v0.0.31
+* 修复所有组件内offset属性错误问题
+
 ###v0.0.30
 * 修复GltfThreeLayer图层的infoWindow事件失效问题
 * 升级mapvgl至1.0.0-beta.133
