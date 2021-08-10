@@ -88,6 +88,7 @@ VueBMap.initBMapApiLoader({
 * el-gltf-layer (百度针对gltf的实现)
 * el-gltf-three-layer (根据ThreeLayer以及ThreeJS进行扩展实现的模型加载图层)
 * el-bmapv-marker-list-layer (标注点组件 MarkerListLayer)
+* el-bmapv-bar-layer (柱状图层 BarLayer)
 
 ##mapvgl自带后处理器效果
 * 炫光特效 BloomEffect

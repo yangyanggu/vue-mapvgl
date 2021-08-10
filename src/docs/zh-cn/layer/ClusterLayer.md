@@ -13,7 +13,8 @@
     <div class="bmap-page-container">
       <el-bmap vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
-            <el-bmapv-cluster-layer :data="data" :enable-picked="true" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-cluster-layer>
+            <el-bmapv-cluster-layer :data="data" :enable-picked="true" :before-render="beforeRender" :auto-select="true" :on-click="(e)=>{clickMarker(e)}"></el-bmapv-cluster-layer>
+            <el-bmapv-circle-layer :size="200" unit="m" :data="barData"></el-bmapv-circle-layer>
         </el-bmapv-view>
       </el-bmap>
     </div>
@@ -30,7 +31,7 @@
     module.exports = {
       name: 'bmap-page',
       data() {
-        
+        const _this = this;
         return {
           count: 1,
           zoom: 14,
@@ -40,6 +41,7 @@
             width: 20,
             height: 20
           },
+          barData: [],
           data: [{
               geometry: {
                   type: 'Point',
@@ -60,7 +62,20 @@
                   width: 20,
                   height: 20
                 }
-          }]
+          }],
+          beforeRender(data){
+            let points = [];
+            data.forEach(item => {
+                points.push({
+                    geometry: item.geometry,
+                    size: (item.properties.point_count || 1) * 100,
+                    color: item.properties.color
+                })
+            });
+            _this.barData = points;
+            console.log('_this.barData: ', _this.barData);
+            return false;
+          }
         };
       },
       mounted(){
@@ -92,6 +107,7 @@ textOptions | object | 设置文字属性，支持[文字图层](https://mapv.ba
 iconOptions | object | 设置非聚合点显示的icon属性，而非显示一个点，支持[Icon图层](https://mapv.baidu.com/gl/docs/IconLayer.html)所有参数。
 zoomThreshold | Array | 全图层均可使用，用来指定图层执行渲染的地图层级，初始默认值[0, 30]
 lazy | Number | 组件懒加载，默认-1，不进行懒加载，单位毫秒
+beforeRender | function | 可通过此生命周期函数获得下次要渲染的已聚合的数据，返回值true时使用默认渲染，返回值false时不进行渲染。拥有参数data，可以通过data得到生成的聚合点位
 ---|---|---
 enablePicked | Boolean | 是否开启鼠标事件，开启后支持鼠标onClick与onMousemove事件，同时支持改变拾取物体颜色,默认值：false
 selectedIndex | number | 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素.默认值：-1,依赖：enablePicked=true

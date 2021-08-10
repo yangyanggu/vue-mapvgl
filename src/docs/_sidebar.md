@@ -36,6 +36,7 @@
  - [GLTF GltfLayer](zh-cn/layer/GltfLayer.md)
  - [GLTFThree GltfThreeLayer](zh-cn/layer/GltfThreeLayer.md)
  - [标注点集合 MarkerListLayer](zh-cn/layer/MarkerListLayer.md)
+ - [柱状 BarLayer](zh-cn/layer/BarLayer.md)
 - 后处理器 Effects
  - [炫光特效 BloomEffect](zh-cn/effect/BloomEffect.md)
  - [发光特效 BrightEffect](zh-cn/effect/BrightEffect.md)

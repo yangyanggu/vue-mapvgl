@@ -1,24 +1,18 @@
 <script>
 import registerMixin from '../mixins/register-component';
-import pickMixin from '../mixins/pick-mixin';
 const mapvgl = require('mapvgl');
 
 export default {
-  name: 'el-bmapv-cluster-layer',
+  name: 'el-bmapv-bar-layer',
   mixins: [registerMixin],
   props: [
-    'minSize',
-    'maxSize',
-    'clusterRadius',
-    'showText',
-    'maxZoom',
-    'minZoom',
-    'gradient',
-    'textOptions',
-    'iconOptions',
-    'data',
-    'beforeRender',
-    ...pickMixin.props
+    'type',
+    'color',
+    'size',
+    'height',
+    'unit',
+    'edgeCount',
+    'data'
   ],
   data() {
     return {
@@ -27,8 +21,7 @@ export default {
       handlers: {
         data(value) {
           this.setData(value);
-        },
-        ...pickMixin.handlers
+        }
       }
     };
   },
@@ -36,10 +29,10 @@ export default {
   },
   methods: {
     __initComponent(options) {
-      this.$bmapComponent = new mapvgl.ClusterLayer(options);
+      delete options.view;
+      this.$bmapComponent = new mapvgl.BarLayer(options);
       this.$view.addLayer(this.$bmapComponent);
-    },
-    ...pickMixin.methods
+    }
   },
   destroyed() {
     if (this.$bmapComponent && this.$view) {
