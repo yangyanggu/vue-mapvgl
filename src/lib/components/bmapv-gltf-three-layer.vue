@@ -55,10 +55,15 @@ export default {
         }
       },
       preTooltip: '',
-      preInfoWindow: ''
+      preInfoWindow: '',
+      hasTooltipSlot: false
     };
   },
   created() {
+    const tooltipSlot = this.$slots.tooltip || [];
+    if (tooltipSlot.length > 0) {
+      this.hasTooltipSlot = true;
+    }
     this.tooltipVM = new Vue({
       data() {
         return {node: ''};
@@ -80,7 +85,7 @@ export default {
   },
   updated() {
     this.$nextTick(() => {
-      if (this.$bmapComponent) {
+      if (this.$bmapComponent && this.hasTooltipSlot) {
         let tooltipHtml = this.tooltipVM.$refs.node.outerHTML;
         if (tooltipHtml !== this.preTooltip) {
           this.$bmapComponent.addOrUpdateTooltip({
