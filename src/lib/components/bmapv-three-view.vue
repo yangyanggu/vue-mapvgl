@@ -82,7 +82,7 @@ export default {
         createHDR(options.hdr, threeLayer);
       }
       threeLayer.needsUpdate = true;
-      if (this.events && this.events.init) this.events.init(this.$bmapComponent);
+      // if (this.events && this.events.init) this.events.init(this.$bmapComponent);
       this.$children.forEach(component => {
         component.$emit(CONST.MAPV_VIEW_READY_EVENT, this.$bmapComponent);
       });

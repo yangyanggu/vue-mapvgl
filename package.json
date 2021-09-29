@@ -1,6 +1,6 @@
 {
   "name": "vue-mapvgl",
-  "version": "0.0.33-bate",
+  "version": "0.0.33-bate2",
   "description": "vue mapvgl",
   "keywords": [
     "vue",
@@ -109,8 +109,8 @@
   },
   "dependencies": {
     "@tweenjs/tween.js": "^18.6.4",
-    "lodash": "^4.17.20",
-    "mapvgl": "^1.0.0-beta.133",
+    "lodash-es": "^4.17.21",
+    "mapvgl": "^1.0.0-beta.136",
     "three": "^0.126.1",
     "uppercamelcase": "^1.1.0"
   },

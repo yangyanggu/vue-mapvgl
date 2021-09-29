@@ -1,5 +1,5 @@
 const mapvglThree = require('mapvgl/dist/mapvgl.threelayers.min');
-import {merge} from 'lodash';
+import {merge} from 'lodash-es';
 const THREE = mapvglThree.THREE;
 const eventsList = ['loaded', 'click', 'mouseover', 'mouseout'];
 import TWEEN from '@tweenjs/tween.js';

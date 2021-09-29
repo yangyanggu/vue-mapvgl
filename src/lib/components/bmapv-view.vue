@@ -14,7 +14,7 @@ export default {
     },
     mapType: {
       validator: (value) => {
-        return ['bmap', 'blank', 'cesium'].indexOf(value) !== -1 || !value;
+        return ['bmap', 'blank', 'cesium', 'three'].indexOf(value) !== -1 || !value;
       }
     },
     effects: {

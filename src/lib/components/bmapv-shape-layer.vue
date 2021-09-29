@@ -1,7 +1,7 @@
 <script>
 import registerMixin from '../mixins/register-component';
 import pickMixin from '../mixins/pick-mixin';
-import {clone} from 'lodash';
+import {clone} from 'lodash-es';
 const mapvgl = require('mapvgl');
 
 export default {

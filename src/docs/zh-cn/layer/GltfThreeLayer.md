@@ -16,7 +16,7 @@
       <el-bmap ref="bmapDemo" vid="bmapDemo" :zoom="zoom" :center="center" class="bmap-demo">
         <el-bmapv-view>
             <el-bmapv-three-view :lights="light" :hdr="hdrOptions" :debug="true" :events="{click: (e) => {clickGltf(e)}}">
-              <el-bmapv-gltf-three-layer :visible="visible" :info-window="infoWindow" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="50" :move="moveOption" url="./assets/gltf/car4.gltf" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
+              <el-bmapv-gltf-three-layer :visible="visible" :info-window="infoWindow" :track="data.track" :user-data="{a:1}" :auto-scale="true" :animation="animation" :scale="50" :move="moveOption" url="http://localhost/gltf/货船/1.glb" :up="{x: 0, y:-1, z:0}" :data="data" :events="{click: (e) => {clickCar(e)}, mouseover: (e)=>{console.log('鼠标移入模型： ',e)}, mouseout: (e)=>{console.log('鼠标移出模型： ',e)}}">
                 <template slot="tooltip">
                   <div>{{tooltip}}</div>
                 </template>
