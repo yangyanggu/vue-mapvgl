@@ -1,3 +1,8 @@
+###v0.0.33
+* 更新lodash为lodash-es，减少打包体积
+* 解决GLTFThree图层触发两次init事件BUG
+* 升级mapvgl至1.0.0-beta.138
+
 ###v0.0.32
 * 聚合图层增加beforeRender参数，用于聚合图层自定义绘制
 * 增加BarLayer图层
