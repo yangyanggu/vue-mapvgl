@@ -15,6 +15,9 @@ export default {
         return [0, 30];
       }
     },
+    renderOrder: {
+      type: Number
+    },
     lazy: {
       type: Number,
       default: -1
