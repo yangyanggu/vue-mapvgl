@@ -1,0 +1,51 @@
+{
+  "name": "vue-mapvgl",
+  "version": "1.0.0",
+  "description": "mapvgl vue3",
+  "keywords": [
+    "bmap-gl",
+    "map",
+    "vue3",
+    "vue",
+    "mapvgl"
+  ],
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./es/index.mjs"
+    },
+    "./es": "./es/index.mjs",
+    "./lib": "./lib/index.js",
+    "./*": "./*"
+  },
+  "main": "lib/index.js",
+  "module": "es/index.mjs",
+  "style": "dist/style.css",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "sideEffects": [
+    "dist/*",
+    "lib/packages/**/*",
+    "es/packages/**/*"
+  ],
+  "repository": "git@gitee.com:guyangyang/vue-mapvgl.git",
+  "author": "guyangyang <407042815@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitee.com/guyangyang/vue-mapvgl/issues"
+  },
+  "homepage": "https://vue-mapvgl.guyixi.cn",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0",
+    "vue-bmap-gl": "^1.0.0"
+  },
+  "vetur": {
+    "tags": "tags.json",
+    "attributes": "attributes.json"
+  },
+  "web-types": "web-types.json"
+}

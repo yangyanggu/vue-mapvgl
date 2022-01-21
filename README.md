@@ -1,60 +1,54 @@
-## 文档地址更新为： https://docs.guyixi.cn/vue-mapvgl/#/ 
-
-<p align="center">
-  <img src="https://cdn.rawgit.com/ElemeFE/vue-amap/master/src/docs/assets/images/logo.png">
-</p>
 
 # vue-mapvgl
-[![Build Status](https://dev.azure.com/407042815/vue-mapvgl/_apis/build/status/vue-mapvgl-Node.js%20With%20Grunt-CI?branchName=master)](https://dev.azure.com/407042815/vue-mapvgl/_build/latest?definitionId=1&branchName=master)
-[![npm package](https://img.shields.io/npm/v/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
-[![NPM downloads](http://img.shields.io/npm/dm/vue-mapvgl.svg)](https://gitee.com/guyangyang/vue-bmap-gl)
-[![license](https://img.shields.io/github/license/elemefe/vue-amap.svg?style=flat-square)](https://gitee.com/guyangyang/vue-bmap-gl)
+[![npm (tag)](https://img.shields.io/npm/v/vue-mapvgl/next)](https://www.npmjs.org/package/vue-mapvgl)
+[![NPM downloads](http://img.shields.io/npm/dm/vue-mapvgl.svg)](https://npmjs.org/package/vue-mapvgl)
+![JS gzip size](http://img.badgesize.io/https://unpkg.com/vue-mapvgl@next/dist/index.min.js?compression=gzip&label=gzip%20size:%20JS)
+[![NPM](https://img.shields.io/npm/l/vue-mapvgl)](https://gitee.com/guyangyang/vue-mapvgl)
 [![star](https://gitee.com/guyangyang/vue-mapvgl/badge/star.svg?theme=dark)](https://gitee.com/guyangyang/vue-mapvgl/stargazers)
-[![fork](https://gitee.com/guyangyang/vue-mapvgl/badge/fork.svg?theme=dark)](https://gitee.com/guyangyang/vue-mapvgl/members)
 
-> vue-mapvgl是一套基于Vue 2.0和百度地图mapvgl的地图组件。
->该组件依赖于vue-bmap-gl，使用方式请查看教程
-> 该项目基于 https://github.com/ElemeFE/vue-amap/ 修改开发
+> vue-mapvgl@next是一套基于Vue3 和百度mapvgl的地图组件。
+> 该组件依赖于vue-bmap-gl@next，使用方式请查看教程
+> 该版本对原组件进行升级，主要适配Vue3。
+
+>vue2请使用0.x版本，对应分支vue2
 
 ```html
 觉得有用可以给个star
 ```
+
 ## 群号
-![avatar](./vue-mapvgl.png)
+![avatar](./image/vue-mapvgl.png)
 
 ## 捐赠支持
-<img src="./src/docs/assets/images/zhifubao.jpg" alt="支付宝" width="270px" />
-<img src="./src/docs/assets/images/weixin.png" alt="微信" width="270px"/>
+<img src="./image/zhifubao.jpg" alt="支付宝" width="270px" />
+<img src="./image/weixin.png" alt="微信" width="270px"/>
 
 ## 安装
 ```
-npm install -S vue-bmap-gl
-npm install -S vue-mapvgl
+npm i -S vue-mapvgl@next
 ```
 
 ## 文档
-[https://docs.guyixi.cn/vue-mapvgl/#/](https://docs.guyixi.cn/vue-mapvgl/#/)
+**[https://vue-mapvgl.guyixi.cn](https://vue-mapvgl.guyixi.cn)**
 
 
 ## 快速上手
 
-引入vue-bmap-gl和vue-mapvgl
+引入vue-bmap-gl@next、vue-mapvgl@next
 
 ```javascript
 // 引入vue-bmap-gl
-import VueBMap from 'vue-bmap-gl';
+import VueBMap, {initBMapApiLoader} from 'vue-bmap-gl';
 import VueMapvgl from 'vue-mapvgl';
 import 'vue-bmap-gl/dist/style.css';
-Vue.use(VueBMap);
-Vue.use(VueMapvgl);
 
-// 初始化vue-bmap
-VueBMap.initBMapApiLoader({
-  // 百度的key
+// 初始化vue-bmap-gl
+initBMapApiLoader({
+  // 高德的key
   ak: 'YOUR_KEY',
-  // 百度 sdk 版本，默认为 1.0
-  v: '1.0'
 });
+createApp(App).use(VueBMap).use(VueMapvgl)
+
 ```
 
 ## 组件
@@ -99,12 +93,3 @@ VueBMap.initBMapApiLoader({
 * 3D曲线生成器 BezierCurve
 * 大地线生成器 GeodesicCurve(zh-cn/util/GeodesicCurve.md)
 * Od曲线生成器 OdCurve
-
-
-
-### 其他特性
-
-
-
-## 反馈
-
