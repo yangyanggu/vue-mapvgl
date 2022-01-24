@@ -1,20 +1,14 @@
 import { defineClientAppEnhance } from '@vuepress/client'
 import 'vue-bmap-gl/dist/style.css'
+import VueAMap, {initBMapApiLoader} from 'vue-bmap-gl'
+import VueMapgl from 'vue-mapvgl'
 
 export default defineClientAppEnhance(({ app }) => {
+  app.use(VueAMap);
+  app.use(VueMapgl);
   if (!__VUEPRESS_SSR__) {
-    import('vue-bmap-gl').then(va => {
-      app.use(va);
-      va.initBMapApiLoader({
-        ak: 'KKG8EDD3V4vuyPGcjsLCt16PHacQIx3P'
-      })
+    initBMapApiLoader({
+      ak: 'KKG8EDD3V4vuyPGcjsLCt16PHacQIx3P'
     })
-    import('vue-mapvgl').then(va => {
-      app.use(va)
-    })
-    // app.use(VueAmap);
-    // VueAmap.initAMapApiLoader({
-    //   key: '747f980f217a31ba68d99301045a3fa7'
-    // })
   }
 })

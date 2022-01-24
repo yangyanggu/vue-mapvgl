@@ -38,7 +38,7 @@ export default defineComponent({
   components: {
   },
   data(){
-    const rippleLayer = new (mapvgl as any).GroundRippleLayer({
+    let rippleLayer = new mapvgl.default.GroundRippleLayer({
       size: 20,
       opacity: 0.0,
       segs: 100,
