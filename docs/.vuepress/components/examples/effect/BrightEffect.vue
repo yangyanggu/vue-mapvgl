@@ -5,7 +5,7 @@
       :zoom="zoom"
       :tilt="75"
     >
-      <el-bmapv-view :effects="effects">
+      <el-bmapv-view :effects="effects" :lazy="2000">
         <el-bmapv-bar-layer
           :visible="visible"
           type="light"
@@ -26,23 +26,17 @@
 
 <script lang="ts">
 import {defineComponent} from "vue";
-import {effect} from 'vue-mapvgl'
 
 export default defineComponent({
   name: "Map",
   components: {
   },
   data(){
-    let brightEffect = new effect.BrightEffect({
-      threshold: 0.2,
-      blurSize: 2.0,
-      clarity: 0.8
-    });
     return {
       zoom: 15,
       center: [121.5273285, 31.21515044],
       visible: true,
-      effects: [brightEffect],
+      effects: [],
       data: [{
         geometry: {
           type: 'Point',
@@ -57,6 +51,16 @@ export default defineComponent({
         height: 300
       }]
     }
+  },
+  mounted() {
+    /*import('vue-mapvgl').then(VueMapvgl => {
+      let brightEffect = new VueMapvgl.effect.BrightEffect({
+        threshold: 0.2,
+        blurSize: 2.0,
+        clarity: 0.8
+      });
+      this.effects = [brightEffect];
+    })*/
   },
   methods: {
     switchVisible(){

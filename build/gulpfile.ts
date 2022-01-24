@@ -64,7 +64,7 @@ export const copyFiles = () => {
 }
 
 export default series(
-  withTaskName('clean', () => run('yarn run clean:dist')),
+  withTaskName('clean', () => run('pnpm run clean:dist')),
   withTaskName('createOutput', () => createOutput()),
   parallel(
     runTask('buildModules'),
