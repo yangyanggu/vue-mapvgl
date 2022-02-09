@@ -8,8 +8,14 @@ title: 图层管理器
 
 ## 基础示例
 
+### 普通示例
 ::: demo
 examples/layer/BarLayer
+:::
+
+### Setup示例
+::: demo
+examples/layer/BarLayer-setup
 :::
 
 ## 静态属性

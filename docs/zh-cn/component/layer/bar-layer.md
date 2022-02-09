@@ -7,8 +7,14 @@ title: 柱状图层
 
 ## 基础示例
 
+### 普通示例
 ::: demo
 examples/layer/BarLayer
+:::
+
+### Setup示例
+::: demo
+examples/layer/BarLayer-setup
 :::
 
 ## 静态属性
