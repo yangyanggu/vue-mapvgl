@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'ElBmapvHeatMapLayer',
   mixins: [registerMixin],
   props: {
-    girdSize: {
+    size: {
       type: Number
     },
     gradient: {

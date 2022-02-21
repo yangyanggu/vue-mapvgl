@@ -45,12 +45,5 @@ export default defineUserConfig<DefaultThemeOptions>({
     [sitemapPlugin],
     ['@vuepress/plugin-search']
   ],
-  bundlerConfig: {
-    viteOptions: {
-      optimizeDeps: {
-        // include: ['@vuemap/vue-amap']
-      }
-    }
-  },
   port: 8082
 })
