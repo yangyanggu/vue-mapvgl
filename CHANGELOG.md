@@ -1,3 +1,6 @@
+###v0.0.34
+* 修复热力图的size属性无效问题
+
 ###v0.0.33
 * 更新lodash为lodash-es，减少打包体积
 * 解决GLTFThree图层触发两次init事件BUG

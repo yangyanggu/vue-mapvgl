@@ -7,7 +7,7 @@ export default {
   name: 'el-bmapv-heat-map-layer',
   mixins: [registerMixin],
   props: [
-    'girdSize',
+    'size',
     'gradient',
     'max',
     'min',
