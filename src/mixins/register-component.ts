@@ -31,8 +31,6 @@ export default defineComponent({
     return {
       lazyTimer: null as any,
       needInitComponents: [] as (ComponentPublicInstance & customComponent)[],
-      $amapComponent: null as any,
-      $parentComponent: null as any,
       unwatchFns: [] as WatchStopHandle[],
       propsRedirect: {},
       converters: {},
