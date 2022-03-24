@@ -105,17 +105,17 @@ export default defineConfig({
 NPM 安装：
 
 ```javascript
-import {mapvgl, util, effect, mapvglThree, THREE} from 'vue-mapvgl'
+import {mapvgl, mapvglThree} from 'vue-mapvgl'
 ```
 
 CDN 引入：
 
 ```javascript
 VueMapvgl.mapvgl       //mapvgl命名空间
-VueMapvgl.util         //mapvgl提供的工具类：颜色值域生成器 Intensity、3D曲线生成器 BezierCurve、大地线生成器 GeodesicCurve、Od曲线生成器 OdCurve
-VueMapvgl.effect       //后处理器 Effects：炫光特效 BloomEffect、发光特效 BrightEffect
+VueMapvgl.mapvgl.util         //mapvgl提供的工具类：颜色值域生成器 Intensity、3D曲线生成器 BezierCurve、大地线生成器 GeodesicCurve、Od曲线生成器 OdCurve
+VueMapvgl.mapvgl.effect       //后处理器 Effects：炫光特效 BloomEffect、发光特效 BrightEffect
 VueMapvgl.mapvglThree  //mapvgl的three图层
-VueMapvgl.THREE        //百度mapvgl处理的threeJS库
+VueMapvgl.mapvgl.THREE        //百度mapvgl处理的threeJS库
 ```
 
 
