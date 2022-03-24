@@ -115,7 +115,7 @@ VueMapvgl.mapvgl       //mapvgl命名空间
 VueMapvgl.mapvgl.util         //mapvgl提供的工具类：颜色值域生成器 Intensity、3D曲线生成器 BezierCurve、大地线生成器 GeodesicCurve、Od曲线生成器 OdCurve
 VueMapvgl.mapvgl.effect       //后处理器 Effects：炫光特效 BloomEffect、发光特效 BrightEffect
 VueMapvgl.mapvglThree  //mapvgl的three图层
-VueMapvgl.mapvgl.THREE        //百度mapvgl处理的threeJS库
+VueMapvgl.mapvglThree.THREE        //百度mapvgl处理的threeJS库
 ```
 
 
