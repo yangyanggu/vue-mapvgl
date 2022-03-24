@@ -1,5 +1,4 @@
-import * as mapvgl from 'mapvgl/dist/mapvgl.min'
-import * as mapvglThree from 'mapvgl/dist/mapvgl.threelayers.min'
+export {mapvgl, mapvglThree} from '../utils/getLibary';
 export * from './View'
 export * from './BarLayer'
 export * from './CircleLayer'
@@ -31,26 +30,3 @@ export * from './WallTripLayer'
 
 export * from './ThreeView'
 export * from './GltfThreeLayer'
-
-
-const THREE = mapvglThree.THREE;
-
-const effect = {
-  BloomEffect: mapvgl.BloomEffect,
-  BrightEffect: mapvgl.BrightEffect
-};
-
-const util = {
-  Intensity: mapvgl.Intensity,
-  BezierCurve: mapvgl.BezierCurve,
-  GeodesicCurve: mapvgl.GeodesicCurve,
-  OdCurve: mapvgl.OdCurve
-};
-
-export {
-  effect,
-  util,
-  mapvgl,
-  mapvglThree,
-  THREE
-}

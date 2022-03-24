@@ -3,7 +3,7 @@
 </template>
 <script lang="ts">
 import {defineComponent} from "vue";
-import * as mapvgl from 'mapvgl/dist/mapvgl.min.js';
+import {mapvgl} from '../../utils/getLibary'
 import registerMixin from '../../mixins/register-component';
 
 export default defineComponent({

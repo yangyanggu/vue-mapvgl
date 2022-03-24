@@ -26,7 +26,7 @@ export default defineComponent({
       default: -1
     }
   },
-  emits: ['init'],
+  emits: ['init','onClick','onDblClick','onRightClick','onMousemove'],
   data() {
     return {
       lazyTimer: null as any,
@@ -169,7 +169,9 @@ export default defineComponent({
     createChildren(){
       while (this.needInitComponents.length > 0){
         this.needInitComponents[0].$parentComponent = this.$amapComponent;
-        this.needInitComponents[0].lazyRegisterForTimeout();
+        if(this.needInitComponents[0].lazyRegisterForTimeout){
+          this.needInitComponents[0].lazyRegisterForTimeout();
+        }
         this.needInitComponents.splice(0, 1);
       }
     },
@@ -180,7 +182,7 @@ export default defineComponent({
 
     registerRest(instance) {
       if (!this.$amapComponent && instance) this.$amapComponent = instance;
-      this.registerEvents();
+      // this.registerEvents();
       this.initProps();
       this.setPropWatchers();
       this.$emit('init', this.$amapComponent, this);

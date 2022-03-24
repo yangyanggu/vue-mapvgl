@@ -3,9 +3,9 @@
 </template>
 <script lang="ts">
 import {defineComponent} from "vue";
-import * as mapvglThree from 'mapvgl/dist/mapvgl.threelayers.min';
-// const THREE = mapvglThree.THREE;
 import {Raycaster, Vector2, AxesHelper} from 'three/build/three.module';
+import {mapvglThree} from '../../utils/getLibary';
+// const THREE = mapvglThree.THREE;
 import registerMixin from '../../mixins/register-component';
 import {createLight, createHDR} from '../../utils/threeUtil';
 

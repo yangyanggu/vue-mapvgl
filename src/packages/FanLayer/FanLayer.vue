@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from "vue";
-import * as mapvglThree from 'mapvgl/dist/mapvgl.threelayers.min.js';
+import {mapvglThree} from '../../utils/getLibary'
 import registerMixin from '../../mixins/register-component';
 
 export default defineComponent({

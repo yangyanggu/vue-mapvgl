@@ -1,4 +1,3 @@
-import {resolve} from "path";
 import { rollup } from 'rollup'
 import vue from 'rollup-plugin-vue'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
@@ -6,8 +5,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import filesize from 'rollup-plugin-filesize'
 import glob from 'fast-glob'
-import scss from "rollup-plugin-scss";
-import {buildOutput, vmRoot, pkgRoot} from './utils/paths'
+import {vmRoot, pkgRoot} from './utils/paths'
 import {generateExternal, writeBundles} from './utils/rollup'
 import { excludeFiles } from './utils/pkg'
 import { reporter } from './plugins/size-reporter'
@@ -27,7 +25,6 @@ export const buildModules = async () => {
     input,
     plugins: [
       await MapAlias(),
-      scss({output: resolve(buildOutput, 'style.css')}),
       vue({ target: 'browser' }),
       nodeResolve({
         extensions: ['.mjs', '.js', '.json', '.ts'],
