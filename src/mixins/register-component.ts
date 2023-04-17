@@ -52,6 +52,7 @@ export default defineComponent({
     if (!this.$amapComponent) return;
     this.unwatchFns.forEach(item => item());
     this.unwatchFns = [];
+    this.unregisterEvents()
   },
 
   methods: {
@@ -182,7 +183,7 @@ export default defineComponent({
 
     registerRest(instance) {
       if (!this.$amapComponent && instance) this.$amapComponent = instance;
-      // this.registerEvents();
+      this.registerEvents();
       this.initProps();
       this.setPropWatchers();
       this.$emit('init', this.$amapComponent, this);
