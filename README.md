@@ -6,6 +6,8 @@
 [![NPM](https://img.shields.io/npm/l/vue-mapvgl)](https://gitee.com/guyangyang/vue-mapvgl)
 [![star](https://gitee.com/guyangyang/vue-mapvgl/badge/star.svg?theme=dark)](https://gitee.com/guyangyang/vue-mapvgl/stargazers)
 
+:x:  **由于百度需要开源文档认证，组件库停止维护，后续文档也会同步下线，有需要的可以下载代码本地运行查看文档，百度key也会失效，可以更换为自己的key** 
+
 > vue-mapvgl@next是一套基于Vue3 和百度mapvgl的地图组件。
 > 该组件依赖于vue-bmap-gl@next，使用方式请查看教程
 > 该版本对原组件进行升级，主要适配Vue3。
